@@ -1,0 +1,6 @@
+{
+  "siteName": "Mealworm",
+  "accessTokenKey": "Authorization",
+  "refreshTokenKey": "refresh",
+  "jwtPrefix": "JWT "
+}
