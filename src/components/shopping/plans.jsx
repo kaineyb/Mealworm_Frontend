@@ -1,17 +1,19 @@
-import React, { useState, useEffect, Fragment } from "react";
-import http from "../../services/httpService";
-import UserContext from "../../context/userContext";
+import React, { useState, useEffect, useContext } from "react";
+import DataContext from "../../context/dataContext";
 
 function Plans(props) {
   const [plans, setPlans] = useState([]);
+  const context = useContext(DataContext);
 
   useEffect(() => {
     async function getPlans() {
-      const result = await http.get("/shopping/plans/");
-      setPlans(result.data);
+      const {
+        data: { plans = [] },
+      } = context;
+      setPlans(plans);
     }
     getPlans();
-  }, []);
+  }, [context]);
 
   const renderPlans = () => {
     return plans.map((plan) => (

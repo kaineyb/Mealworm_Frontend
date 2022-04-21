@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import Joi from "joi";
 import auth from "../../../services/authService";
 
@@ -32,7 +32,9 @@ class LoginForm extends BaseForm {
       password: this.state.data.password,
     };
 
-    if (auth.login(userDetails)) {
+    const loginResult = await auth.login(userDetails);
+
+    if (loginResult === true) {
       this.context.toggleLoggedIn();
     }
   }
@@ -41,7 +43,7 @@ class LoginForm extends BaseForm {
     const { errors } = this.state;
     const { loggedIn } = this.props;
     // console.log("render-errors", errors);
-    if (loggedIn) return <LogIn />;
+    if (loggedIn) return <LogIn user={this.props.user} />;
 
     return (
       <form>
@@ -56,6 +58,7 @@ class LoginForm extends BaseForm {
           error={errors["username"]}
           onChange={this.handleChange}
         />
+        <br />
 
         <Input
           type="password"
@@ -66,7 +69,7 @@ class LoginForm extends BaseForm {
           error={errors["password"]}
           onChange={this.handleChange}
         />
-
+        <br />
         <button
           type="submit"
           onClick={this.handleSubmit}

@@ -1,16 +1,16 @@
-import { Fragment, Component } from "react";
+import { Component } from "react";
 import auth from "../../../services/authService";
 import { toast } from "react-toastify";
 import { Navigate } from "react-router-dom";
 
-import UserContext from "../../../context/userContext";
-
 class LogOut extends Component {
   componentDidMount() {
-    const userContext = this.context;
+    const { user: userContext, data: dataContext } = this.props;
+
     auth.logout(); // Removes from LocalStorage
     userContext.clearUser(); // Removes from State
-    this.context.toggleLoggedIn();
+    dataContext.clearData(); // Removes from State
+    userContext.toggleLoggedIn();
     toast.success("Logged out!");
   }
 
@@ -18,7 +18,5 @@ class LogOut extends Component {
     return <Navigate to="/" replace />;
   }
 }
-
-LogOut.contextType = UserContext;
 
 export default LogOut;

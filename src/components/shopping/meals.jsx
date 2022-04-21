@@ -1,20 +1,39 @@
-import React, { useState, useEffect, Fragment } from "react";
-import http from "../../services/httpService";
-import { toast } from "react-toastify";
-import UserContext from "../../context/userContext";
+import React, { useState, useEffect, useContext } from "react";
+
+import MealIngredientLine from "./component/mealIngredientLine";
+
+import DataContext from "../../context/dataContext";
 
 function Meals(props) {
   const [meals, setMeals] = useState([]);
+  const context = useContext(DataContext);
 
   useEffect(() => {
     async function getMeals() {
-      const result = await http.get("/shopping/meals/");
-      setMeals(result.data);
+      const {
+        data: { meals = [] },
+      } = context;
+      setMeals(meals);
     }
-    toast.promise(getMeals, {
-      error: "Error: couldn't get meals! Try again later",
-    });
-  }, []);
+    getMeals();
+  }, [context]);
+
+  const createMealsForm = () => {
+    return (
+      <div>
+        <label htmlFor="new-meal-name">Name:</label>
+        <input
+          type="text"
+          id="new-meal-name"
+          name="new-meal-name"
+          placeholder="New meal name"
+        />
+        <br />
+        {/* Below will be dynamic and can be infinite lines */}
+        <MealIngredientLine />
+      </div>
+    );
+  };
 
   const renderMeals = () => {
     return meals.map((meal) => (
@@ -35,6 +54,7 @@ function Meals(props) {
   return (
     <div>
       <h2>Meals:</h2>
+      {createMealsForm()}
       <ul>{renderMeals()}</ul>
     </div>
   );

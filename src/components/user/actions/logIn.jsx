@@ -1,12 +1,18 @@
-import { Fragment, Component } from "react";
+import { Component } from "react";
 import auth from "../../../services/authService";
 import { toast } from "react-toastify";
 import { Navigate } from "react-router-dom";
 
-import UserContext from "../../../context/userContext";
+import DataContext from "../../../context/dataContext";
 
 class LogIn extends Component {
   async componentDidMount() {
+    const { setUser } = this.props.user;
+    this.context.updateData();
+
+    const user = await auth.getCurrentUserObj();
+    await setUser(user);
+
     toast.success("Logged in!");
   }
 
@@ -15,6 +21,6 @@ class LogIn extends Component {
   }
 }
 
-LogIn.contextType = UserContext;
+LogIn.contextType = DataContext;
 
 export default LogIn;

@@ -2,49 +2,84 @@
 import React, { Fragment, Component } from "react";
 
 // 3rd Party
-import { Route, Routes } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 // This needs to be imported at some level to get the JWT Token in Browser
-import auth, { loggedIn } from "./services/authService";
+import auth from "./services/authService";
+import dataService from "./services/dataService";
 
 // Contexts
 import UserContext from "./context/userContext";
+import DataContext from "./context/dataContext";
 
 // Top Level Components
-import NotFound from "./components/notFound";
+
 import NavBar from "./components/navBar/navBar";
-import Hero from "./components/hero";
 
-// User Components
-import LoginForm from "./components/user/forms/loginForm";
-import RegisterForm from "./components/user/forms/registerForm";
-import LogOut from "./components/user/actions/logOut";
-import UserProfile from "./components/user/userProfile";
+import Footer from "./components/footer/footer";
 
-// Shopping Components
-import Meals from "./components/shopping/meals";
-import Ingredients from "./components/shopping/ingredients";
-import Stores from "./components/shopping/stores";
-import Sections from "./components/shopping/sections";
-import Plans from "./components/shopping/plans";
+// config
+import config from "./services/config.json";
+
+import RouteList from "./components/routes";
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      user: { ...auth.getCurrentUserObj() },
-      loggedIn: auth.loggedIn(),
-      data: {
-        stores: {},
-        sections: {},
-        plans: {},
-        ingredients: {},
-        meals: {},
-      },
+      user: null,
+      loggedIn: false,
+      data: {},
     };
   }
+
+  async componentDidMount() {
+    document.title = config.siteName;
+    console.log("App.js CDM - Fired");
+
+    const loggedIn = await auth.loggedIn();
+
+    const { data } = this.state;
+
+    if (loggedIn && Object.keys(data).length === 0) {
+      this.updateData();
+    }
+
+    if (loggedIn) {
+      var user = await auth.getCurrentUserObj();
+      this.setState({ loggedIn, user });
+    }
+  }
+
+  updateData = async () => {
+    const promise = await toast.promise(dataService.getAll(), {
+      pending: "Getting data from server 🧐",
+      success: "Got latest data from server 🥰",
+      error: "Couldn't get data from server! 🤬",
+    });
+
+    this.setState({ data: promise });
+  };
+
+  clearData = () => {
+    this.setState({ data: {} });
+  };
+
+  /**
+   * Look ma, my first docstring in JS.
+   * @param {String} property - the key or property of the object to replace
+   * @param {Object} payload - the object to replace
+   */
+  setData = (property, payload) => {
+    const newData = { ...this.state.data };
+
+    newData[property] = payload;
+    // console.log("setData", property, payload);
+
+    this.setState({ data: newData });
+  };
 
   // Arrow functions ftw lol
   toggleLoggedIn = () => {
@@ -56,16 +91,11 @@ class App extends Component {
   };
 
   setUser = (user) => {
-    const newUser = { ...user };
     this.setState({ user: { ...user } });
-    console.log("Received:", user);
-    console.log("App User Set to:");
-    console.log(this.state.user);
   };
 
   clearUser = () => {
-    this.setState({ user: {} });
-    console.log("App User Cleared!");
+    this.setState({ user: null });
   };
 
   render() {
@@ -76,34 +106,34 @@ class App extends Component {
       clearUser: this.clearUser,
       setUser: this.setUser,
     };
+
+    const dataContextValue = {
+      data: this.state.data,
+      updateData: this.updateData,
+      clearData: this.clearData,
+      setData: this.setData,
+    };
+
     return (
       <Fragment>
-        <UserContext.Provider value={userContextValue}>
-          <ToastContainer
-            theme="dark"
-            newestOnTop={true}
-            position="bottom-right"
-          />
-          <NavBar />
-          <main>
-            <Routes>
-              <Route path="/" element={<Hero />} />
-              <Route
-                path="/login"
-                element={<LoginForm loggedIn={this.state.loggedIn} />}
+        <DataContext.Provider value={dataContextValue}>
+          <UserContext.Provider value={userContextValue}>
+            <ToastContainer
+              theme="dark"
+              newestOnTop={true}
+              position="bottom-right"
+            />
+            <NavBar />
+            <main>
+              <RouteList
+                loggedIn={this.state.loggedIn}
+                dataContextValue={dataContextValue}
+                userContextValue={userContextValue}
               />
-              <Route path="/stores" element={<Stores />} />
-              <Route path="/sections" element={<Sections />} />
-              <Route path="/plans" element={<Plans />} />
-              <Route path="/meals" element={<Meals />} />
-              <Route path="/ingredients" element={<Ingredients />} />
-              <Route path="/logout" element={<LogOut />} />
-              <Route path="/register" element={<RegisterForm />} />
-              <Route path="/profile" element={<UserProfile />} />
-              <Route path="*" element={<NotFound />} />
-            </Routes>
-          </main>
-        </UserContext.Provider>
+            </main>
+            <Footer />
+          </UserContext.Provider>
+        </DataContext.Provider>
       </Fragment>
     );
   }

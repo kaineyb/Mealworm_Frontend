@@ -11,11 +11,13 @@ import App from "./App";
 import "./index.css";
 
 ReactDOM.render(
-  <React.Fragment>
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
-  </React.Fragment>,
+  <React.StrictMode>
+    <React.Fragment>
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    </React.Fragment>
+  </React.StrictMode>,
   document.getElementById("root")
 );
 

@@ -1,13 +1,11 @@
 import http from "./httpService";
 import jwt from "./jwtService";
 import config from "./config.json";
-
-// 3rd Party
-import jwtDecode from "jwt-decode";
 import { toast } from "react-toastify";
-import { Navigate } from "react-router-dom";
 
-const { accessTokenKey, jwtPrefix, refreshTokenKey } = config;
+import jwtService from "./jwtService";
+
+const { jwtPrefix } = config;
 
 // Register Endpoints
 const registerEP = http.authEndPoint + "users/";
@@ -27,9 +25,11 @@ export async function login(user) {
   if (response.status === 200) {
     const { access, refresh } = response.data;
     http.setJwt(jwtPrefix + access, refresh);
-    if (await setCurrentUserLocallyFromServer()) {
-      return true;
-    }
+
+    const userSet = await setCurrentUserLocallyFromServer();
+    console.log("userSet", userSet);
+
+    return userSet;
   }
   return false;
 }
@@ -42,8 +42,10 @@ export function logout() {
 
 async function setCurrentUserLocallyFromServer() {
   const response = await getCurrentUserFromServer();
+
   if (response.status === 200) {
     localStorage.setItem("user", JSON.stringify(response.data));
+
     return true;
   } else return false;
 }
@@ -55,8 +57,15 @@ async function getCurrentUserFromServer() {
 //
 
 // From Memory
-export function getCurrentUserObj() {
-  return JSON.parse(localStorage.getItem("user"));
+export async function getCurrentUserObj() {
+  const localUser = await JSON.parse(localStorage.getItem("user"));
+
+  if (!localUser) {
+    console.log("Had to get user from server, not in local?");
+    const user = await getCurrentUserFromServer();
+    return user.data;
+  }
+  return localUser;
 }
 
 export function getCurrentUserName() {
@@ -64,19 +73,59 @@ export function getCurrentUserName() {
 }
 //
 
-// Check if Logged In:
-export function loggedIn() {
-  const access = localStorage.getItem(accessTokenKey);
-  const refresh = localStorage.getItem(refreshTokenKey);
-  const user = JSON.parse(localStorage.getItem("user"));
+async function refreshAccessToken(refreshToken) {
+  const response = await jwt.refreshToken(refreshToken);
+  const {
+    data: { access },
+  } = response;
 
-  if (access && refresh && user) {
+  if (response.status === 200) {
+    http.setJwt(jwtPrefix + access, refreshToken);
+    toast.success("Access Token Refreshed!");
     return true;
+  } else {
+    toast.warning("Couldn't Refresh the Access token :(");
+    return false;
   }
-  return false;
 }
 
-export default {
+// Check if Logged In:
+export async function loggedIn() {
+  const user = JSON.parse(localStorage.getItem("user"));
+  const { access, refresh } = jwtService.getJwtTokens();
+
+  if (!access || !refresh || !user) {
+    logout();
+    // console.log(
+    //   "loggedIn: missing access token, refresh token or user, therefore logging out"
+    // );
+    return false;
+  }
+
+  const accessValid = await jwtService.checkTokenValid("access", access);
+  const refreshValid = await jwtService.checkTokenValid("refresh", refresh);
+
+  if (accessValid && refreshValid) {
+    console.log("loggedIn: true");
+    return true;
+  } else if (!accessValid && refreshValid) {
+    console.log(
+      "loggedIn: valid refresh token, trying to get a new access token..."
+    );
+    const refreshAccepted = await refreshAccessToken(refresh);
+    if (refreshAccepted) {
+      console.log("loggedIn: refresh accepted, should be good?");
+      return true;
+    }
+  } else {
+    console.log("loggedIn: logging you out mate!");
+    logout();
+    window.location = "/";
+    return false;
+  }
+}
+
+const auth = {
   register,
   login,
   logout,
@@ -84,3 +133,4 @@ export default {
   getCurrentUserObj,
   getCurrentUserName,
 };
+export default auth;

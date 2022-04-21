@@ -1,5 +1,12 @@
 @import url("https://necolas.github.io/normalize.css/8.0.1/normalize.css");
-@import url("https://unpkg.com/mvp.css");
+/* @import url("https://unpkg.com/mvp.css"); */
+
+:root {
+  --colour-1: #65d8af;
+  --colour-2: #e8128c;
+  --colour-3: #f8d545;
+  --colour-4: #913abd;
+}
 
 body {
   margin: 0;
@@ -10,6 +17,12 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+body,
+html {
+  background-color: #222;
+  color: #eee;
+}
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
@@ -18,4 +31,40 @@ code {
 .container {
   margin-top: 30px;
   margin-bottom: 30px;
+  border: 2px solid red;
+}
+
+body > div#root {
+  min-height: 100vh;
+  height: fit-content;
+}
+
+body > div#root > footer {
+  position: sticky;
+  top: 100vh;
+  background-color: rebeccapurple;
+  max-width: 100vw;
+}
+
+nav {
+  margin: 0 30px 30px 30px;
+}
+
+main {
+  margin: 30px;
+}
+a {
+  color: #65d8af;
+}
+
+.clickable {
+  cursor: pointer;
+}
+
+button {
+  cursor: pointer;
+}
+
+input {
+  margin-bottom: 5px;
 }

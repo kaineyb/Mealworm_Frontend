@@ -1,6 +1,10 @@
 import http from "./httpService";
 import config from "./config.json";
 
+// 3rd Party
+import jwtDecode from "jwt-decode";
+import { DateTime } from "luxon";
+
 const { accessTokenKey, refreshTokenKey } = config;
 
 // JWT Endpoints
@@ -18,7 +22,7 @@ async function createToken(user) {
 }
 
 async function refreshToken(refresh) {
-  return await http.post(jwtRefreshEP, refresh);
+  return await http.post(jwtRefreshEP, { refresh: refresh });
 }
 
 async function verifyToken(token) {
@@ -31,12 +35,57 @@ function getJwtTokens() {
   return { access, refresh };
 }
 
+async function checkTokenValid(type, token = "") {
+  if (type === "access") {
+    token = token.replace(config.jwtPrefix, "");
+  }
+
+  const verify = await verifyToken({ token: token });
+
+  if (verify === undefined) {
+    // console.log(type, "token bad");
+    return false;
+  }
+  // console.log(type, "token verified");
+  return true;
+}
+
+async function checkTokensValid(access, refresh) {
+  const accessValid = await checkTokenValid("access", access);
+  const refreshValid = await checkTokenValid("refresh", refresh);
+
+  if (accessValid && refreshValid) {
+    return true;
+  }
+  return false;
+}
+
+function tokenTimeOut(token) {
+  const now = DateTime.now();
+
+  if (token) {
+    const tokenEpoch = jwtDecode(token).exp;
+    const tokenISO = DateTime.fromSeconds(tokenEpoch).toISO();
+    const tokenDT = DateTime.fromISO(tokenISO);
+
+    const tokenDurationObj = tokenDT
+      .diff(now, ["days", "hours", "minutes", "seconds"])
+      .toObject();
+
+    return tokenDurationObj;
+  }
+}
+
 const { access, refresh } = getJwtTokens();
 http.setJwt(access, refresh);
 
-export default {
+const jwt = {
   createToken,
   refreshToken,
   verifyToken,
-  getJwt: getJwtTokens,
+  getJwtTokens,
+  checkTokensValid,
+  checkTokenValid,
+  tokenTimeOut,
 };
+export default jwt;

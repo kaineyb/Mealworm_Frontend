@@ -1,8 +1,16 @@
 import React from "react";
 import Joi from "joi";
+
+// Components
 import Input from "../../common/input";
 import BaseForm from "../../common/baseForm";
 import auth from "../../../services/authService";
+import LogIn from "../actions/logIn";
+
+//  Contexts
+import UserContext from "../../../context/userContext";
+
+import { toast } from "react-toastify";
 
 class RegisterForm extends BaseForm {
   constructor(props) {
@@ -29,15 +37,47 @@ class RegisterForm extends BaseForm {
       username: this.state.data.username,
       password: this.state.data.password,
     };
-    console.log(userDetails);
-    // await auth.register(userDetails);
+
+    const registerResult = await toast.promise(auth.register(userDetails), {
+      pending: "Attempting to create an account for you",
+      success: `Created an account for you! Welcome to the site ${userDetails.username}`,
+      error: "Couldn't create an account for you :(",
+    });
+
+    if (registerResult.status === 201) {
+      console.log(`User created ${userDetails.username}`);
+      let loginDetails = { ...userDetails };
+
+      delete loginDetails.email;
+
+      const loginResult = await toast.promise(auth.login(userDetails), {
+        pending: "Attempting to Log you in!",
+        error: "Couldn't log you in, please try to login manually",
+      });
+
+      if (loginResult === true) {
+        this.context.toggleLoggedIn();
+      }
+    }
   }
 
   render() {
     const { errors } = this.state;
+    const { loggedIn } = this.props;
+    if (loggedIn) return <LogIn user={this.props.user} />;
+
     return (
       <form>
         <h1> Register: </h1>
+        <Input
+          name="username"
+          label="Requested Username"
+          placeholder="Enter username"
+          autoComplete="username"
+          error={errors["username"]}
+          onChange={this.handleChange}
+        />
+        <br />
         <Input
           name="email"
           type="email"
@@ -47,15 +87,7 @@ class RegisterForm extends BaseForm {
           error={errors["email"]}
           onChange={this.handleChange}
         />
-        <Input
-          name="username"
-          label="Requested Username"
-          placeholder="Enter username"
-          autoComplete="username"
-          error={errors["username"]}
-          onChange={this.handleChange}
-        />
-
+        <br />
         <Input
           name="password"
           type="password"
@@ -65,6 +97,7 @@ class RegisterForm extends BaseForm {
           error={errors["password"]}
           onChange={this.handleChange}
         />
+        <br />
         <button
           type="submit"
           onClick={this.handleSubmit}
@@ -76,5 +109,5 @@ class RegisterForm extends BaseForm {
     );
   }
 }
-
+RegisterForm.contextType = UserContext;
 export default RegisterForm;

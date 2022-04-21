@@ -3,8 +3,6 @@ import { Link } from "react-router-dom";
 
 import UserContext from "../../context/userContext";
 
-import auth from "../../services/authService";
-
 class Navbar extends Component {
   render() {
     if (this.context.loggedIn) {
@@ -17,14 +15,16 @@ class Navbar extends Component {
             <Link to="/sections">Sections</Link>
           </li>
           <li>
-            <Link to="/plans">Plans</Link>
-          </li>
-          <li>
             <Link to="/ingredients">Ingredients</Link>
           </li>
+
           <li>
             <Link to="/meals">Meals</Link>
           </li>
+          <li>
+            <Link to="/plans">Plans</Link>
+          </li>
+
           <li>
             <Link to="/profile">Profile</Link>
           </li>
