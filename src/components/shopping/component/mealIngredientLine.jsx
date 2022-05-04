@@ -28,20 +28,17 @@ const MealIngredientLine = () => {
 
   return (
     <Fragment>
-      <label htmlFor="new-meal-name">Ingredient:</label>
       <select id="new-meal-ingredient">
         {ingredients.map((ingredient) => (
           <option>{ingredient.name}</option>
         ))}
       </select>
-      <label htmlFor="new-ingredient-quantity">Quantity:</label>
       <input
         type="text"
         id="new-ingredient-quantity"
         name="new-ingredient-quantity"
         placeholder="Quantity"
       />
-      <label htmlFor="new-meal-unit">Unit:</label>
       <select>
         {units.map((unit) => (
           <option key={unit[0]} value={unit[0]}>
@@ -49,6 +46,7 @@ const MealIngredientLine = () => {
           </option>
         ))}
       </select>
+      <button>Delete Line</button>
     </Fragment>
   );
 };

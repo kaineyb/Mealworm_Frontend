@@ -3,9 +3,11 @@ import React, { useState, useEffect, useContext } from "react";
 import MealIngredientLine from "./component/mealIngredientLine";
 
 import DataContext from "../../context/dataContext";
+import Ingredients from "./ingredients";
 
 function Meals(props) {
-  const [meals, setMeals] = useState([]);
+  const [meals, setMeals] = useState([]); // An array of all meals available
+  const [mealIngredient, setMealIngredient] = useState([]);
   const context = useContext(DataContext);
 
   useEffect(() => {
@@ -30,7 +32,13 @@ function Meals(props) {
         />
         <br />
         {/* Below will be dynamic and can be infinite lines */}
+        Ingredient | Quantity | Unit
+        <hr />
         <MealIngredientLine />
+        <hr />
+        <button>Add Line</button>
+        <hr />
+        <button>Save Meal</button>
       </div>
     );
   };
@@ -55,7 +63,7 @@ function Meals(props) {
     <div>
       <h2>Meals:</h2>
       {createMealsForm()}
-      <ul>{renderMeals()}</ul>
+      {/* <ul>{renderMeals()}</ul> */}
     </div>
   );
 }
