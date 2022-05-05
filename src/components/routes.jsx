@@ -8,7 +8,7 @@ import SimpleForm from "./shopping/component/simpleForm";
 // Shopping Components
 import Ingredients from "./shopping/ingredients/ingredients";
 import Meals from "./shopping/meals/meals";
-import Plans from "./shopping/plans";
+import Plans from "./shopping/plans/plans";
 import LogOut from "./user/actions/logOut";
 // User Components
 import LoginForm from "./user/forms/loginForm";

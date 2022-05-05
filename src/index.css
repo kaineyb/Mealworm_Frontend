@@ -82,3 +82,23 @@ input {
   padding: 5px;
   margin: 5px;
 }
+
+.plan {
+  border: 1px solid var(--colour-1);
+  border-radius: 15px;
+  padding: 20px;
+  margin: 20px;
+}
+
+.plan .plan-details {
+  border: 1px solid var(--colour-3);
+  border-radius: 15px;
+  padding: 5px;
+  margin: 5px;
+}
+.plan .day_set {
+  border: 1px solid var(--colour-2);
+  border-radius: 15px;
+  padding: 5px;
+  margin: 5px;
+}
