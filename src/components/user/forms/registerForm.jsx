@@ -1,16 +1,13 @@
-import React from "react";
 import Joi from "joi";
-
-// Components
-import Input from "../../common/input";
-import BaseForm from "../../common/baseForm";
-import auth from "../../../services/authService";
-import LogIn from "../actions/logIn";
-
+import React from "react";
+import { toast } from "react-toastify";
 //  Contexts
 import UserContext from "../../../context/userContext";
-
-import { toast } from "react-toastify";
+import auth from "../../../services/authService";
+import BaseForm from "../../common/baseForm";
+// Components
+import Input from "../../common/input";
+import LogIn from "../actions/logIn";
 
 class RegisterForm extends BaseForm {
   constructor(props) {
@@ -30,7 +27,7 @@ class RegisterForm extends BaseForm {
   }
 
   async doSubmit() {
-    console.log("Submit Button Validated and Submitted!");
+    // console.log("Submit Button Validated and Submitted!");
 
     const userDetails = {
       email: this.state.data.email,
@@ -45,7 +42,7 @@ class RegisterForm extends BaseForm {
     });
 
     if (registerResult.status === 201) {
-      console.log(`User created ${userDetails.username}`);
+      // console.log(`User created ${userDetails.username}`);
       let loginDetails = { ...userDetails };
 
       delete loginDetails.email;

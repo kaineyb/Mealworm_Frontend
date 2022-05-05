@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import DataContext from "../../context/dataContext";
 
 function Plans(props) {
@@ -20,7 +20,7 @@ function Plans(props) {
       <li key={plan.id}>
         {plan.id} - <strong>{plan.name}</strong> - {plan.start_day}
         <ul>
-          {plan.plan_days.map((day) => (
+          {plan.day_set.map((day) => (
             <li key={day.id}>
               Order: {day.order} - {day.meal}
             </li>

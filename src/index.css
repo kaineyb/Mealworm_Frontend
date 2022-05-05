@@ -68,3 +68,17 @@ button {
 input {
   margin-bottom: 5px;
 }
+
+.meal {
+  border: 1px solid var(--colour-1);
+  border-radius: 15px;
+  padding: 20px;
+  margin: 20px;
+}
+
+.meal .meal_ingredient {
+  border: 1px solid var(--colour-2);
+  border-radius: 15px;
+  padding: 5px;
+  margin: 5px;
+}

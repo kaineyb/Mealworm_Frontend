@@ -1,8 +1,8 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import DataContext from "../../context/dataContext";
 import auth from "../../services/authService";
 import jwtService from "../../services/jwtService";
-import DataContext from "../../context/dataContext";
 
 function UserProfile(props) {
   const [user, setUser] = useState({});

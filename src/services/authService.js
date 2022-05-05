@@ -1,9 +1,7 @@
-import http from "./httpService";
-import jwt from "./jwtService";
-import config from "./config.json";
 import { toast } from "react-toastify";
-
-import jwtService from "./jwtService";
+import config from "./config.json";
+import http from "./httpService";
+import { default as jwt, default as jwtService } from "./jwtService";
 
 const { jwtPrefix } = config;
 
@@ -27,7 +25,7 @@ export async function login(user) {
     http.setJwt(jwtPrefix + access, refresh);
 
     const userSet = await setCurrentUserLocallyFromServer();
-    console.log("userSet", userSet);
+    // console.log("userSet", userSet);
 
     return userSet;
   }
@@ -61,7 +59,7 @@ export async function getCurrentUserObj() {
   const localUser = await JSON.parse(localStorage.getItem("user"));
 
   if (!localUser) {
-    console.log("Had to get user from server, not in local?");
+    // console.log("Had to get user from server, not in local?");
     const user = await getCurrentUserFromServer();
     return user.data;
   }
