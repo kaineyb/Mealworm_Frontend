@@ -31,14 +31,14 @@ const Meal = (props) => {
   };
 
   const handleSave = () => {
-    if (name != newName) {
+    if (name !== newName) {
       const {
         data: { meals },
         setData,
       } = context;
 
       const newMeals = [...meals];
-      const item = meals.filter((_meal) => _meal.id == meal.id)[0];
+      const item = meals.filter((_meal) => _meal.id === meal.id)[0];
       const index = meals.indexOf(item);
 
       newMeals[index]["name"] = newName;
@@ -72,7 +72,7 @@ const Meal = (props) => {
         setData,
       } = context;
 
-      const newMeals = meals.filter((_meal) => _meal.id != meal.id);
+      const newMeals = meals.filter((_meal) => _meal.id !== meal.id);
 
       setData("meals", newMeals);
       doDelete();

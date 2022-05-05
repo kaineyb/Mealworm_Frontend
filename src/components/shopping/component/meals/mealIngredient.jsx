@@ -82,9 +82,9 @@ const MealIngredient = (props) => {
 
   const handleSave = () => {
     if (
-      newQuantity == quantity &&
-      newIngredient == ingredient &&
-      newUnit == unit
+      newQuantity === quantity &&
+      newIngredient === ingredient &&
+      newUnit === unit
     ) {
       setEditable(false);
       return;

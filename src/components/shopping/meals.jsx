@@ -7,7 +7,6 @@ import Meal from "./component/meals/meal";
 
 function Meals(props) {
   const [meals, setMeals] = useState([]); // An array of all meals available
-  const [mealIngredient, setMealIngredient] = useState([]);
   const context = useContext(DataContext);
 
   useEffect(() => {
