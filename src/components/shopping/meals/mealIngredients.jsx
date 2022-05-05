@@ -1,5 +1,5 @@
 import { Fragment, useContext, useEffect, useState } from "react";
-import DataContext from "../../../../context/dataContext";
+import DataContext from "../../../context/dataContext";
 import CreateMealIngredientForm from "./createMealIngredientForm";
 import MealIngredient from "./mealIngredient";
 

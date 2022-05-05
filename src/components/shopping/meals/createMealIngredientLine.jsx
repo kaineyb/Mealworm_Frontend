@@ -1,7 +1,7 @@
 import { useContext, useState } from "react";
 import { toast } from "react-toastify";
-import dataContext from "../../../../context/dataContext";
-import http from "./../../../../services/httpService";
+import dataContext from "../../../context/dataContext";
+import http from "../../../services/httpService";
 
 const CreateMealIngredientLine = (props) => {
   const { meal, units, ingredients, removeLine, line_id } = props;

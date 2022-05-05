@@ -1,13 +1,13 @@
 import React, { useContext, useEffect, useState } from "react";
 import { toast } from "react-toastify";
-import DataContext from "../../context/dataContext";
-import http from "./../../services/httpService";
-import CreateForm from "./component/createForm";
-import Meal from "./component/meals/meal";
+import dataContext from "../../../context/dataContext";
+import http from "../../../services/httpService";
+import CreateForm from "../component/createForm";
+import Meal from "./meal";
 
 function Meals(props) {
   const [meals, setMeals] = useState([]); // An array of all meals available
-  const context = useContext(DataContext);
+  const context = useContext(dataContext);
 
   useEffect(() => {
     async function getMeals() {

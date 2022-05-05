@@ -1,23 +1,19 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
-
 import http from "../services/httpService";
-
+import Hero from "./hero";
+import NotFound from "./notFound";
 // Components
 import SimpleForm from "./shopping/component/simpleForm";
-import NotFound from "./notFound";
-import Hero from "./hero";
-
+// Shopping Components
+import Ingredients from "./shopping/ingredients/ingredients";
+import Meals from "./shopping/meals/meals";
+import Plans from "./shopping/plans";
+import LogOut from "./user/actions/logOut";
 // User Components
 import LoginForm from "./user/forms/loginForm";
 import RegisterForm from "./user/forms/registerForm";
-import LogOut from "./user/actions/logOut";
 import UserProfile from "./user/userProfile";
-
-// Shopping Components
-import Meals from "./shopping/meals";
-import Ingredients from "./shopping/ingredients";
-import Plans from "./shopping/plans";
 
 function RouteList(props) {
   const { loggedIn, userContextValue, dataContextValue } = props;

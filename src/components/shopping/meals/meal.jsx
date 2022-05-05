@@ -1,7 +1,7 @@
 import { Fragment, useContext, useState } from "react";
 import { toast } from "react-toastify";
-import dataContext from "../../../../context/dataContext";
-import http from "../../../../services/httpService";
+import dataContext from "../../../context/dataContext";
+import http from "../../../services/httpService";
 import MealIngredients from "./mealIngredients";
 
 const Meal = (props) => {

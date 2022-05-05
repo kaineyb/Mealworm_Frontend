@@ -1,5 +1,5 @@
 import { Fragment, useContext, useEffect, useState } from "react";
-import dataContext from "../../../../context/dataContext";
+import dataContext from "../../../context/dataContext";
 import CreateMealIngredientLine from "./createMealIngredientLine";
 
 const CreateMealIngredientForm = (props) => {
@@ -44,7 +44,7 @@ const CreateMealIngredientForm = (props) => {
 
   return (
     <Fragment>
-      <button onClick={handleAddAnother}>Add another Ingredient</button>
+      <button onClick={handleAddAnother}>Add Ingredient to this Meal</button>
       {newLines.map((line) => (
         <CreateMealIngredientLine
           key={line.id}
