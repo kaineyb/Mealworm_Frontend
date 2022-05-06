@@ -80,6 +80,19 @@ const MealIngredient = (props) => {
     }
   };
 
+  const doDelete = async () => {
+    await toast.promise(
+      http.delete(
+        `${http.mealsEP}${meal.id}/ingredients/${meal_ingredient.id}/`
+      ),
+      {
+        pending: `Deleting Meal Ingredient for Meal: ${meal.name} on server`,
+        success: `Deleted Meal Ingredient for meal: ${meal.name} on server!`,
+        error: `Couldn't delete Meal Ingredient for meal: ${meal.name} on server :(`,
+      }
+    );
+  };
+
   const handleSave = () => {
     if (
       newQuantity === quantity &&
@@ -131,19 +144,6 @@ const MealIngredient = (props) => {
         pending: `Updating Meal Ingredient for Meal: ${meal.name} on server`,
         success: `Updated Meal Ingredient for meal: ${meal.name} on server!`,
         error: `Couldn't update Meal Ingredient for meal: ${meal.name} on server :(`,
-      }
-    );
-  };
-
-  const doDelete = async () => {
-    await toast.promise(
-      http.delete(
-        `${http.mealsEP}${meal.id}/ingredients/${meal_ingredient.id}/`
-      ),
-      {
-        pending: `Deleting Meal Ingredient for Meal: ${meal.name} on server`,
-        success: `Deleted Meal Ingredient for meal: ${meal.name} on server!`,
-        error: `Couldn't delete Meal Ingredient for meal: ${meal.name} on server :(`,
       }
     );
   };

@@ -102,3 +102,10 @@ input {
   padding: 5px;
   margin: 5px;
 }
+
+.plan_buttons {
+  position: sticky;
+  left: 100%;
+  /* border: 2px solid var(--colour-4); */
+  display: inline;
+}
