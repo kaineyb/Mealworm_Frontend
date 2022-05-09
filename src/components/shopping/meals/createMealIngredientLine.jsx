@@ -6,7 +6,7 @@ import http from "../../../services/httpService";
 const CreateMealIngredientLine = (props) => {
   const { meal, units, ingredients, removeLine, line_id } = props;
 
-  const [quantity, setQuantity] = useState("");
+  const [quantity, setQuantity] = useState(0);
   const [unit, setUnit] = useState("");
   const [ingredient, setIngredient] = useState("");
 
@@ -15,7 +15,7 @@ const CreateMealIngredientLine = (props) => {
   const context = useContext(dataContext);
 
   const handleChangeQuantity = ({ currentTarget: input }) => {
-    setQuantity(input.value);
+    setQuantity(parseInt(input.value));
   };
   const handleChangeUnit = (event) => {
     setUnit(event.target.value);
@@ -24,7 +24,7 @@ const CreateMealIngredientLine = (props) => {
     setIngredient(event.target.value);
   };
 
-  const validateSave = quantity && unit && ingredient ? true : false;
+  const validateSave = quantity > 0 && unit && ingredient ? true : false;
 
   const handleSave = async () => {
     if (validateSave) {
@@ -73,6 +73,8 @@ const CreateMealIngredientLine = (props) => {
     <li className="clickable meal_ingredient" key={1}>
       <input
         name={`${name_id}-input-quantity`}
+        type="number"
+        min="1"
         id={`${name_id}-input-quantity`}
         placeholder="Enter Quantity..."
         onChange={(event) => handleChangeQuantity(event)}
