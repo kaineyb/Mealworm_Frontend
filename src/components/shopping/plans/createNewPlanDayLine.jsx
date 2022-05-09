@@ -3,13 +3,13 @@ import { toast } from "react-toastify";
 import dataContext from "./../../../context/dataContext";
 import http from "./../../../services/httpService";
 const CreatePlanDayLine = (props) => {
-  const { line_id, removeLine, plan } = props;
+  const { line_id, removeLine, plan, defaultDay } = props;
 
   const context = useContext(dataContext);
 
   const [meals, setMeals] = useState([]);
 
-  const [order, setOrder] = useState(0);
+  const [order, setOrder] = useState(defaultDay);
   const [meal, setMeal] = useState();
 
   useEffect(() => {
@@ -29,7 +29,7 @@ const CreatePlanDayLine = (props) => {
   const handleChangeMeal = (event) => {
     setMeal(parseInt(event.target.value));
   };
-  const validateSave = order > 0 ? true : false;
+  const validateSave = order > 0 && meal ? true : false;
 
   const handleSave = async () => {
     if (validateSave) {

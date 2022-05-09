@@ -1,3 +1,4 @@
+import _ from "lodash";
 import { Fragment, useState } from "react";
 import CreatePlanDayLine from "./createNewPlanDayLine";
 
@@ -8,7 +9,7 @@ const CreatePlanDayForm = (props) => {
 
   const handleAddDay = () => {
     const newLines = [...lines];
-    newLines.push({ id: counter + 1 });
+    newLines.push({ id: counter + 1, defaultDay: nextDay() });
     setCounter((currentState) => currentState + 1);
     setLines(newLines);
   };
@@ -17,6 +18,26 @@ const CreatePlanDayForm = (props) => {
     const newLines = [...lines];
     const withoutLine = newLines.filter((line) => line.id !== line_id);
     setLines(withoutLine);
+  };
+
+  const nextDay = () => {
+    const daySet = [...plan["day_set"]];
+
+    const lastLine = lines[lines.length - 1];
+
+    if (daySet.length === 0) {
+      if (!lastLine) {
+        return lines.length + 1;
+      } else {
+        return lastLine["defaultDay"] + 1;
+      }
+    } else {
+      const highestOrder = _.orderBy(daySet, ["order", "id"], ["desc"])[0][
+        "order"
+      ];
+
+      return highestOrder + lines.length + 1;
+    }
   };
 
   return (
@@ -28,6 +49,7 @@ const CreatePlanDayForm = (props) => {
           line_id={line.id}
           removeLine={handleRemoveDay}
           plan={plan}
+          defaultDay={line.defaultDay}
         />
       ))}
     </Fragment>

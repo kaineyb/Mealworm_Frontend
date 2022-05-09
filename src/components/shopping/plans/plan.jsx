@@ -122,7 +122,7 @@ function Plan(props) {
   );
 
   return (
-    <li>
+    <li key={plan.id}>
       <div className="plan">
         {planName}
 

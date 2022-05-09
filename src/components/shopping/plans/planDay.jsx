@@ -90,10 +90,11 @@ function PlanDay(props) {
     setNewMeal(parseInt(event.target.value));
   };
 
+  const validateSave = newOrder > 0 ? true : false;
+
   const handleSave = () => {
     if (newMeal === meal && newOrder === day.order) {
       setEditable(false);
-      console.log("Same Same");
       return;
     }
 
@@ -161,7 +162,9 @@ function PlanDay(props) {
             </option>
           ))}
         </select>
-        <button onClick={handleSave}>Save</button>
+        <button onClick={handleSave} disabled={!validateSave}>
+          Save
+        </button>
         <button onClick={handleCancel}>Cancel</button>
         <button onClick={handleDelete}>Delete</button>
       </li>
