@@ -1,5 +1,6 @@
 import _ from "lodash";
 import { Fragment, useContext, useState } from "react";
+import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import dataContext from "./../../../context/dataContext";
 import http from "./../../../services/httpService";
@@ -122,28 +123,28 @@ function Plan(props) {
   );
 
   return (
-    <li key={plan.id}>
-      <div className="plan">
-        {planName}
+    <div className="plan">
+      <div></div>
+      {planName}
 
-        <div className="plan_buttons">
-          <button onClick={handleReorder}>Reorder</button>
-          {" | "}
-          <button onClick={handleDelete}>X</button>
-        </div>
-
-        <div className="plan-details">
-          <StartDay day={plan.start_day} plan={plan} />
-        </div>
-
-        <ul>
-          {plan.day_set.map((day) => (
-            <PlanDay key={day.id} plan={plan} day={day} />
-          ))}
-          <CreatePlanDayForm plan={plan} />
-        </ul>
+      <div className="plan_buttons">
+        <button onClick={handleReorder}>Reorder</button>
+        {" | "}
+        <button onClick={handleDelete}>X</button>
       </div>
-    </li>
+
+      <div className="plan-details">
+        <StartDay day={plan.start_day} plan={plan} />
+      </div>
+
+      <ul>
+        {plan.day_set.map((day) => (
+          <PlanDay key={day.id} plan={plan} day={day} />
+        ))}
+        <CreatePlanDayForm plan={plan} />
+      </ul>
+      <Link to={`/shopping_plan/${plan.id}`}>Shopping List</Link>
+    </div>
   );
 }
 

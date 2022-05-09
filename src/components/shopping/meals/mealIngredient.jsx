@@ -8,7 +8,7 @@ const MealIngredient = (props) => {
   const [editable, setEditable] = useState(false);
   const [ingredients, setIngredients] = useState([]);
 
-  const [newQuantity, setNewQuantity] = useState("");
+  const [newQuantity, setNewQuantity] = useState(0);
   const [newUnit, setNewUnit] = useState("");
   const [newIngredient, setNewMealIngredient] = useState("");
 
@@ -49,7 +49,7 @@ const MealIngredient = (props) => {
     setEditable(false);
   };
 
-  const canSave = newQuantity === "" ? false : true;
+  const validateSave = newQuantity > 0 ? true : false;
 
   const handleDelete = () => {
     const deleteMe = window.confirm(
@@ -164,6 +164,8 @@ const MealIngredient = (props) => {
     <li className="clickable meal_ingredient" key={meal_ingredient.id}>
       <input
         name={`${meal_ingredient.id}-input-quantity`}
+        type="number"
+        min="1"
         id={`${meal_ingredient.id}-input-quantity`}
         defaultValue={meal_ingredient.quantity}
         onChange={(event) => quantityOnChange(event)}
@@ -193,7 +195,7 @@ const MealIngredient = (props) => {
         ))}
       </select>
 
-      <button onClick={handleSave} disabled={!canSave}>
+      <button onClick={handleSave} disabled={!validateSave}>
         Save
       </button>
       <button onClick={handleCancel}>Cancel</button>

@@ -1,7 +1,10 @@
 import { Fragment, useContext, useState } from "react";
 import { toast } from "react-toastify";
+// Snippets
+import days from "../../../snippets/days";
 import dataContext from "./../../../context/dataContext";
 import http from "./../../../services/httpService";
+
 function StartDay(props) {
   const { day, plan } = props;
 
@@ -10,36 +13,6 @@ function StartDay(props) {
   const [newDay, setNewDay] = useState(day);
 
   const context = useContext(dataContext);
-
-  const days = [
-    ["Mon", "Monday"],
-    ["Tue", "Tuesday"],
-    ["Wed", "Wednesday"],
-    ["Thu", "Thursday"],
-    ["Fri", "Friday"],
-    ["Sat", "Saturday"],
-    ["Sun", "Sunday"],
-  ];
-
-  const longDay = (day) => {
-    switch (day) {
-      case "Mon":
-        return "Monday";
-      case "Tue":
-        return "Tuesday";
-      case "Wed":
-        return "Wednesday";
-      case "Thu":
-        return "Thursday";
-      case "Fri":
-        return "Friday";
-      case "Sat":
-        return "Saturday";
-      case "Sun":
-        return "Sunday";
-    }
-    return "Day Not Found";
-  };
 
   const handleClick = () => {
     if (editable) {
@@ -89,7 +62,7 @@ function StartDay(props) {
         defaultValue={currentDay}
         onChange={(event) => handleChange(event)}
       >
-        {days.map((day) => (
+        {days.daysArray.map((day) => (
           <option key={day} value={day[0]}>
             {day[1]}
           </option>
@@ -101,7 +74,7 @@ function StartDay(props) {
   ) : (
     <Fragment>
       <span className="clickable" onClick={handleClick}>
-        {longDay(currentDay)}
+        {days.longDay(currentDay)}
       </span>
     </Fragment>
   );

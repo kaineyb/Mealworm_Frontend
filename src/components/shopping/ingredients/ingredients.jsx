@@ -297,31 +297,33 @@ function Ingredients(props) {
     } else {
       return (
         <Fragment>
-          <h3>Without Section:</h3>
-          <ul>
-            {noSection.map((ingredient) => (
-              <li key={ingredient.id}>
-                <EditableInputSelect
-                  name={ingredient.name}
-                  value={ingredient.name}
-                  id={ingredient.id}
-                  selectionOptions={sections}
-                  itemSelection={ingredient.section}
-                  onClick={() => toggleEditable(ingredient)}
-                  onChangeInput={(event) =>
-                    handleChangeInput(event, ingredient)
-                  }
-                  onChangeSelect={(event) =>
-                    handleChangeSelect(event, ingredient)
-                  }
-                  onSave={() => handleSave(ingredient)}
-                  onCancel={() => handleCancel(ingredient)}
-                  onDelete={() => handleDelete(ingredient)}
-                  editable={ingredient.editable}
-                />
-              </li>
-            ))}
-          </ul>
+          <div className="ingredient-section">
+            <h3>Without Section:</h3>
+            <ul>
+              {noSection.map((ingredient) => (
+                <li key={ingredient.id}>
+                  <EditableInputSelect
+                    name={ingredient.name}
+                    value={ingredient.name}
+                    id={ingredient.id}
+                    selectionOptions={sections}
+                    itemSelection={ingredient.section}
+                    onClick={() => toggleEditable(ingredient)}
+                    onChangeInput={(event) =>
+                      handleChangeInput(event, ingredient)
+                    }
+                    onChangeSelect={(event) =>
+                      handleChangeSelect(event, ingredient)
+                    }
+                    onSave={() => handleSave(ingredient)}
+                    onCancel={() => handleCancel(ingredient)}
+                    onDelete={() => handleDelete(ingredient)}
+                    editable={ingredient.editable}
+                  />
+                </li>
+              ))}
+            </ul>
+          </div>
         </Fragment>
       );
     }
@@ -331,7 +333,7 @@ function Ingredients(props) {
     return (
       <Fragment>
         {sections.map((section) => (
-          <Fragment key={section.id}>
+          <div key={section.id} className="ingredient-section">
             <h3>{section.name} </h3>
             <ul>
               {ingredients
@@ -359,7 +361,7 @@ function Ingredients(props) {
                   </li>
                 ))}
             </ul>
-          </Fragment>
+          </div>
         ))}
       </Fragment>
     );
@@ -374,8 +376,10 @@ function Ingredients(props) {
         buttonLabel={`Create new Ingredient`}
         selectOptions={sections}
       />
-      {renderNoSection()}
-      {renderSectionsIngredients()}
+      <div className="ingredients">
+        {renderNoSection()}
+        {renderSectionsIngredients()}
+      </div>
     </div>
   );
 }

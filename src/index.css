@@ -1,6 +1,13 @@
 @import url("https://necolas.github.io/normalize.css/8.0.1/normalize.css");
 /* @import url("https://unpkg.com/mvp.css"); */
 
+/* Components */
+@import url("css/recipe_component.css");
+@import url("css/schedule_component.css");
+@import url("css/plan_component.css");
+@import url("css/meal_component.css");
+@import url("css/ingredient_component.css");
+
 :root {
   --colour-1: #65d8af;
   --colour-2: #e8128c;
@@ -69,43 +76,7 @@ input {
   margin-bottom: 5px;
 }
 
-.meal {
-  border: 1px solid var(--colour-1);
-  border-radius: 15px;
-  padding: 20px;
-  margin: 20px;
-}
-
-.meal .meal_ingredient {
-  border: 1px solid var(--colour-2);
-  border-radius: 15px;
-  padding: 5px;
-  margin: 5px;
-}
-
-.plan {
-  border: 1px solid var(--colour-1);
-  border-radius: 15px;
-  padding: 20px;
-  margin: 20px;
-}
-
-.plan .plan-details {
-  border: 1px solid var(--colour-3);
-  border-radius: 15px;
-  padding: 5px;
-  margin: 5px;
-}
-.plan .day_set {
-  border: 1px solid var(--colour-2);
-  border-radius: 15px;
-  padding: 5px;
-  margin: 5px;
-}
-
-.plan_buttons {
-  position: sticky;
-  left: 100%;
-  /* border: 2px solid var(--colour-4); */
-  display: inline;
+input[type="number"] {
+  margin-bottom: 5px;
+  width: 3rem;
 }

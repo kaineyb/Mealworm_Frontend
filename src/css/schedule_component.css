@@ -1,0 +1,15 @@
+.schedule-table {
+  border-collapse: collapse;
+  border: 1px solid white;
+}
+
+.schedule-table > tbody > tr {
+  /* border: 2px solid var(--colour-1); */
+  padding: 5px;
+}
+
+.schedule-table > tbody > tr.weekend {
+  font-weight: bolder;
+  border-bottom: 1px solid white;
+  border-top: 1px solid white;
+}

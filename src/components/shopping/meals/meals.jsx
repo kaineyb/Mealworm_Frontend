@@ -54,13 +54,11 @@ function Meals(props) {
         placeHolder={"New Meal name..."}
         buttonLabel={"Create new Meal"}
       />
-      <ul>
+      <div className="meals">
         {meals.map((meal) => (
-          <li key={`${meal.id}-list`}>
-            <Meal meal={meal} key={meal.id} />
-          </li>
+          <Meal meal={meal} key={meal.id} />
         ))}
-      </ul>
+      </div>
     </div>
   );
 }

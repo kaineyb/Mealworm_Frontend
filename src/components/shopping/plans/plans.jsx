@@ -53,11 +53,11 @@ function Plans(props) {
         placeHolder={"New Plan name..."}
         buttonLabel={"Create new Plan"}
       />
-      <ul>
+      <div className="plans">
         {plans.map((plan) => (
           <Plan key={plan.id} plan={plan} />
         ))}
-      </ul>
+      </div>
     </div>
   );
 }
