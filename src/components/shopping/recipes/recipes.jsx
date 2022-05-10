@@ -1,10 +1,10 @@
-import { useContext, useEffect, useState } from "react";
+import { Fragment, useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import dataContext from "../../../context/dataContext";
 import PlanLinks from "./../../planLinks";
-import ShoppingListTable from "./shoppingListTable";
+import Recipe from "./recipe";
 
-function ShoppingList(props) {
+function Recipes(props) {
   const urlParams = useParams();
   const plan_id = parseInt(urlParams["plan_id"]);
   const navigate = useNavigate();
@@ -12,11 +12,10 @@ function ShoppingList(props) {
   if (!plan_id) {
     navigate("not-found");
   }
-
   const [plans, setPlans] = useState([]);
   const [meals, setMeals] = useState([]);
   const [ingredients, setIngredients] = useState([]);
-  const [sections, setSections] = useState([]);
+
   const [plan, setPlan] = useState({ id: null, name: null, day_set: [] });
 
   const context = useContext(dataContext);
@@ -52,16 +51,6 @@ function ShoppingList(props) {
   }, [context]);
 
   useEffect(() => {
-    async function getSections() {
-      const {
-        data: { sections = [] },
-      } = context;
-      setSections(sections);
-    }
-    getSections();
-  }, [context]);
-
-  useEffect(() => {
     function getPlan() {
       const myPlan = plans.filter((_plan) => _plan.id === plan_id)[0];
       if (myPlan) {
@@ -72,18 +61,25 @@ function ShoppingList(props) {
   }, [plans, plan_id]);
 
   return (
-    <div>
-      <PlanLinks plan={plan} />
-      <h3>Shopping List</h3>
-      <hr />
-      <ShoppingListTable
-        plan={plan}
-        meals={meals}
-        ingredients={ingredients}
-        sections={sections}
-      />
-    </div>
+    <Fragment>
+      <div>
+        <PlanLinks plan={plan} />
+        <h3>Recipes</h3>
+        <hr />
+      </div>
+      <div className="recipes">
+        {plan.day_set.map((day) => (
+          <Recipe
+            key={day.id}
+            day={day}
+            meals={meals}
+            plan={plan}
+            ingredients={ingredients}
+          />
+        ))}
+      </div>
+    </Fragment>
   );
 }
 
-export default ShoppingList;
+export default Recipes;

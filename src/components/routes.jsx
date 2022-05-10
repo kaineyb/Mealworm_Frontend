@@ -9,6 +9,8 @@ import SimpleForm from "./shopping/component/simpleForm";
 import Ingredients from "./shopping/ingredients/ingredients";
 import Meals from "./shopping/meals/meals";
 import Plans from "./shopping/plans/plans";
+import Recipes from "./shopping/recipes/recipes";
+import Schedule from "./shopping/schedule/schedule";
 import ShoppingList from "./shopping/shoppingList/shoppingList";
 import LogOut from "./user/actions/logOut";
 // User Components
@@ -48,7 +50,10 @@ function RouteList(props) {
         }
       />
       <Route path="/plans" element={<Plans />} />
-      <Route path="shopping_plan/:plan_id" element={<ShoppingList />} />
+
+      <Route path="plan/:plan_id/shopping-list" element={<ShoppingList />} />
+      <Route path="plan/:plan_id/schedule" element={<Schedule />} />
+      <Route path="plan/:plan_id/recipes" element={<Recipes />} />
 
       <Route path="/meals" element={<Meals />} />
       <Route path="/ingredients" element={<Ingredients />} />

@@ -1,10 +1,11 @@
-import { useContext, useEffect, useState } from "react";
+import { Fragment, useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import dataContext from "../../../context/dataContext";
+import days from "../../../snippets/days";
+import mealFromID from "../../../snippets/meals";
 import PlanLinks from "./../../planLinks";
-import ShoppingListTable from "./shoppingListTable";
 
-function ShoppingList(props) {
+function Schedule() {
   const urlParams = useParams();
   const plan_id = parseInt(urlParams["plan_id"]);
   const navigate = useNavigate();
@@ -15,8 +16,6 @@ function ShoppingList(props) {
 
   const [plans, setPlans] = useState([]);
   const [meals, setMeals] = useState([]);
-  const [ingredients, setIngredients] = useState([]);
-  const [sections, setSections] = useState([]);
   const [plan, setPlan] = useState({ id: null, name: null, day_set: [] });
 
   const context = useContext(dataContext);
@@ -42,26 +41,6 @@ function ShoppingList(props) {
   }, [context]);
 
   useEffect(() => {
-    async function getIngredients() {
-      const {
-        data: { ingredients = [] },
-      } = context;
-      setIngredients(ingredients);
-    }
-    getIngredients();
-  }, [context]);
-
-  useEffect(() => {
-    async function getSections() {
-      const {
-        data: { sections = [] },
-      } = context;
-      setSections(sections);
-    }
-    getSections();
-  }, [context]);
-
-  useEffect(() => {
     function getPlan() {
       const myPlan = plans.filter((_plan) => _plan.id === plan_id)[0];
       if (myPlan) {
@@ -72,18 +51,39 @@ function ShoppingList(props) {
   }, [plans, plan_id]);
 
   return (
-    <div>
+    <Fragment>
       <PlanLinks plan={plan} />
-      <h3>Shopping List</h3>
+      <h3>Schedule</h3>
       <hr />
-      <ShoppingListTable
-        plan={plan}
-        meals={meals}
-        ingredients={ingredients}
-        sections={sections}
-      />
-    </div>
+      <p>
+        {" "}
+        Starts on a <strong>{days.longDay(plan.start_day)}</strong> and lasts{" "}
+        <strong>{plan.day_set.length}</strong> days
+      </p>
+
+      <table className="schedule-table">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Day</th>
+            <th scope="col">Meal</th>
+          </tr>
+        </thead>
+        <tbody>
+          {plan.day_set.map((day) => (
+            <tr
+              key={day.id}
+              className={days.isWeekend(days.getDay(day.order, plan.start_day))}
+            >
+              <th scope="row">{day.order}</th>
+              <td>{days.getDay(day.order, plan.start_day)} </td>
+              <td>{mealFromID(day.meal, meals)}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </Fragment>
   );
 }
 
-export default ShoppingList;
+export default Schedule;

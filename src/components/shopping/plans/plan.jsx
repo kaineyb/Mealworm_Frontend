@@ -126,24 +126,25 @@ function Plan(props) {
     <div className="plan">
       <div></div>
       {planName}
-
       <div className="plan_buttons">
         <button onClick={handleReorder}>Reorder</button>
         {" | "}
         <button onClick={handleDelete}>X</button>
       </div>
-
       <div className="plan-details">
         <StartDay day={plan.start_day} plan={plan} />
       </div>
-
       <ul>
         {plan.day_set.map((day) => (
           <PlanDay key={day.id} plan={plan} day={day} />
         ))}
         <CreatePlanDayForm plan={plan} />
       </ul>
-      <Link to={`/shopping_plan/${plan.id}`}>Shopping List</Link>
+      <Link to={`/plan/${plan.id}/shopping-list`}>Shopping List</Link>
+      {" | "}
+      <Link to={`/plan/${plan.id}/schedule`}>Schedule</Link>
+      {" | "}
+      <Link to={`/plan/${plan.id}/recipes`}>Recipes</Link>
     </div>
   );
 }

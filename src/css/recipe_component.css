@@ -3,6 +3,7 @@
   border-radius: 20px;
   padding: 20px;
   border: 1px solid var(--colour-2);
+  width: 30%;
 }
 
 .recipes {

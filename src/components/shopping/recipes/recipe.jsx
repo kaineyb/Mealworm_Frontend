@@ -1,6 +1,6 @@
 import { object } from "joi";
 import days from "../../../snippets/days";
-import mealFromID from "./../../../snippets/meals";
+import mealFromID from "../../../snippets/meals";
 function Recipe(props) {
   const { meals, plan, ingredients, day } = props;
 
@@ -11,7 +11,9 @@ function Recipe(props) {
 
   return (
     <div className="recipe" key={day.id}>
-      <h3>{days.getDay(day.order, plan.start_day)}:</h3>
+      <h3>
+        {day.order} - {days.getDay(day.order, plan.start_day)}
+      </h3>
       <hr />
       <h4>{mealFromID(day.meal, meals)}</h4>
       <hr />
@@ -33,6 +35,16 @@ function Recipe(props) {
           ))}
         </tbody>
       </table>
+      <div>
+        <hr />
+        <strong>Recipe</strong>
+        <p>
+          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Inventore
+          neque pariatur itaque minus similique odit asperiores. Maiores,
+          aliquid commodi adipisci esse libero officia. Beatae doloremque ipsam
+          architecto quisquam soluta eaque.
+        </p>
+      </div>
     </div>
   );
 }

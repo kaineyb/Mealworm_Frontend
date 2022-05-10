@@ -4,6 +4,8 @@ const ingredientFromID = (id, ingredients, object = false) => {
     return item;
   } else if (item) {
     return item.name;
+  } else {
+    return { item, error: "Ingredient not found" };
   }
 };
 
