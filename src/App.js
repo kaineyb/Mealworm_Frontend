@@ -1,29 +1,20 @@
 // React
-import React, { Fragment, Component } from "react";
-
+import React, { Component, Fragment } from "react";
 // 3rd Party
-import { ToastContainer } from "react-toastify";
-import { toast } from "react-toastify";
+import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
-// This needs to be imported at some level to get the JWT Token in Browser
-import auth from "./services/authService";
-import dataService from "./services/dataService";
-
+import Footer from "./components/footer/footer";
+// Top Level Components
+import NavBar from "./components/navBar/navBar";
+import RouteList from "./components/routes";
+import DataContext from "./context/dataContext";
 // Contexts
 import UserContext from "./context/userContext";
-import DataContext from "./context/dataContext";
-
-// Top Level Components
-
-import NavBar from "./components/navBar/navBar";
-
-import Footer from "./components/footer/footer";
-
+// This needs to be imported at some level to get the JWT Token in Browser
+import auth from "./services/authService";
 // config
 import config from "./services/config.json";
-
-import RouteList from "./components/routes";
+import dataService from "./services/dataService";
 
 class App extends Component {
   constructor(props) {
