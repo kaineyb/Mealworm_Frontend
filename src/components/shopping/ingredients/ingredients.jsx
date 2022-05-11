@@ -1,3 +1,4 @@
+import { Box, Divider, Heading } from "@chakra-ui/react";
 import _ from "lodash";
 import React, { Fragment, useContext, useEffect, useState } from "react";
 import { toast } from "react-toastify";
@@ -298,11 +299,52 @@ function Ingredients(props) {
       return (
         <Fragment>
           <div className="ingredient-section">
-            <h3>Without Section:</h3>
-            <ul>
+            <Box borderWidth="1px" borderRadius="lg" my={4} p={4}>
+              <Heading mb={4} as="h3" size="sm">
+                Without Section <Divider mt={4} />
+              </Heading>
               {noSection.map((ingredient) => (
-                <li key={ingredient.id}>
+                <EditableInputSelect
+                  key={ingredient.id}
+                  name={ingredient.name}
+                  value={ingredient.name}
+                  id={ingredient.id}
+                  selectionOptions={sections}
+                  itemSelection={ingredient.section}
+                  onClick={() => toggleEditable(ingredient)}
+                  onChangeInput={(event) =>
+                    handleChangeInput(event, ingredient)
+                  }
+                  onChangeSelect={(event) =>
+                    handleChangeSelect(event, ingredient)
+                  }
+                  onSave={() => handleSave(ingredient)}
+                  onCancel={() => handleCancel(ingredient)}
+                  onDelete={() => handleDelete(ingredient)}
+                  editable={ingredient.editable}
+                />
+              ))}
+            </Box>
+          </div>
+        </Fragment>
+      );
+    }
+  };
+
+  const renderSectionsIngredients = () => {
+    return (
+      <Fragment>
+        {sections.map((section) => (
+          <div key={section.id} className="ingredient-section">
+            <Box borderWidth="1px" borderRadius="lg" my={4} p={4}>
+              <Heading mb={4} as="h3" size="sm">
+                {section.name} <Divider mt={4} />
+              </Heading>{" "}
+              {ingredients
+                .filter((item) => item.section === section.id)
+                .map((ingredient) => (
                   <EditableInputSelect
+                    key={ingredient.id}
                     name={ingredient.name}
                     value={ingredient.name}
                     id={ingredient.id}
@@ -320,47 +362,8 @@ function Ingredients(props) {
                     onDelete={() => handleDelete(ingredient)}
                     editable={ingredient.editable}
                   />
-                </li>
-              ))}
-            </ul>
-          </div>
-        </Fragment>
-      );
-    }
-  };
-
-  const renderSectionsIngredients = () => {
-    return (
-      <Fragment>
-        {sections.map((section) => (
-          <div key={section.id} className="ingredient-section">
-            <h3>{section.name} </h3>
-            <ul>
-              {ingredients
-                .filter((item) => item.section === section.id)
-                .map((ingredient) => (
-                  <li key={ingredient.id}>
-                    <EditableInputSelect
-                      name={ingredient.name}
-                      value={ingredient.name}
-                      id={ingredient.id}
-                      selectionOptions={sections}
-                      itemSelection={ingredient.section}
-                      onClick={() => toggleEditable(ingredient)}
-                      onChangeInput={(event) =>
-                        handleChangeInput(event, ingredient)
-                      }
-                      onChangeSelect={(event) =>
-                        handleChangeSelect(event, ingredient)
-                      }
-                      onSave={() => handleSave(ingredient)}
-                      onCancel={() => handleCancel(ingredient)}
-                      onDelete={() => handleDelete(ingredient)}
-                      editable={ingredient.editable}
-                    />
-                  </li>
                 ))}
-            </ul>
+            </Box>
           </div>
         ))}
       </Fragment>
@@ -369,13 +372,16 @@ function Ingredients(props) {
 
   return (
     <div>
-      <h2>Ingredients</h2>
+      <Heading as="h1">Ingredients</Heading>
+      <Divider my={4} />
+
       <CreateIngredientForm
         handleCreate={handleCreate}
         placeHolder={`New Ingredient name...`}
         buttonLabel={`Create new Ingredient`}
         selectOptions={sections}
       />
+      <Divider my={4} />
       <div className="ingredients">
         {renderNoSection()}
         {renderSectionsIngredients()}

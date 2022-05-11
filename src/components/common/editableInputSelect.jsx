@@ -1,3 +1,4 @@
+import { Box, Button, HStack, Input, Select } from "@chakra-ui/react";
 import React from "react";
 
 const EditableInputSelect = ({
@@ -15,31 +16,49 @@ const EditableInputSelect = ({
   if (editable) {
     return (
       <React.Fragment>
-        <input defaultValue={name} onChange={onChangeInput} />
-        <select
-          defaultValue={itemSelection}
-          name={`${name}-select`}
-          id={`${name}-select`}
-          onChange={onChangeSelect}
-        >
-          <option value="0">----</option>
-          {selectionOptions.map((selection) => (
-            <option key={selection.id} value={selection.id}>
-              {selection.name}
-            </option>
-          ))}
-        </select>
-        <button onClick={onSave}>Save</button>
-        <button onClick={onCancel}>Cancel</button>
-        <button onClick={onDelete}>Delete</button>
+        <Box borderWidth="1px" borderRadius="lg" p={4} m={4} bg="orange.900">
+          <HStack>
+            <Input defaultValue={name} onChange={onChangeInput} />
+            <Select
+              defaultValue={itemSelection}
+              name={`${name}-select`}
+              id={`${name}-select`}
+              onChange={onChangeSelect}
+            >
+              <option value="0">----</option>
+              {selectionOptions.map((selection) => (
+                <option key={selection.id} value={selection.id}>
+                  {selection.name}
+                </option>
+              ))}
+            </Select>
+            <Button px={8} onClick={onSave}>
+              Save
+            </Button>
+            <Button px={8} onClick={onCancel}>
+              Cancel
+            </Button>
+            <Button px={8} onClick={onDelete}>
+              Delete
+            </Button>
+          </HStack>
+        </Box>
       </React.Fragment>
     );
   } else {
     return (
       <React.Fragment>
-        <span className="clickable" onClick={onClick}>
+        <Box
+          bg="orange.900"
+          className="clickable"
+          onClick={onClick}
+          borderWidth="1px"
+          borderRadius="lg"
+          p={4}
+          m={4}
+        >
           {name}
-        </span>{" "}
+        </Box>{" "}
       </React.Fragment>
     );
   }

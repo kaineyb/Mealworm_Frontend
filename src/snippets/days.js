@@ -24,6 +24,8 @@ const longDay = (day) => {
       return "Saturday";
     case "Sun":
       return "Sunday";
+    default:
+      break;
   }
   return "Day Not Found";
 };
@@ -51,11 +53,13 @@ const getDay = (dayNumber, startDay) => {
 };
 
 const isWeekend = (longDay) => {
-  if (longDay == "Saturday" || longDay === "Sunday") {
+  if (longDay === "Saturday" || longDay === "Sunday") {
     return "weekend";
   } else {
     return "";
   }
 };
 
-export default { longDay, daysArray, calculateOffset, getDay, isWeekend };
+const days = { longDay, daysArray, calculateOffset, getDay, isWeekend };
+
+export default days;

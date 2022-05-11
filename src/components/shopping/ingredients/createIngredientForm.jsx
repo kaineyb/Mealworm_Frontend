@@ -1,4 +1,5 @@
-import { React, Fragment, useState } from "react";
+import { Button, FormControl, HStack, Input, Select } from "@chakra-ui/react";
+import { Fragment, React, useState } from "react";
 
 const CreateIngredientForm = (props) => {
   const [value, setValue] = useState("");
@@ -23,30 +24,43 @@ const CreateIngredientForm = (props) => {
 
   return (
     <Fragment>
-      <form>
-        <input
-          type="text"
-          value={value}
-          onChange={handleChangeInput}
-          placeholder={placeHolder}
-        />
-        <select
-          value={selection}
-          name="create-ingredient-select"
-          id="create-ingredient-select"
-          onChange={handleChangeSelect}
-        >
-          <option value="0">----</option>
-          {selectOptions.map((selection) => (
-            <option key={selection.id} value={selection.id}>
-              {selection.name}
+      <FormControl>
+        <HStack>
+          <Input
+            type="text"
+            value={value}
+            onChange={handleChangeInput}
+            placeholder={placeHolder}
+            width="sm"
+            size="sm"
+          />
+          <Select
+            value={selection}
+            name="create-ingredient-select"
+            id="create-ingredient-select"
+            width="sm"
+            size="sm"
+            onChange={handleChangeSelect}
+          >
+            <option value="0" disabled hidden>
+              Choose Section...
             </option>
-          ))}
-        </select>
-        <button type="submit" onClick={(event) => handleOnClick(event, value)}>
-          {buttonLabel}
-        </button>
-      </form>
+            {selectOptions.map((selection) => (
+              <option key={selection.id} value={selection.id}>
+                {selection.name}
+              </option>
+            ))}
+          </Select>
+          <Button
+            type="submit"
+            onClick={(event) => handleOnClick(event, value)}
+            width="sm"
+            size="sm"
+          >
+            {buttonLabel}
+          </Button>
+        </HStack>
+      </FormControl>
     </Fragment>
   );
 };

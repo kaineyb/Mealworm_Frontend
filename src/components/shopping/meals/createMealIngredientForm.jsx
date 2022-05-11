@@ -1,3 +1,4 @@
+import { Button } from "@chakra-ui/react";
 import { Fragment, useContext, useEffect, useState } from "react";
 import dataContext from "../../../context/dataContext";
 import CreateMealIngredientLine from "./createMealIngredientLine";
@@ -44,7 +45,9 @@ const CreateMealIngredientForm = (props) => {
 
   return (
     <Fragment>
-      <button onClick={handleAddAnother}>Add Ingredient to this Meal</button>
+      <Button mb={4} onClick={handleAddAnother}>
+        Add Ingredient to this Meal
+      </Button>
       {newLines.map((line) => (
         <CreateMealIngredientLine
           key={line.id}

@@ -1,3 +1,4 @@
+import { Button, HStack, Input, Select } from "@chakra-ui/react";
 import { useContext, useState } from "react";
 import { toast } from "react-toastify";
 import dataContext from "../../../context/dataContext";
@@ -70,8 +71,10 @@ const CreateMealIngredientLine = (props) => {
   };
 
   return (
-    <li className="clickable meal_ingredient" key={1}>
-      <input
+    <HStack key={1} my={4}>
+      <Input
+        width="sm"
+        size="sm"
         name={`${name_id}-input-quantity`}
         type="number"
         min="1"
@@ -79,7 +82,9 @@ const CreateMealIngredientLine = (props) => {
         placeholder="Enter Quantity..."
         onChange={(event) => handleChangeQuantity(event)}
       />
-      <select
+      <Select
+        width="sm"
+        size="sm"
         name={`${name_id}-select-unit`}
         id={`${name_id}-select-unit`}
         onChange={(event) => handleChangeUnit(event)}
@@ -93,8 +98,10 @@ const CreateMealIngredientLine = (props) => {
             {selection[1]}
           </option>
         ))}
-      </select>
-      <select
+      </Select>
+      <Select
+        width="sm"
+        size="sm"
         name={`${name_id}-select-ingredient`}
         id={`${name_id}-select-ingredient`}
         onChange={(event) => handleChangeIngredient(event)}
@@ -108,13 +115,14 @@ const CreateMealIngredientLine = (props) => {
             {ingredient.name}
           </option>
         ))}
-      </select>
-
-      <button disabled={!validateSave} onClick={handleSave}>
+      </Select>
+      <Button size="sm" px={5} disabled={!validateSave} onClick={handleSave}>
         Save
-      </button>
-      <button onClick={() => removeLine(line_id)}>Cancel</button>
-    </li>
+      </Button>
+      <Button size="sm" px={5} onClick={() => removeLine(line_id)}>
+        Cancel
+      </Button>
+    </HStack>
   );
 };
 

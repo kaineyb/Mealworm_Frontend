@@ -1,3 +1,4 @@
+import { Box, Button } from "@chakra-ui/react";
 import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import DataContext from "../../context/dataContext";
@@ -35,30 +36,32 @@ function UserProfile(props) {
 
   return (
     <div>
-      <h2>User Profile:</h2>
-      <ul>
-        <li>User ID:{user.id}</li>
-        <li>Username: {user.username}</li>
-        <li>Email: {user.email}</li>
-      </ul>
-      <button onClick={context.updateData}>Reload Data from Server</button>
-      <br />
-      <button onClick={setStores}>Set Stores to Faux Data</button>
-      <br />
-      <hr />
-      <h2>Token Details:</h2>
-      <strong>Access Token Time</strong>
-      <br />
-      {`${aT.hours} hours, ${aT.minutes} minutes, ${aT.seconds} seconds`}
-      <br />
-      <br />
-      <strong>Refresh Token Time</strong>
-      <br />
-      {`${rT.hours} hours, ${rT.minutes} minutes, ${rT.seconds} seconds`}
-      <hr />
+      <Box my={5} p={5} borderWidth="1px" borderRadius="lg">
+        <h2>User Profile:</h2>
+        <ul>
+          <li>User ID:{user.id}</li>
+          <li>Username: {user.username}</li>
+          <li>Email: {user.email}</li>
+        </ul>
+      </Box>
+      <Button mr={4} onClick={context.updateData}>
+        Reload Data from Server
+      </Button>
+      <Button onClick={setStores}>Set Stores to Faux Data</Button>
+      <Box my={5} p={4} borderWidth="1px" borderRadius="lg">
+        <h2>Token Details:</h2>
+        <strong>Access Token Time</strong>
+        <br />
+        {`${aT.hours} hours, ${aT.minutes} minutes, ${aT.seconds} seconds`}
+        <br />
+        <br />
+        <strong>Refresh Token Time</strong>
+        <br />
+        {`${rT.hours} hours, ${rT.minutes} minutes, ${rT.seconds} seconds`}
+      </Box>
 
       <Link to="/logout">
-        <button>Logout</button>
+        <Button my={5}>Logout</Button>
       </Link>
     </div>
   );

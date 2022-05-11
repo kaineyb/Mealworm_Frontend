@@ -1,3 +1,4 @@
+import { Box, Button, Input } from "@chakra-ui/react";
 import React from "react";
 
 const EditableInput = ({
@@ -13,18 +14,37 @@ const EditableInput = ({
   if (editable) {
     return (
       <React.Fragment>
-        <input name={name} id={id} defaultValue={name} onChange={onChange} />{" "}
-        <button onClick={onSave}>Save</button>
-        <button onClick={onCancel}>Cancel</button>
-        <button onClick={onDelete}>Delete</button>
+        <Box
+          bg="orange.900"
+          maxW="sm"
+          borderWidth="1px"
+          borderRadius="lg"
+          p={4}
+          m={4}
+          className="clickable"
+        >
+          <Input name={name} id={id} defaultValue={name} onChange={onChange} />{" "}
+          <Button onClick={onSave}>Save</Button>
+          <Button onClick={onCancel}>Cancel</Button>
+          <Button onClick={onDelete}>Delete</Button>
+        </Box>
       </React.Fragment>
     );
   } else {
     return (
       <React.Fragment>
-        <span className="clickable" onClick={onClick}>
-          {name}{" "}
-        </span>
+        <Box
+          maxW="sm"
+          bg="orange.900"
+          borderWidth="1px"
+          borderRadius="lg"
+          p={4}
+          m={4}
+          onClick={onClick}
+          className="clickable"
+        >
+          {name}
+        </Box>
       </React.Fragment>
     );
   }

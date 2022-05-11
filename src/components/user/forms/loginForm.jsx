@@ -1,15 +1,13 @@
-import React from "react";
+import { Button } from "@chakra-ui/react";
 import Joi from "joi";
-import auth from "../../../services/authService";
-
-import Input from "../../common/input";
-import BaseForm from "../../common/baseForm";
-
-// My Components
-import LogIn from "../actions/logIn";
-
+import React from "react";
 //  Contexts
 import UserContext from "../../../context/userContext";
+import auth from "../../../services/authService";
+import BaseForm from "../../common/baseForm";
+import Input from "../../common/input";
+// My Components
+import LogIn from "../actions/logIn";
 
 class LoginForm extends BaseForm {
   constructor(props) {
@@ -70,13 +68,13 @@ class LoginForm extends BaseForm {
           onChange={this.handleChange}
         />
         <br />
-        <button
+        <Button
           type="submit"
           onClick={this.handleSubmit}
           disabled={this.validate()}
         >
           Login
-        </button>
+        </Button>
       </form>
     );
   }

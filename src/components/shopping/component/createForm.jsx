@@ -1,4 +1,5 @@
-import { React, Fragment, useState } from "react";
+import { Button, FormControl, HStack, Input } from "@chakra-ui/react";
+import { Fragment, React, useState } from "react";
 
 const CreateForm = (props) => {
   const [value, setValue] = useState("");
@@ -18,15 +19,27 @@ const CreateForm = (props) => {
   return (
     <Fragment>
       <form>
-        <input
-          type="text"
-          value={value}
-          onChange={handleChange}
-          placeholder={placeHolder}
-        />
-        <button type="submit" onClick={(event) => handleOnClick(event, value)}>
-          {buttonLabel}
-        </button>
+        <FormControl>
+          <HStack>
+            {" "}
+            <Input
+              size={"sm"}
+              width={"md"}
+              type="text"
+              mr={3}
+              value={value}
+              onChange={handleChange}
+              placeholder={placeHolder}
+            />
+            <Button
+              type="submit"
+              onClick={(event) => handleOnClick(event, value)}
+              size={"sm"}
+            >
+              {buttonLabel}
+            </Button>
+          </HStack>
+        </FormControl>
       </form>
     </Fragment>
   );

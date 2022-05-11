@@ -1,4 +1,5 @@
 // React
+import { Container } from "@chakra-ui/react";
 import React, { Component, Fragment } from "react";
 // 3rd Party
 import { toast, ToastContainer } from "react-toastify";
@@ -107,24 +108,26 @@ class App extends Component {
 
     return (
       <Fragment>
-        <DataContext.Provider value={dataContextValue}>
-          <UserContext.Provider value={userContextValue}>
-            <ToastContainer
-              theme="dark"
-              newestOnTop={true}
-              position="bottom-right"
-            />
-            <NavBar />
-            <main>
-              <RouteList
-                loggedIn={this.state.loggedIn}
-                dataContextValue={dataContextValue}
-                userContextValue={userContextValue}
+        <Container maxWidth="3xl">
+          <DataContext.Provider value={dataContextValue}>
+            <UserContext.Provider value={userContextValue}>
+              <ToastContainer
+                theme="dark"
+                newestOnTop={true}
+                position="bottom-right"
               />
-            </main>
-            <Footer />
-          </UserContext.Provider>
-        </DataContext.Provider>
+              <NavBar />
+              <main>
+                <RouteList
+                  loggedIn={this.state.loggedIn}
+                  dataContextValue={dataContextValue}
+                  userContextValue={userContextValue}
+                />
+              </main>
+              <Footer />
+            </UserContext.Provider>
+          </DataContext.Provider>
+        </Container>
       </Fragment>
     );
   }

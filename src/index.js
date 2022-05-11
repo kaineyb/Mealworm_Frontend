@@ -1,5 +1,4 @@
 // Chakra
-import { ColorModeScript } from "@chakra-ui/color-mode";
 import { ChakraProvider } from "@chakra-ui/provider";
 // React
 import React from "react";
@@ -16,8 +15,7 @@ ReactDOM.render(
   <React.StrictMode>
     <React.Fragment>
       <BrowserRouter>
-        <ChakraProvider>
-          <ColorModeScript initialColorMode={theme.config.initialColorMode} />
+        <ChakraProvider theme={theme}>
           <App />
         </ChakraProvider>
       </BrowserRouter>

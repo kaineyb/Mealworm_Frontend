@@ -1,21 +1,21 @@
-@import url("https://necolas.github.io/normalize.css/8.0.1/normalize.css");
+/* @import url("https://necolas.github.io/normalize.css/8.0.1/normalize.css"); */
 /* @import url("https://unpkg.com/mvp.css"); */
 
 /* Components */
-@import url("css/recipe_component.css");
+/* @import url("css/recipe_component.css");
 @import url("css/schedule_component.css");
 @import url("css/plan_component.css");
 @import url("css/meal_component.css");
-@import url("css/ingredient_component.css");
+@import url("css/ingredient_component.css"); */
 
-:root {
+/* :root {
   --colour-1: #65d8af;
   --colour-2: #e8128c;
   --colour-3: #f8d545;
   --colour-4: #913abd;
-}
+} */
 
-body {
+/* body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
     "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
@@ -62,13 +62,13 @@ main {
 }
 a {
   color: #65d8af;
-}
+} */
 
 .clickable {
   cursor: pointer;
 }
 
-button {
+/* button {
   cursor: pointer;
 }
 
@@ -79,4 +79,4 @@ input {
 input[type="number"] {
   margin-bottom: 5px;
   width: 3rem;
-}
+} */

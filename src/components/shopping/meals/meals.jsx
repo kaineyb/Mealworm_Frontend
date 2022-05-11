@@ -1,3 +1,4 @@
+import { Divider, Heading } from "@chakra-ui/react";
 import React, { useContext, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import dataContext from "../../../context/dataContext";
@@ -47,13 +48,15 @@ function Meals(props) {
 
   return (
     <div>
-      <h2>Meals:</h2>
+      <Heading as="h1">Meals</Heading>
+      <Divider my={4} />
 
       <CreateForm
         doCreate={handleCreate}
         placeHolder={"New Meal name..."}
         buttonLabel={"Create new Meal"}
       />
+      <Divider my={4} />
       <div className="meals">
         {meals.map((meal) => (
           <Meal meal={meal} key={meal.id} />

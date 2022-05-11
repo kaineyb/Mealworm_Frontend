@@ -1,11 +1,10 @@
-import { object } from "joi";
 import days from "../../../snippets/days";
 import mealFromID from "../../../snippets/meals";
 function Recipe(props) {
   const { meals, plan, ingredients, day } = props;
 
   const MealIngredients = (mealId) => {
-    const meal = mealFromID(mealId, meals, (object = true));
+    const meal = mealFromID(mealId, meals, {});
     return meal.meal_ingredients;
   };
 

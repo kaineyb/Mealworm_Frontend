@@ -3,8 +3,7 @@ import { toast } from "react-toastify";
 import dataContext from "./../../../context/dataContext";
 import http from "./../../../services/httpService";
 function PlanDay(props) {
-  const { plan } = props;
-  const [day, setDay] = useState(props.day);
+  const { plan, day } = props;
   const [meal, setMeal] = useState(props.day.meal);
   const [meals, setMeals] = useState([]);
 

@@ -1,13 +1,11 @@
-import React, { useState, useEffect, useContext } from "react";
+import { Box, Divider, Heading } from "@chakra-ui/react";
+import React, { useContext, useEffect, useState } from "react";
+// 3rd Party
+import { toast } from "react-toastify";
 import DataContext from "../../../context/dataContext";
 import http from "../../../services/httpService";
-
 import EditableInput from "../../common/editableInput";
 import CreateForm from "./createForm";
-
-// 3rd Party
-
-import { toast } from "react-toastify";
 
 function SimpleForm(props) {
   const [local, setLocal] = useState([]);
@@ -176,32 +174,38 @@ function SimpleForm(props) {
   const renderMap = () => {
     return local
       ? local.map((item) => (
-          <li key={item.id}>
-            <EditableInput
-              name={item.name}
-              value={item.name}
-              id={item.id}
-              onClick={() => toggleEditable(item)}
-              onChange={(event) => handleChange(event, item)}
-              onSave={() => handleSave(item)}
-              onCancel={() => handleCancel(item)}
-              onDelete={() => handleDelete(item)}
-              editable={item.editable}
-            />
-          </li>
+          <EditableInput
+            key={item.id}
+            name={item.name}
+            value={item.name}
+            id={item.id}
+            onClick={() => toggleEditable(item)}
+            onChange={(event) => handleChange(event, item)}
+            onSave={() => handleSave(item)}
+            onCancel={() => handleCancel(item)}
+            onDelete={() => handleDelete(item)}
+            editable={item.editable}
+          />
         ))
       : [];
   };
 
   return (
     <div>
-      <h2>{props.pluralTitle}</h2>
+      <Box>
+        <Heading as="h1">{props.pluralTitle}</Heading>
+      </Box>
+      <Divider my={4} />
+
       <CreateForm
         doCreate={handleCreate}
         placeHolder={`New ${props.singularTitle} name...`}
         buttonLabel={`Create new ${props.singularTitle}`}
       />
-      <ul>{renderMap()}</ul>
+      <Divider mt={4} />
+      <Box borderWidth="1px" borderRadius="lg" p={4} pl={10} mt={4}>
+        {renderMap()}
+      </Box>
     </div>
   );
 }

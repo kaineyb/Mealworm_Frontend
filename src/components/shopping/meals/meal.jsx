@@ -1,3 +1,13 @@
+import { EditIcon } from "@chakra-ui/icons";
+import {
+  Box,
+  Button,
+  Divider,
+  Heading,
+  HStack,
+  Icon,
+  Input,
+} from "@chakra-ui/react";
 import { Fragment, useContext, useState } from "react";
 import { toast } from "react-toastify";
 import dataContext from "../../../context/dataContext";
@@ -90,30 +100,43 @@ const Meal = (props) => {
 
   const mealName = editable ? (
     <Fragment>
-      <input
-        name={name}
-        id={meal.id}
-        defaultValue={name}
-        onChange={(event) => handleChange(event)}
-      />
-      <button onClick={handleSave}>Save</button>
-      <button onClick={handleCancel}>Cancel</button>
-      <button onClick={handleDelete}>Delete Meal</button>
+      <HStack>
+        <Input
+          size="sm"
+          width="sm"
+          name={name}
+          id={meal.id}
+          defaultValue={name}
+          onChange={(event) => handleChange(event)}
+        />
+        <Button size="sm" onClick={handleSave}>
+          Save
+        </Button>
+        <Button size="sm" onClick={handleCancel}>
+          Cancel
+        </Button>
+        <Button size="sm" onClick={handleDelete}>
+          Delete Meal
+        </Button>
+      </HStack>
     </Fragment>
   ) : (
     <Fragment>
       <strong className="clickable" onClick={handleClick}>
-        {name}
+        {name} <Icon as={EditIcon} ml={2} w={3} h={3} />
       </strong>
     </Fragment>
   );
 
   return (
     <div className="meal">
-      {mealName}
-      <ul>
+      <Box my={4} borderWidth="1px" borderRadius="lg" p={4}>
+        <Heading mb={4} as="h3" size="sm">
+          {mealName} <Divider mt={4} />
+        </Heading>
+
         <MealIngredients meal_ingredients={meal.meal_ingredients} meal={meal} />
-      </ul>
+      </Box>
     </div>
   );
 };

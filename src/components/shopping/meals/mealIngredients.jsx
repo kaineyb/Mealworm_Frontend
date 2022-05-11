@@ -1,3 +1,4 @@
+import { Divider } from "@chakra-ui/react";
 import { Fragment, useContext, useEffect, useState } from "react";
 import DataContext from "../../../context/dataContext";
 import CreateMealIngredientForm from "./createMealIngredientForm";
@@ -39,7 +40,7 @@ const MealIngredients = (props) => {
           meal={meal}
         />
       ))}
-      <hr />
+      <Divider my={4} />
       <CreateMealIngredientForm meal={meal} />
     </Fragment>
   );

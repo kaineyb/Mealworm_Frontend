@@ -1,3 +1,4 @@
+import { Box, Button, HStack, Input, Select } from "@chakra-ui/react";
 import { useContext, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import DataContext from "../../../context/dataContext";
@@ -43,10 +44,12 @@ const MealIngredient = (props) => {
   };
 
   const handleCancel = () => {
+    console.log("cancel fired");
     setNewQuantity("");
     setNewUnit("");
     setNewMealIngredient("");
     setEditable(false);
+    console.log("cancel fired");
   };
 
   const validateSave = newQuantity > 0 ? true : false;
@@ -153,6 +156,7 @@ const MealIngredient = (props) => {
   };
 
   const unitOnChange = (event) => {
+    console.log(event.target.value);
     setNewUnit(event.target.value);
   };
 
@@ -161,48 +165,73 @@ const MealIngredient = (props) => {
   };
 
   const toggle = editable ? (
-    <li className="clickable meal_ingredient" key={meal_ingredient.id}>
-      <input
-        name={`${meal_ingredient.id}-input-quantity`}
-        type="number"
-        min="1"
-        id={`${meal_ingredient.id}-input-quantity`}
-        defaultValue={meal_ingredient.quantity}
-        onChange={(event) => quantityOnChange(event)}
-      />
-      <select
-        onChange={(event) => unitOnChange(event)}
-        defaultValue={meal_ingredient.unit}
-        name={`${meal_ingredient.id}-select-unit`}
-        id={`${meal_ingredient.id}-select-unit`}
-      >
-        {units.map((selection) => (
-          <option key={selection[0]} value={selection[0]}>
-            {selection[1]}
-          </option>
-        ))}
-      </select>
-      <select
-        onChange={(event) => mealOnChange(event)}
-        defaultValue={meal_ingredient.ingredient}
-        name={`${meal_ingredient.id}-select-ingredient`}
-        id={`${meal_ingredient.id}-select-ingredient`}
-      >
-        {ingredients.map((ingredient) => (
-          <option key={ingredient.id} value={ingredient.id}>
-            {ingredient.name}
-          </option>
-        ))}
-      </select>
+    <Box
+      bg="orange.900"
+      my={4}
+      borderWidth="1px"
+      borderRadius="lg"
+      p={4}
+      className="clickable meal_ingredient"
+      key={meal_ingredient.id}
+    >
+      <HStack>
+        <Input
+          size="sm"
+          width="7rem"
+          name={`${meal_ingredient.id}-input-quantity`}
+          type="number"
+          min="1"
+          id={`${meal_ingredient.id}-input-quantity`}
+          defaultValue={meal_ingredient.quantity}
+          onChange={(event) => quantityOnChange(event)}
+        />
+        <Select
+          size="sm"
+          width="xs"
+          onChange={(event) => unitOnChange(event)}
+          defaultValue={meal_ingredient.unit}
+          name={`${meal_ingredient.id}-select-unit`}
+          id={`${meal_ingredient.id}-select-unit`}
+        >
+          {units.map((selection) => (
+            <option key={selection[0]} value={selection[0]}>
+              {selection[1]}
+            </option>
+          ))}
+        </Select>
+        <Select
+          size="sm"
+          width="md"
+          onChange={(event) => mealOnChange(event)}
+          defaultValue={meal_ingredient.ingredient}
+          name={`${meal_ingredient.id}-select-ingredient`}
+          id={`${meal_ingredient.id}-select-ingredient`}
+        >
+          {ingredients.map((ingredient) => (
+            <option key={ingredient.id} value={ingredient.id}>
+              {ingredient.name}
+            </option>
+          ))}
+        </Select>
 
-      <button onClick={handleSave} disabled={!validateSave}>
-        Save
-      </button>
-      <button onClick={handleCancel}>Cancel</button>
-      <button onClick={handleDelete}>Delete</button>
-    </li>
+        <Button size="sm" px={5} onClick={handleSave} disabled={!validateSave}>
+          Save
+        </Button>
+        <Button size="sm" px={5} onClick={handleCancel}>
+          Cancel
+        </Button>
+        <Button size="sm" px={5} onClick={handleDelete}>
+          Delete
+        </Button>
+      </HStack>
+    </Box>
   ) : (
-    <li
+    <Box
+      bg="orange.900"
+      my={4}
+      borderWidth="1px"
+      borderRadius="lg"
+      p={4}
       className="clickable meal_ingredient"
       key={meal_ingredient.id}
       onClick={handleClick}
@@ -210,7 +239,7 @@ const MealIngredient = (props) => {
       {meal_ingredient.quantity} {meal_ingredient.unit}
       {" - "}
       {name}
-    </li>
+    </Box>
   );
 
   return toggle;
