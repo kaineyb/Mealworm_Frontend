@@ -155,7 +155,6 @@ function PlanDay(props) {
       <Box
         key={day.id}
         position="relative"
-        bg="orange.900"
         borderWidth="1px"
         borderRadius="lg"
         my={4}
@@ -219,7 +218,6 @@ function PlanDay(props) {
   ) : (
     <Box
       position="relative"
-      bg="orange.900"
       key={day.id}
       className="clickable"
       onClick={handleClick}

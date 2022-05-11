@@ -167,7 +167,6 @@ const MealIngredient = (props) => {
 
   const toggle = editable ? (
     <Box
-      bg="orange.900"
       my={4}
       borderWidth="1px"
       borderRadius="lg"
@@ -238,7 +237,6 @@ const MealIngredient = (props) => {
   ) : (
     <Box
       position="relative"
-      bg="orange.900"
       my={4}
       borderWidth="1px"
       borderRadius="lg"
