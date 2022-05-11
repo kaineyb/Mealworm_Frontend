@@ -1,5 +1,5 @@
-import { EditIcon } from "@chakra-ui/icons";
-import { Box, Button, HStack, Icon, Input, Select } from "@chakra-ui/react";
+import { CheckIcon, CloseIcon, DeleteIcon, EditIcon } from "@chakra-ui/icons";
+import { Box, Flex, Icon, IconButton, Input, Select } from "@chakra-ui/react";
 import { useContext, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import DataContext from "../../../context/dataContext";
@@ -175,10 +175,9 @@ const MealIngredient = (props) => {
       className="clickable meal_ingredient"
       key={meal_ingredient.id}
     >
-      <HStack>
+      <Flex direction={{ base: "column", sm: "row" }} gap={2}>
         <Input
           size="sm"
-          width="7rem"
           name={`${meal_ingredient.id}-input-quantity`}
           type="number"
           min="1"
@@ -188,7 +187,6 @@ const MealIngredient = (props) => {
         />
         <Select
           size="sm"
-          width="xs"
           onChange={(event) => unitOnChange(event)}
           defaultValue={meal_ingredient.unit}
           name={`${meal_ingredient.id}-select-unit`}
@@ -202,7 +200,6 @@ const MealIngredient = (props) => {
         </Select>
         <Select
           size="sm"
-          width="md"
           onChange={(event) => mealOnChange(event)}
           defaultValue={meal_ingredient.ingredient}
           name={`${meal_ingredient.id}-select-ingredient`}
@@ -215,16 +212,28 @@ const MealIngredient = (props) => {
           ))}
         </Select>
 
-        <Button size="sm" px={5} onClick={handleSave} disabled={!validateSave}>
-          Save
-        </Button>
-        <Button size="sm" px={5} onClick={handleCancel}>
-          Cancel
-        </Button>
-        <Button size="sm" px={5} onClick={handleDelete}>
-          Delete
-        </Button>
-      </HStack>
+        <IconButton
+          disabled={!validateSave}
+          colorScheme={"green"}
+          aria-label="Save"
+          icon={<CheckIcon />}
+          size="sm"
+          onClick={handleSave}
+        />
+        <IconButton
+          aria-label="Cancel"
+          icon={<CloseIcon />}
+          size="sm"
+          onClick={handleCancel}
+        />
+        <IconButton
+          colorScheme={"red"}
+          aria-label="Delete Meal"
+          icon={<DeleteIcon />}
+          size="sm"
+          onClick={handleDelete}
+        />
+      </Flex>
     </Box>
   ) : (
     <Box

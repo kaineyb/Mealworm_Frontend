@@ -31,6 +31,7 @@ const EditableInput = ({
               onChange={onChange}
             />{" "}
             <IconButton
+              colorScheme={"green"}
               aria-label="Save"
               icon={<CheckIcon />}
               size="sm"
@@ -43,6 +44,7 @@ const EditableInput = ({
               onClick={onCancel}
             />
             <IconButton
+              colorScheme={"red"}
               aria-label="Delete"
               icon={<DeleteIcon />}
               size="sm"

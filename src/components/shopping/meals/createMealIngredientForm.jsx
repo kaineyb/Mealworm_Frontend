@@ -1,4 +1,5 @@
-import { Button } from "@chakra-ui/react";
+import { AddIcon } from "@chakra-ui/icons";
+import { Flex, IconButton } from "@chakra-ui/react";
 import { Fragment, useContext, useEffect, useState } from "react";
 import dataContext from "../../../context/dataContext";
 import CreateMealIngredientLine from "./createMealIngredientLine";
@@ -45,19 +46,24 @@ const CreateMealIngredientForm = (props) => {
 
   return (
     <Fragment>
-      <Button mb={4} onClick={handleAddAnother}>
-        Add Ingredient to this Meal
-      </Button>
-      {newLines.map((line) => (
-        <CreateMealIngredientLine
-          key={line.id}
-          line_id={line.id}
-          units={units}
-          ingredients={ingredients}
-          meal={meal}
-          removeLine={removeLine}
+      <Flex direction={{ base: "column" }} gap={3}>
+        <IconButton
+          aria-label="Delete Meal"
+          icon={<AddIcon />}
+          onClick={handleAddAnother}
         />
-      ))}
+
+        {newLines.map((line) => (
+          <CreateMealIngredientLine
+            key={line.id}
+            line_id={line.id}
+            units={units}
+            ingredients={ingredients}
+            meal={meal}
+            removeLine={removeLine}
+          />
+        ))}
+      </Flex>
     </Fragment>
   );
 };

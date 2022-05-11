@@ -1,11 +1,11 @@
-import { EditIcon } from "@chakra-ui/icons";
+import { CheckIcon, CloseIcon, DeleteIcon, EditIcon } from "@chakra-ui/icons";
 import {
   Box,
-  Button,
   Divider,
+  Flex,
   Heading,
-  HStack,
   Icon,
+  IconButton,
   Input,
 } from "@chakra-ui/react";
 import { Fragment, useContext, useState } from "react";
@@ -100,25 +100,35 @@ const Meal = (props) => {
 
   const mealName = editable ? (
     <Fragment>
-      <HStack>
+      <Flex direction={{ base: "column", sm: "row" }} gap={2}>
         <Input
           size="sm"
-          width="sm"
           name={name}
           id={meal.id}
           defaultValue={name}
           onChange={(event) => handleChange(event)}
         />
-        <Button size="sm" onClick={handleSave}>
-          Save
-        </Button>
-        <Button size="sm" onClick={handleCancel}>
-          Cancel
-        </Button>
-        <Button size="sm" onClick={handleDelete}>
-          Delete Meal
-        </Button>
-      </HStack>
+        <IconButton
+          colorScheme={"green"}
+          aria-label="Save"
+          icon={<CheckIcon />}
+          size="sm"
+          onClick={handleSave}
+        />
+        <IconButton
+          aria-label="Cancel"
+          icon={<CloseIcon />}
+          size="sm"
+          onClick={handleCancel}
+        />
+        <IconButton
+          colorScheme={"red"}
+          aria-label="Delete Meal"
+          icon={<DeleteIcon />}
+          size="sm"
+          onClick={handleDelete}
+        />
+      </Flex>
     </Fragment>
   ) : (
     <Fragment>

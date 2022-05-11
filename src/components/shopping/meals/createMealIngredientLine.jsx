@@ -1,5 +1,6 @@
-import { Button, HStack, Input, Select } from "@chakra-ui/react";
-import { useContext, useState } from "react";
+import { CheckIcon, CloseIcon } from "@chakra-ui/icons";
+import { Divider, Flex, IconButton, Input, Select } from "@chakra-ui/react";
+import { Fragment, useContext, useState } from "react";
 import { toast } from "react-toastify";
 import dataContext from "../../../context/dataContext";
 import http from "../../../services/httpService";
@@ -71,58 +72,67 @@ const CreateMealIngredientLine = (props) => {
   };
 
   return (
-    <HStack key={1} my={4}>
-      <Input
-        width="sm"
-        size="sm"
-        name={`${name_id}-input-quantity`}
-        type="number"
-        min="1"
-        id={`${name_id}-input-quantity`}
-        placeholder="Enter Quantity..."
-        onChange={(event) => handleChangeQuantity(event)}
-      />
-      <Select
-        width="sm"
-        size="sm"
-        name={`${name_id}-select-unit`}
-        id={`${name_id}-select-unit`}
-        onChange={(event) => handleChangeUnit(event)}
-        defaultValue="header"
-      >
-        <option value="header" disabled hidden>
-          Choose Unit...
-        </option>
-        {units.map((selection) => (
-          <option key={selection[0]} value={selection[0]}>
-            {selection[1]}
+    <Fragment>
+      <Divider />
+      <Flex key={1} gap={2} direction={{ base: "column", sm: "row" }}>
+        <Input
+          size="sm"
+          name={`${name_id}-input-quantity`}
+          type="number"
+          min="1"
+          id={`${name_id}-input-quantity`}
+          placeholder="Enter Quantity..."
+          onChange={(event) => handleChangeQuantity(event)}
+        />
+        <Select
+          size="sm"
+          name={`${name_id}-select-unit`}
+          id={`${name_id}-select-unit`}
+          onChange={(event) => handleChangeUnit(event)}
+          defaultValue="header"
+        >
+          <option value="header" disabled hidden>
+            Choose Unit...
           </option>
-        ))}
-      </Select>
-      <Select
-        width="sm"
-        size="sm"
-        name={`${name_id}-select-ingredient`}
-        id={`${name_id}-select-ingredient`}
-        onChange={(event) => handleChangeIngredient(event)}
-        defaultValue="header"
-      >
-        <option value="header" disabled hidden>
-          Choose Ingredient...
-        </option>
-        {ingredients.map((ingredient) => (
-          <option key={ingredient.id} value={ingredient.id}>
-            {ingredient.name}
+          {units.map((selection) => (
+            <option key={selection[0]} value={selection[0]}>
+              {selection[1]}
+            </option>
+          ))}
+        </Select>
+        <Select
+          size="sm"
+          name={`${name_id}-select-ingredient`}
+          id={`${name_id}-select-ingredient`}
+          onChange={(event) => handleChangeIngredient(event)}
+          defaultValue="header"
+        >
+          <option value="header" disabled hidden>
+            Choose Ingredient...
           </option>
-        ))}
-      </Select>
-      <Button size="sm" px={5} disabled={!validateSave} onClick={handleSave}>
-        Save
-      </Button>
-      <Button size="sm" px={5} onClick={() => removeLine(line_id)}>
-        Cancel
-      </Button>
-    </HStack>
+          {ingredients.map((ingredient) => (
+            <option key={ingredient.id} value={ingredient.id}>
+              {ingredient.name}
+            </option>
+          ))}
+        </Select>
+
+        <IconButton
+          disabled={!validateSave}
+          onClick={handleSave}
+          colorScheme={"green"}
+          aria-label="Save"
+          icon={<CheckIcon />}
+          size="sm"
+        />
+        <IconButton
+          aria-label="Cancel"
+          icon={<CloseIcon />}
+          size="sm"
+          onClick={() => removeLine(line_id)}
+        />
+      </Flex>
+    </Fragment>
   );
 };
 
