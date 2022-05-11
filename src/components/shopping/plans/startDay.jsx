@@ -1,5 +1,5 @@
-import { EditIcon } from "@chakra-ui/icons";
-import { Box, Button, HStack, Icon, Select, Text } from "@chakra-ui/react";
+import { CheckIcon, CloseIcon, EditIcon } from "@chakra-ui/icons";
+import { Box, Flex, Icon, IconButton, Select, Text } from "@chakra-ui/react";
 import { Fragment, useContext, useState } from "react";
 import { toast } from "react-toastify";
 // Snippets
@@ -61,13 +61,12 @@ function StartDay(props) {
   const toggleDay = editable ? (
     <Fragment>
       <Box position="relative" borderWidth="1px" my={4} p={4} bg="gray.900">
-        <HStack>
+        <Flex direction={{ base: "column", sm: "row" }} gap={3}>
           <Text>
             <strong>Starts On: </strong>
           </Text>
           <Select
             size="sm"
-            width="sm"
             defaultValue={currentDay}
             onChange={(event) => handleChange(event)}
           >
@@ -77,13 +76,21 @@ function StartDay(props) {
               </option>
             ))}
           </Select>
-          <Button size="sm" onClick={handleSave}>
-            Save
-          </Button>
-          <Button size="sm" onClick={handleCancel}>
-            Cancel
-          </Button>
-        </HStack>
+
+          <IconButton
+            colorScheme={"green"}
+            aria-label="Save"
+            icon={<CheckIcon />}
+            size="sm"
+            onClick={handleSave}
+          />
+          <IconButton
+            aria-label="Cancel"
+            icon={<CloseIcon />}
+            size="sm"
+            onClick={handleCancel}
+          />
+        </Flex>
       </Box>
     </Fragment>
   ) : (

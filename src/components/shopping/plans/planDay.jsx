@@ -1,9 +1,9 @@
-import { EditIcon } from "@chakra-ui/icons";
+import { CheckIcon, CloseIcon, DeleteIcon, EditIcon } from "@chakra-ui/icons";
 import {
   Box,
-  Button,
-  HStack,
+  Flex,
   Icon,
+  IconButton,
   NumberDecrementStepper,
   NumberIncrementStepper,
   NumberInput,
@@ -156,17 +156,15 @@ function PlanDay(props) {
         key={day.id}
         position="relative"
         bg="orange.900"
-        className="clickable"
         borderWidth="1px"
         borderRadius="lg"
         my={4}
         p={4}
       >
-        <HStack>
+        <Flex direction={{ base: "column", sm: "row" }} gap={2}>
           <Text>Day:</Text>
           <NumberInput
             size="sm"
-            width="6rem"
             min="1"
             defaultValue={day.order}
             onChange={(value) => handleOrderChange(value)}
@@ -179,7 +177,6 @@ function PlanDay(props) {
           </NumberInput>
           <Select
             size="sm"
-            width="sm"
             name={`${day.id}-select-meal`}
             id={`${day.id}-select-meal`}
             defaultValue={meal}
@@ -194,21 +191,29 @@ function PlanDay(props) {
               </option>
             ))}
           </Select>
-          <Button
+
+          <IconButton
+            colorScheme={"green"}
+            aria-label="Save"
+            icon={<CheckIcon />}
             size="sm"
-            px={5}
             onClick={handleSave}
             disabled={!validateSave}
-          >
-            Save
-          </Button>
-          <Button size="sm" px={5} onClick={handleCancel}>
-            Cancel
-          </Button>
-          <Button size="sm" px={5} onClick={handleDelete}>
-            Delete
-          </Button>
-        </HStack>
+          />
+          <IconButton
+            aria-label="Cancel"
+            icon={<CloseIcon />}
+            size="sm"
+            onClick={handleCancel}
+          />
+          <IconButton
+            colorScheme={"red"}
+            aria-label="Delete"
+            icon={<DeleteIcon />}
+            size="sm"
+            onClick={handleDelete}
+          />
+        </Flex>
       </Box>
     </Fragment>
   ) : (

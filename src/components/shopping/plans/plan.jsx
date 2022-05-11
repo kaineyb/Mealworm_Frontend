@@ -1,15 +1,23 @@
-import { EditIcon } from "@chakra-ui/icons";
+import {
+  CalendarIcon,
+  CheckIcon,
+  CloseIcon,
+  DeleteIcon,
+  EditIcon,
+  RepeatIcon,
+} from "@chakra-ui/icons";
 import {
   Box,
   Button,
   Divider,
-  HStack,
+  Flex,
   Icon,
+  IconButton,
   Input,
-  Spacer,
 } from "@chakra-ui/react";
 import _ from "lodash";
 import { Fragment, useContext, useState } from "react";
+import { AiOutlineClockCircle, AiOutlineShoppingCart } from "react-icons/ai";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import dataContext from "./../../../context/dataContext";
@@ -115,22 +123,35 @@ function Plan(props) {
 
   const planName = editable ? (
     <Fragment>
-      <HStack>
+      <Flex direction={{ base: "column", sm: "row" }} gap={2}>
         <Input
           size="sm"
-          width="xs"
           name={plan.name}
           id={plan.id}
           defaultValue={plan.name}
           onChange={handleChange}
         />
-        <Button size="sm" onClick={handleSave}>
-          Save
-        </Button>
-        <Button size="sm" px={5} onClick={handleCancel}>
-          Cancel
-        </Button>
-      </HStack>
+        <IconButton
+          colorScheme={"green"}
+          aria-label="Save"
+          icon={<CheckIcon />}
+          size="sm"
+          onClick={handleSave}
+        />
+        <IconButton
+          aria-label="Cancel"
+          icon={<CloseIcon />}
+          size="sm"
+          onClick={handleCancel}
+        />
+        <IconButton
+          colorScheme={"red"}
+          aria-label="Delete"
+          icon={<DeleteIcon />}
+          size="sm"
+          onClick={handleDelete}
+        />
+      </Flex>
     </Fragment>
   ) : (
     <Fragment>
@@ -142,20 +163,12 @@ function Plan(props) {
 
   return (
     <Box borderWidth="1px" borderRadius="lg" my={4} p={4} position="relative">
-      <HStack>
+      <Flex>
         <Box width="xl" p={0}>
           {planName}
           <Divider my={4} />
         </Box>
-
-        <Box my={4} p={4}>
-          <HStack>
-            <Button onClick={handleReorder}>Reorder Days</Button>
-            <Spacer />
-            <Button onClick={handleDelete}>X</Button>
-          </HStack>
-        </Box>
-      </HStack>
+      </Flex>
 
       <StartDay day={plan.start_day} plan={plan} />
 
@@ -163,21 +176,30 @@ function Plan(props) {
         {plan.day_set.map((day) => (
           <PlanDay key={day.id} plan={plan} day={day} />
         ))}
-        <CreatePlanDayForm plan={plan} />
+        <Button leftIcon={<RepeatIcon />} onClick={handleReorder} w="100%">
+          Reorder Days
+        </Button>
+        <CreatePlanDayForm plan={plan} />{" "}
       </ul>
 
       <Box>
-        <HStack>
+        <Flex direction={{ base: "column", sm: "row" }} gap={2}>
           <Link to={`/plan/${plan.id}/shopping-list`}>
-            <Button>Shopping List</Button>
+            <Button leftIcon={<AiOutlineShoppingCart />} w="100%">
+              Shopping Lists
+            </Button>
           </Link>
           <Link to={`/plan/${plan.id}/schedule`}>
-            <Button>Schedule</Button>
+            <Button leftIcon={<AiOutlineClockCircle />} w="100%">
+              Schedule
+            </Button>
           </Link>
           <Link to={`/plan/${plan.id}/recipes`}>
-            <Button>Recipes</Button>
+            <Button leftIcon={<CalendarIcon />} w="100%" flexGrow={2}>
+              Recipes
+            </Button>
           </Link>
-        </HStack>
+        </Flex>
       </Box>
     </Box>
   );

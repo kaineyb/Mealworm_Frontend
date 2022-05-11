@@ -1,8 +1,9 @@
+import { CheckIcon, CloseIcon } from "@chakra-ui/icons";
 import {
   Box,
-  Button,
   Divider,
-  HStack,
+  Flex,
+  IconButton,
   Input,
   Select,
   Text,
@@ -85,11 +86,10 @@ const CreatePlanDayLine = (props) => {
 
   return (
     <Box key={line_id}>
-      <HStack>
+      <Flex direction={{ base: "column", sm: "row" }} gap={2}>
         <Text>Day:</Text>
         <Input
           size="sm"
-          width="5rem"
           type="number"
           defaultValue={order}
           min="1"
@@ -97,7 +97,6 @@ const CreatePlanDayLine = (props) => {
         />
         <Select
           size="sm"
-          width="sm"
           name={`${line_id}-select-meal`}
           id={`${line_id}-select-meal`}
           onClick={handleChangeMeal}
@@ -112,13 +111,22 @@ const CreatePlanDayLine = (props) => {
             </option>
           ))}
         </Select>
-        <Button size="sm" px={5} disabled={!validateSave} onClick={handleSave}>
-          Save
-        </Button>
-        <Button size="sm" px={5} onClick={() => removeLine(line_id)}>
-          Cancel
-        </Button>
-      </HStack>
+
+        <IconButton
+          colorScheme={"green"}
+          aria-label="Save"
+          icon={<CheckIcon />}
+          size="sm"
+          onClick={handleSave}
+          disabled={!validateSave}
+        />
+        <IconButton
+          aria-label="Cancel"
+          icon={<CloseIcon />}
+          size="sm"
+          onClick={() => removeLine(line_id)}
+        />
+      </Flex>
       <Divider my={4} />
     </Box>
   );
