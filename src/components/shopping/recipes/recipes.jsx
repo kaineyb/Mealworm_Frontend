@@ -1,3 +1,4 @@
+import { Box, Divider, Heading } from "@chakra-ui/react";
 import { Fragment, useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import dataContext from "../../../context/dataContext";
@@ -62,12 +63,13 @@ function Recipes(props) {
 
   return (
     <Fragment>
-      <div>
+      <Box>
+        <Heading as="h6" mt={5}>
+          Recipes
+        </Heading>
+        <Divider my={5} />
         <PlanLinks plan={plan} />
-        <h3>Recipes</h3>
-        <hr />
-      </div>
-      <div className="recipes">
+
         {plan.day_set.map((day) => (
           <Recipe
             key={day.id}
@@ -77,7 +79,7 @@ function Recipes(props) {
             ingredients={ingredients}
           />
         ))}
-      </div>
+      </Box>
     </Fragment>
   );
 }

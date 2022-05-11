@@ -1,3 +1,14 @@
+import {
+  Box,
+  Checkbox,
+  Table,
+  TableContainer,
+  Tbody,
+  Td,
+  Th,
+  Thead,
+  Tr,
+} from "@chakra-ui/react";
 import _ from "lodash";
 import { Fragment } from "react";
 import mealFromID from "../../../snippets/meals";
@@ -94,40 +105,36 @@ function ShoppingListTable(props) {
     rows = sortShoppingData(rows);
 
     return rows.map((row) => (
-      <tr key={row.id}>
-        <td>{row.section}</td>
-        <td>{row.name}</td>
-        <td>
+      <Tr key={row.id}>
+        <Td>{row.section}</Td>
+        <Td>{row.name}</Td>
+        <Td>
           {row.quantity} {row.unit}
-        </td>
-        <td>[...]</td>
-      </tr>
+        </Td>
+        <Td>
+          <Checkbox />
+        </Td>
+      </Tr>
     ));
   };
 
-  generateTableRows(shoppingListData);
-
   return (
     <Fragment>
-      <div>
-        <table>
-          <colgroup>
-            <col span="1" />
-            <col span="1" />
-            <col span="1" />
-            <col span="1" />
-          </colgroup>
-          <thead>
-            <tr>
-              <th scope="col">Section</th>
-              <th scope="col">Ingredient</th>
-              <th scope="col">Quantity</th>
-              <th scope="col">Got?</th>
-            </tr>
-          </thead>
-          <tbody>{generateTableRows(shoppingListData)}</tbody>
-        </table>
-      </div>
+      <Box borderWidth="1px" borderRadius="lg" p={5}>
+        <TableContainer>
+          <Table variant="striped">
+            <Thead>
+              <Tr>
+                <Th scope="col">Section</Th>
+                <Th scope="col">Ingredient</Th>
+                <Th scope="col">Quantity</Th>
+                <Th scope="col">Got?</Th>
+              </Tr>
+            </Thead>
+            <Tbody>{generateTableRows(shoppingListData)}</Tbody>
+          </Table>
+        </TableContainer>
+      </Box>
     </Fragment>
   );
 }

@@ -1,3 +1,15 @@
+import {
+  Box,
+  Divider,
+  Heading,
+  Table,
+  TableContainer,
+  Tbody,
+  Td,
+  Th,
+  Thead,
+  Tr,
+} from "@chakra-ui/react";
 import { Fragment, useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import dataContext from "../../../context/dataContext";
@@ -52,36 +64,44 @@ function Schedule() {
 
   return (
     <Fragment>
+      <Heading as="h6" mt={5}>
+        Schedule
+      </Heading>
+      <Divider my={5} />
       <PlanLinks plan={plan} />
-      <h3>Schedule</h3>
-      <hr />
-      <p>
+
+      <Box borderWidth="1px" borderRadius="lg" p={5} my={5}>
         {" "}
         Starts on a <strong>{days.longDay(plan.start_day)}</strong> and lasts{" "}
         <strong>{plan.day_set.length}</strong> days
-      </p>
-
-      <table className="schedule-table">
-        <thead>
-          <tr>
-            <th scope="col">#</th>
-            <th scope="col">Day</th>
-            <th scope="col">Meal</th>
-          </tr>
-        </thead>
-        <tbody>
-          {plan.day_set.map((day) => (
-            <tr
-              key={day.id}
-              className={days.isWeekend(days.getDay(day.order, plan.start_day))}
-            >
-              <th scope="row">{day.order}</th>
-              <td>{days.getDay(day.order, plan.start_day)} </td>
-              <td>{mealFromID(day.meal, meals)}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+      </Box>
+      <Box borderWidth="1px" borderRadius="lg" p={5}>
+        <TableContainer>
+          <Table variant="striped">
+            <Thead>
+              <Tr>
+                <Th scope="col">#</Th>
+                <Th scope="col">Day</Th>
+                <Th scope="col">Meal</Th>
+              </Tr>
+            </Thead>
+            <Tbody>
+              {plan.day_set.map((day) => (
+                <Tr
+                  key={day.id}
+                  className={days.isWeekend(
+                    days.getDay(day.order, plan.start_day)
+                  )}
+                >
+                  <Td>{day.order}</Td>
+                  <Td>{days.getDay(day.order, plan.start_day)} </Td>
+                  <Td>{mealFromID(day.meal, meals)}</Td>
+                </Tr>
+              ))}
+            </Tbody>
+          </Table>
+        </TableContainer>
+      </Box>
     </Fragment>
   );
 }
