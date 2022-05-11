@@ -60,7 +60,7 @@ function StartDay(props) {
 
   const toggleDay = editable ? (
     <Fragment>
-      <Box position="relative" borderWidth="1px" my={4} p={4} bg="gray.900">
+      <Box position="relative" borderWidth="1px" my={4} p={4}>
         <Flex direction={{ base: "column", sm: "row" }} gap={3}>
           <Text>
             <strong>Starts On: </strong>
@@ -96,7 +96,6 @@ function StartDay(props) {
   ) : (
     <Fragment>
       <Box
-        bg="gray.900"
         className="clickable"
         onClick={handleClick}
         position="relative"
