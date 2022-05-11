@@ -1,3 +1,4 @@
+import { EditIcon, Icon } from "@chakra-ui/icons";
 import { Box, Button, HStack, Input, Select } from "@chakra-ui/react";
 import React from "react";
 
@@ -49,6 +50,7 @@ const EditableInputSelect = ({
     return (
       <React.Fragment>
         <Box
+          position="relative"
           bg="orange.900"
           className="clickable"
           onClick={onClick}
@@ -58,6 +60,15 @@ const EditableInputSelect = ({
           m={4}
         >
           {name}
+          <Icon
+            as={EditIcon}
+            ml={2}
+            w={3}
+            h={3}
+            position="absolute"
+            top="2"
+            right="2"
+          />
         </Box>{" "}
       </React.Fragment>
     );

@@ -227,6 +227,7 @@ const MealIngredient = (props) => {
     </Box>
   ) : (
     <Box
+      position="relative"
       bg="orange.900"
       my={4}
       borderWidth="1px"
@@ -238,7 +239,7 @@ const MealIngredient = (props) => {
     >
       {meal_ingredient.quantity} {meal_ingredient.unit}
       {" - "}
-      {name}
+      {name}{" "}
     </Box>
   );
 
