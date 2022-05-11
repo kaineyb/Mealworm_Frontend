@@ -75,7 +75,7 @@ function ShoppingList(props) {
   return (
     <div>
       <Heading as="h6" mt={5}>
-        Shopping List
+        Shopping List for {plan.name}
       </Heading>
       <Divider my={5} />
       <PlanLinks plan={plan} />

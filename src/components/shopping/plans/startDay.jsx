@@ -60,14 +60,7 @@ function StartDay(props) {
 
   const toggleDay = editable ? (
     <Fragment>
-      <Box
-        position="relative"
-        borderWidth="1px"
-        borderRadius="lg"
-        my={4}
-        p={4}
-        bg="red.900"
-      >
+      <Box position="relative" borderWidth="1px" my={4} p={4} bg="gray.900">
         <HStack>
           <Text>
             <strong>Starts On: </strong>
@@ -96,12 +89,11 @@ function StartDay(props) {
   ) : (
     <Fragment>
       <Box
-        bg="red.900"
+        bg="gray.900"
         className="clickable"
         onClick={handleClick}
         position="relative"
         borderWidth="1px"
-        borderRadius="lg"
         my={4}
         p={4}
       >

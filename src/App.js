@@ -124,10 +124,10 @@ class App extends Component {
                   userContextValue={userContextValue}
                 />
               </main>
-              <Footer />
             </UserContext.Provider>
           </DataContext.Provider>
         </Container>
+        <Footer />
       </Fragment>
     );
   }

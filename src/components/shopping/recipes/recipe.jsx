@@ -1,7 +1,9 @@
 import {
+  Badge,
   Box,
   Divider,
   Heading,
+  Stack,
   Table,
   TableContainer,
   Tbody,
@@ -22,14 +24,22 @@ function Recipe(props) {
   };
 
   return (
-    <Box key={day.id} borderWidth="1px" borderRadius="lg" p={5} my={5}>
-      <Heading as="h3" size="sm">
-        {day.order} - {days.getDay(day.order, plan.start_day)}
-      </Heading>
-      <Divider my={5} />
-      <Heading as="h4" size="sm">
+    <Box
+      key={day.id}
+      borderWidth="1px"
+      borderRadius="lg"
+      p={5}
+      my={5}
+      position="relative"
+    >
+      <Heading as="h4" size="sm" mb={2}>
         {mealFromID(day.meal, meals)}
       </Heading>
+      <Stack direction="row" position="absolute" top="5" right="5">
+        <Badge variant="outline">{day.order}</Badge>
+        <Badge variant="subtle">{days.getDay(day.order, plan.start_day)}</Badge>
+      </Stack>
+
       <Divider my={5} />
       <Box borderWidth="1px" borderRadius="lg" p={5} my={5}>
         <TableContainer>
@@ -56,7 +66,7 @@ function Recipe(props) {
 
       <Box borderWidth="1px" borderRadius="lg" p={5} my={5}>
         <Heading as="h6" size="s">
-          Recipe
+          Recipe <Badge>Coming Soon :)</Badge>
         </Heading>
         <Divider my={5}></Divider>
         <Text>

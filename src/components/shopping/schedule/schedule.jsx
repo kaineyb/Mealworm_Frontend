@@ -65,7 +65,7 @@ function Schedule() {
   return (
     <Fragment>
       <Heading as="h6" mt={5}>
-        Schedule
+        Schedule for {plan.name}
       </Heading>
       <Divider my={5} />
       <PlanLinks plan={plan} />

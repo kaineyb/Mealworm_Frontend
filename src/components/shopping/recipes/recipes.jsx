@@ -65,7 +65,7 @@ function Recipes(props) {
     <Fragment>
       <Box>
         <Heading as="h6" mt={5}>
-          Recipes
+          Recipes for {plan.name}
         </Heading>
         <Divider my={5} />
         <PlanLinks plan={plan} />
