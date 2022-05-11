@@ -1,5 +1,13 @@
 import { CheckIcon, CloseIcon, DeleteIcon, EditIcon } from "@chakra-ui/icons";
-import { Box, Flex, Icon, IconButton, Input, Select } from "@chakra-ui/react";
+import {
+  Box,
+  Flex,
+  Icon,
+  IconButton,
+  Input,
+  Select,
+  useColorModeValue,
+} from "@chakra-ui/react";
 import { useContext, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import DataContext from "../../../context/dataContext";
@@ -13,6 +21,9 @@ const MealIngredient = (props) => {
   const [newQuantity, setNewQuantity] = useState(0);
   const [newUnit, setNewUnit] = useState("");
   const [newIngredient, setNewMealIngredient] = useState("");
+
+  const bg = useColorModeValue("gray.100", "whiteAlpha.200");
+  const color = useColorModeValue("black", "white");
 
   const { quantity, unit, ingredient } = meal_ingredient;
 
@@ -167,6 +178,8 @@ const MealIngredient = (props) => {
 
   const toggle = editable ? (
     <Box
+      bg={bg}
+      color={color}
       my={4}
       borderWidth="1px"
       borderRadius="lg"
@@ -236,6 +249,8 @@ const MealIngredient = (props) => {
     </Box>
   ) : (
     <Box
+      bg={bg}
+      color={color}
       position="relative"
       my={4}
       borderWidth="1px"

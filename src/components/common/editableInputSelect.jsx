@@ -5,7 +5,14 @@ import {
   EditIcon,
   Icon,
 } from "@chakra-ui/icons";
-import { Box, Flex, IconButton, Input, Select } from "@chakra-ui/react";
+import {
+  Box,
+  Flex,
+  IconButton,
+  Input,
+  Select,
+  useColorModeValue,
+} from "@chakra-ui/react";
 import React from "react";
 
 const EditableInputSelect = ({
@@ -20,10 +27,20 @@ const EditableInputSelect = ({
   onSave,
   onDelete,
 }) => {
+  const bg = useColorModeValue("gray.100", "whiteAlpha.200");
+  const color = useColorModeValue("black", "white");
+
   if (editable) {
     return (
       <React.Fragment>
-        <Box borderWidth="1px" borderRadius="lg" p={4} mb={4}>
+        <Box
+          bg={bg}
+          color={color}
+          borderWidth="1px"
+          borderRadius="lg"
+          p={4}
+          mb={4}
+        >
           <Flex gap={3} direction={{ base: "column", sm: "row" }}>
             <Input defaultValue={name} onChange={onChangeInput} />
             <Select
@@ -71,6 +88,8 @@ const EditableInputSelect = ({
     return (
       <React.Fragment>
         <Box
+          bg={bg}
+          color={color}
           position="relative"
           className="clickable"
           onClick={onClick}

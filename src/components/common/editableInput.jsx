@@ -1,5 +1,12 @@
 import { CheckIcon, CloseIcon, DeleteIcon, EditIcon } from "@chakra-ui/icons";
-import { Box, Flex, Icon, IconButton, Input } from "@chakra-ui/react";
+import {
+  Box,
+  Flex,
+  Icon,
+  IconButton,
+  Input,
+  useColorModeValue,
+} from "@chakra-ui/react";
 import React from "react";
 
 const EditableInput = ({
@@ -12,10 +19,20 @@ const EditableInput = ({
   onCancel,
   onDelete,
 }) => {
+  const bg = useColorModeValue("gray.100", "whiteAlpha.200");
+  const color = useColorModeValue("black", "white");
+
   if (editable) {
     return (
       <React.Fragment>
-        <Box borderWidth="1px" borderRadius="lg" p={4} className="clickable">
+        <Box
+          bg={bg}
+          color={color}
+          borderWidth="1px"
+          borderRadius="lg"
+          p={4}
+          className="clickable"
+        >
           <Flex direction={{ base: "column", sm: "row" }} gap={2}>
             <Input
               size="sm"
@@ -52,6 +69,8 @@ const EditableInput = ({
     return (
       <React.Fragment>
         <Box
+          bg={bg}
+          color={color}
           position="relative"
           borderWidth="1px"
           borderRadius="lg"

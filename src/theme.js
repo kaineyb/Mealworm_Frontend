@@ -6,7 +6,7 @@ const config = {
   useSystemColorMode: true,
 };
 
-const colours = {};
+const colors = {};
 
 const fonts = {
   body: "system-ui, sans-serif",
@@ -14,5 +14,5 @@ const fonts = {
   mono: "Menlo, monospace",
 };
 
-const theme = extendTheme({ config, fonts });
+const theme = extendTheme({ config, fonts, colors });
 export default theme;

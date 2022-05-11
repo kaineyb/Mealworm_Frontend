@@ -1,44 +1,8 @@
-/* @import url("https://necolas.github.io/normalize.css/8.0.1/normalize.css"); */
-/* @import url("https://unpkg.com/mvp.css"); */
-
-/* Components */
-/* @import url("css/recipe_component.css");
-@import url("css/schedule_component.css");
-@import url("css/plan_component.css");
-@import url("css/meal_component.css");
-@import url("css/ingredient_component.css"); */
-
 /* :root {
   --colour-1: #65d8af;
   --colour-2: #e8128c;
   --colour-3: #f8d545;
   --colour-4: #913abd;
-} */
-
-/* body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-} */
-
-/* body,
-html {
-  background-color: #222;
-  color: #eee;
-} */
-/* 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
-} */
-
-/* .container {
-  margin-top: 30px;
-  margin-bottom: 30px;
-  border: 2px solid red;
 } */
 
 div#root {
@@ -52,29 +16,8 @@ footer {
   max-width: 100vw;
 }
 
-/* nav {
-  margin: 0 30px 30px 30px;
-} */
-
-/* main {
-  margin: 30px;
-} */
-/* a {
-  color: #65d8af;
-} */
 .clickable {
   cursor: pointer;
 }
 
-/* button {
-  cursor: pointer;
-}
-
-input {
-  margin-bottom: 5px;
-}
-
-input[type="number"] {
-  margin-bottom: 5px;
-  width: 3rem;
-} */
+@import url("https://fonts.googleapis.com/css2?family=Montserrat&display=swap");

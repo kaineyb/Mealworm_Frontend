@@ -1,5 +1,13 @@
 import { CheckIcon, CloseIcon, EditIcon } from "@chakra-ui/icons";
-import { Box, Flex, Icon, IconButton, Select, Text } from "@chakra-ui/react";
+import {
+  Box,
+  Flex,
+  Icon,
+  IconButton,
+  Select,
+  Text,
+  useColorModeValue,
+} from "@chakra-ui/react";
 import { Fragment, useContext, useState } from "react";
 import { toast } from "react-toastify";
 // Snippets
@@ -13,6 +21,9 @@ function StartDay(props) {
   const [editable, setEditable] = useState(false);
   const [currentDay, setCurrentDay] = useState(day);
   const [newDay, setNewDay] = useState(day);
+
+  const bg = useColorModeValue("gray.300", "blackAlpha.600");
+  const color = useColorModeValue("black", "white");
 
   const context = useContext(dataContext);
 
@@ -60,9 +71,16 @@ function StartDay(props) {
 
   const toggleDay = editable ? (
     <Fragment>
-      <Box position="relative" borderWidth="1px" my={4} p={4}>
+      <Box
+        bg={bg}
+        color={color}
+        position="relative"
+        borderWidth="1px"
+        my={4}
+        p={4}
+      >
         <Flex direction={{ base: "column", sm: "row" }} gap={3}>
-          <Text>
+          <Text width={"7rem"}>
             <strong>Starts On: </strong>
           </Text>
           <Select
@@ -96,6 +114,8 @@ function StartDay(props) {
   ) : (
     <Fragment>
       <Box
+        bg={bg}
+        color={color}
         className="clickable"
         onClick={handleClick}
         position="relative"

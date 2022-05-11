@@ -11,6 +11,7 @@ import {
   NumberInputStepper,
   Select,
   Text,
+  useColorModeValue,
 } from "@chakra-ui/react";
 import { Fragment, useContext, useEffect, useState } from "react";
 import { toast } from "react-toastify";
@@ -24,6 +25,9 @@ function PlanDay(props) {
   const [newOrder, setNewOrder] = useState(day.order);
   const [newMeal, setNewMeal] = useState(meal);
   const [editable, setEditable] = useState(false);
+
+  const bg = useColorModeValue("gray.100", "whiteAlpha.200");
+  const color = useColorModeValue("black", "white");
 
   const context = useContext(dataContext);
 
@@ -153,6 +157,8 @@ function PlanDay(props) {
   const toggle = editable ? (
     <Fragment>
       <Box
+        bg={bg}
+        color={color}
         key={day.id}
         position="relative"
         borderWidth="1px"
@@ -217,6 +223,8 @@ function PlanDay(props) {
     </Fragment>
   ) : (
     <Box
+      bg={bg}
+      color={color}
       position="relative"
       key={day.id}
       className="clickable"

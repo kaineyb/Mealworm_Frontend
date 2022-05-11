@@ -50,6 +50,7 @@ const CreateIngredientForm = (props) => {
             ))}
           </Select>
           <Button
+            width="100%"
             px={5}
             type="submit"
             onClick={(event) => handleOnClick(event, value)}
