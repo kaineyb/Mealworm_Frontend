@@ -11,7 +11,7 @@ class Navbar extends Component {
         <header>
           <Box mb={20}>
             <nav>
-              <Flex>
+              <Flex direction={{ base: "column", md: "row" }}>
                 <Link as={RouterLink} to="/">
                   <Box borderWidth="1px" borderRadius="lg" p={4} m={1}>
                     <strong>{config.siteName}</strong>
@@ -19,9 +19,7 @@ class Navbar extends Component {
                 </Link>
 
                 <Spacer />
-                <Flex>
-                  <NavbarUser />
-                </Flex>
+                <NavbarUser />
               </Flex>
             </nav>
           </Box>

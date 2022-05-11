@@ -1,4 +1,4 @@
-import { Box, Divider, Heading } from "@chakra-ui/react";
+import { Box, Divider, Flex, Heading } from "@chakra-ui/react";
 import React, { useContext, useEffect, useState } from "react";
 // 3rd Party
 import { toast } from "react-toastify";
@@ -60,6 +60,7 @@ function SimpleForm(props) {
   };
 
   const handleSave = (item) => {
+    toggleEditable(item);
     const { name } = props;
 
     const index = local.indexOf(item);
@@ -203,8 +204,10 @@ function SimpleForm(props) {
         buttonLabel={`Create new ${props.singularTitle}`}
       />
       <Divider mt={4} />
-      <Box borderWidth="1px" borderRadius="lg" p={4} pl={10} mt={4}>
-        {renderMap()}
+      <Box borderWidth="1px" borderRadius="lg" p={4} mt={4}>
+        <Flex direction={{ base: "column" }} gap={3}>
+          {renderMap()}
+        </Flex>
       </Box>
     </div>
   );

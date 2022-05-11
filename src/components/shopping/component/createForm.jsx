@@ -1,4 +1,4 @@
-import { Button, FormControl, HStack, Input } from "@chakra-ui/react";
+import { Button, Flex, FormControl, Input, Spacer } from "@chakra-ui/react";
 import { Fragment, React, useState } from "react";
 
 const CreateForm = (props) => {
@@ -20,25 +20,25 @@ const CreateForm = (props) => {
     <Fragment>
       <form>
         <FormControl>
-          <HStack>
-            {" "}
+          <Flex direction={{ base: "column", sm: "row" }} gap={1}>
             <Input
               size={"sm"}
-              width={"md"}
               type="text"
               mr={3}
               value={value}
               onChange={handleChange}
               placeholder={placeHolder}
             />
+            <Spacer />
             <Button
+              px={5}
               type="submit"
               onClick={(event) => handleOnClick(event, value)}
               size={"sm"}
             >
               {buttonLabel}
             </Button>
-          </HStack>
+          </Flex>
         </FormControl>
       </form>
     </Fragment>

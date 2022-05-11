@@ -108,7 +108,7 @@ class App extends Component {
 
     return (
       <Fragment>
-        <Container maxWidth="3xl">
+        <Container maxWidth="container.md">
           <DataContext.Provider value={dataContextValue}>
             <UserContext.Provider value={userContextValue}>
               <ToastContainer

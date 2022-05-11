@@ -1,5 +1,5 @@
-import { EditIcon } from "@chakra-ui/icons";
-import { Box, Button, HStack, Icon, Input } from "@chakra-ui/react";
+import { CheckIcon, CloseIcon, DeleteIcon, EditIcon } from "@chakra-ui/icons";
+import { Box, Flex, Icon, IconButton, Input } from "@chakra-ui/react";
 import React from "react";
 
 const EditableInput = ({
@@ -17,14 +17,12 @@ const EditableInput = ({
       <React.Fragment>
         <Box
           bg="orange.900"
-          maxW="sm"
           borderWidth="1px"
           borderRadius="lg"
           p={4}
-          m={4}
           className="clickable"
         >
-          <HStack>
+          <Flex direction={{ base: "column", sm: "row" }} gap={2}>
             <Input
               size="sm"
               name={name}
@@ -32,16 +30,25 @@ const EditableInput = ({
               defaultValue={name}
               onChange={onChange}
             />{" "}
-            <Button size="sm" onClick={onSave}>
-              Save
-            </Button>
-            <Button size="sm" onClick={onCancel}>
-              Cancel
-            </Button>
-            <Button size="sm" onClick={onDelete}>
-              Delete
-            </Button>
-          </HStack>
+            <IconButton
+              aria-label="Save"
+              icon={<CheckIcon />}
+              size="sm"
+              onClick={onSave}
+            />
+            <IconButton
+              aria-label="Cancel"
+              icon={<CloseIcon />}
+              size="sm"
+              onClick={onCancel}
+            />
+            <IconButton
+              aria-label="Delete"
+              icon={<DeleteIcon />}
+              size="sm"
+              onClick={onDelete}
+            />
+          </Flex>
         </Box>
       </React.Fragment>
     );
@@ -50,12 +57,10 @@ const EditableInput = ({
       <React.Fragment>
         <Box
           position="relative"
-          maxW="sm"
           bg="orange.900"
           borderWidth="1px"
           borderRadius="lg"
           p={4}
-          m={4}
           onClick={onClick}
           className="clickable"
         >
