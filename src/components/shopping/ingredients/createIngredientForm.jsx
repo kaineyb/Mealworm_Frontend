@@ -1,4 +1,4 @@
-import { Button, FormControl, HStack, Input, Select } from "@chakra-ui/react";
+import { Button, Flex, FormControl, Input, Select } from "@chakra-ui/react";
 import { Fragment, React, useState } from "react";
 
 const CreateIngredientForm = (props) => {
@@ -25,20 +25,18 @@ const CreateIngredientForm = (props) => {
   return (
     <Fragment>
       <FormControl>
-        <HStack>
+        <Flex gap={3} direction={{ base: "column", sm: "row" }}>
           <Input
             type="text"
             value={value}
             onChange={handleChangeInput}
             placeholder={placeHolder}
-            width="sm"
             size="sm"
           />
           <Select
             value={selection}
             name="create-ingredient-select"
             id="create-ingredient-select"
-            width="sm"
             size="sm"
             onChange={handleChangeSelect}
           >
@@ -52,14 +50,14 @@ const CreateIngredientForm = (props) => {
             ))}
           </Select>
           <Button
+            px={5}
             type="submit"
             onClick={(event) => handleOnClick(event, value)}
-            width="sm"
             size="sm"
           >
             {buttonLabel}
           </Button>
-        </HStack>
+        </Flex>
       </FormControl>
     </Fragment>
   );
