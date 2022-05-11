@@ -1,3 +1,17 @@
+import { EditIcon } from "@chakra-ui/icons";
+import {
+  Box,
+  Button,
+  HStack,
+  Icon,
+  NumberDecrementStepper,
+  NumberIncrementStepper,
+  NumberInput,
+  NumberInputField,
+  NumberInputStepper,
+  Select,
+  Text,
+} from "@chakra-ui/react";
 import { Fragment, useContext, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import dataContext from "./../../../context/dataContext";
@@ -82,8 +96,8 @@ function PlanDay(props) {
     );
   };
 
-  const handleOrderChange = ({ currentTarget: input }) => {
-    setNewOrder(parseInt(input.value));
+  const handleOrderChange = (value) => {
+    setNewOrder(value);
   };
   const handleMealChange = (event) => {
     setNewMeal(parseInt(event.target.value));
@@ -138,40 +152,88 @@ function PlanDay(props) {
 
   const toggle = editable ? (
     <Fragment>
-      <li key={day.id} className="day_set">
-        Day:
-        <input
-          type="number"
-          min="1"
-          defaultValue={day.order}
-          onChange={handleOrderChange}
-        />
-        <select
-          name={`${day.id}-select-meal`}
-          id={`${day.id}-select-meal`}
-          defaultValue={meal}
-          onChange={handleMealChange}
-        >
-          <option value="header" disabled hidden>
-            Choose Meal...
-          </option>
-          {meals.map((meals) => (
-            <option key={meals.id} value={meals.id}>
-              {meals.name}
+      <Box
+        key={day.id}
+        position="relative"
+        bg="orange.900"
+        className="clickable"
+        borderWidth="1px"
+        borderRadius="lg"
+        my={4}
+        p={4}
+      >
+        <HStack>
+          <Text>Day:</Text>
+          <NumberInput
+            size="sm"
+            width="6rem"
+            min="1"
+            defaultValue={day.order}
+            onChange={(value) => handleOrderChange(value)}
+          >
+            <NumberInputField id="amount" />
+            <NumberInputStepper>
+              <NumberIncrementStepper />
+              <NumberDecrementStepper />
+            </NumberInputStepper>
+          </NumberInput>
+          <Select
+            size="sm"
+            width="sm"
+            name={`${day.id}-select-meal`}
+            id={`${day.id}-select-meal`}
+            defaultValue={meal}
+            onChange={handleMealChange}
+          >
+            <option value="header" disabled hidden>
+              Choose Meal...
             </option>
-          ))}
-        </select>
-        <button onClick={handleSave} disabled={!validateSave}>
-          Save
-        </button>
-        <button onClick={handleCancel}>Cancel</button>
-        <button onClick={handleDelete}>Delete</button>
-      </li>
+            {meals.map((meals) => (
+              <option key={meals.id} value={meals.id}>
+                {meals.name}
+              </option>
+            ))}
+          </Select>
+          <Button
+            size="sm"
+            px={5}
+            onClick={handleSave}
+            disabled={!validateSave}
+          >
+            Save
+          </Button>
+          <Button size="sm" px={5} onClick={handleCancel}>
+            Cancel
+          </Button>
+          <Button size="sm" px={5} onClick={handleDelete}>
+            Delete
+          </Button>
+        </HStack>
+      </Box>
     </Fragment>
   ) : (
-    <li key={day.id} className="day_set clickable" onClick={handleClick}>
-      Day: {day.order} - {mealName}
-    </li>
+    <Box
+      position="relative"
+      bg="orange.900"
+      key={day.id}
+      className="clickable"
+      onClick={handleClick}
+      borderWidth="1px"
+      borderRadius="lg"
+      my={4}
+      p={4}
+    >
+      Day: {day.order} - {mealName}{" "}
+      <Icon
+        as={EditIcon}
+        ml={2}
+        w={3}
+        h={3}
+        position="absolute"
+        top="2"
+        right="2"
+      />
+    </Box>
   );
 
   return toggle;

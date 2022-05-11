@@ -1,3 +1,12 @@
+import {
+  Box,
+  Button,
+  Divider,
+  HStack,
+  Input,
+  Select,
+  Text,
+} from "@chakra-ui/react";
 import { useContext, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import dataContext from "./../../../context/dataContext";
@@ -75,34 +84,43 @@ const CreatePlanDayLine = (props) => {
   };
 
   return (
-    <li key={line_id} className="day_set">
-      Day:
-      <input
-        type="number"
-        defaultValue={order}
-        min="1"
-        onChange={(event) => handleChangeOrder(event)}
-      />
-      <select
-        name={`${line_id}-select-meal`}
-        id={`${line_id}-select-meal`}
-        onClick={handleChangeMeal}
-        defaultValue="header"
-      >
-        <option value="header" disabled hidden>
-          Choose Meal...
-        </option>
-        {meals.map((meals) => (
-          <option key={meals.id} value={meals.id}>
-            {meals.name}
+    <Box key={line_id}>
+      <HStack>
+        <Text>Day:</Text>
+        <Input
+          size="sm"
+          width="5rem"
+          type="number"
+          defaultValue={order}
+          min="1"
+          onChange={(event) => handleChangeOrder(event)}
+        />
+        <Select
+          size="sm"
+          width="sm"
+          name={`${line_id}-select-meal`}
+          id={`${line_id}-select-meal`}
+          onClick={handleChangeMeal}
+          defaultValue="header"
+        >
+          <option value="header" disabled hidden>
+            Choose Meal...
           </option>
-        ))}
-      </select>
-      <button disabled={!validateSave} onClick={handleSave}>
-        Save
-      </button>
-      <button onClick={() => removeLine(line_id)}>Cancel</button>
-    </li>
+          {meals.map((meals) => (
+            <option key={meals.id} value={meals.id}>
+              {meals.name}
+            </option>
+          ))}
+        </Select>
+        <Button size="sm" px={5} disabled={!validateSave} onClick={handleSave}>
+          Save
+        </Button>
+        <Button size="sm" px={5} onClick={() => removeLine(line_id)}>
+          Cancel
+        </Button>
+      </HStack>
+      <Divider my={4} />
+    </Box>
   );
 };
 

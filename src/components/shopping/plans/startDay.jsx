@@ -1,3 +1,5 @@
+import { EditIcon } from "@chakra-ui/icons";
+import { Box, Button, HStack, Icon, Select, Text } from "@chakra-ui/react";
 import { Fragment, useContext, useState } from "react";
 import { toast } from "react-toastify";
 // Snippets
@@ -58,33 +60,61 @@ function StartDay(props) {
 
   const toggleDay = editable ? (
     <Fragment>
-      <select
-        defaultValue={currentDay}
-        onChange={(event) => handleChange(event)}
+      <Box
+        position="relative"
+        borderWidth="1px"
+        borderRadius="lg"
+        my={4}
+        p={4}
+        bg="red.900"
       >
-        {days.daysArray.map((day) => (
-          <option key={day} value={day[0]}>
-            {day[1]}
-          </option>
-        ))}
-      </select>
-      <button onClick={handleSave}>Save</button>
-      <button onClick={handleCancel}>Cancel</button>
+        <HStack>
+          <Text>
+            <strong>Starts On: </strong>
+          </Text>
+          <Select
+            size="sm"
+            width="sm"
+            defaultValue={currentDay}
+            onChange={(event) => handleChange(event)}
+          >
+            {days.daysArray.map((day) => (
+              <option key={day} value={day[0]}>
+                {day[1]}
+              </option>
+            ))}
+          </Select>
+          <Button size="sm" onClick={handleSave}>
+            Save
+          </Button>
+          <Button size="sm" onClick={handleCancel}>
+            Cancel
+          </Button>
+        </HStack>
+      </Box>
     </Fragment>
   ) : (
     <Fragment>
-      <span className="clickable" onClick={handleClick}>
-        {days.longDay(currentDay)}
-      </span>
+      <Box
+        bg="red.900"
+        className="clickable"
+        onClick={handleClick}
+        position="relative"
+        borderWidth="1px"
+        borderRadius="lg"
+        my={4}
+        p={4}
+      >
+        <Text>
+          <strong>Starts On: </strong>
+          {days.longDay(currentDay)}
+        </Text>{" "}
+        <Icon as={EditIcon} w={3} h={3} position="absolute" top="2" right="2" />
+      </Box>
     </Fragment>
   );
 
-  return (
-    <Fragment>
-      <strong>Starts On: </strong>
-      {toggleDay}
-    </Fragment>
-  );
+  return <Fragment>{toggleDay}</Fragment>;
 }
 
 export default StartDay;

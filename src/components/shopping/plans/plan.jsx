@@ -1,3 +1,13 @@
+import { EditIcon } from "@chakra-ui/icons";
+import {
+  Box,
+  Button,
+  Divider,
+  HStack,
+  Icon,
+  Input,
+  Spacer,
+} from "@chakra-ui/react";
 import _ from "lodash";
 import { Fragment, useContext, useState } from "react";
 import { Link } from "react-router-dom";
@@ -105,47 +115,71 @@ function Plan(props) {
 
   const planName = editable ? (
     <Fragment>
-      <input
-        name={plan.name}
-        id={plan.id}
-        defaultValue={plan.name}
-        onChange={handleChange}
-      />
-      <button onClick={handleSave}>Save</button>
-      <button onClick={handleCancel}>Cancel</button>
+      <HStack>
+        <Input
+          size="sm"
+          width="xs"
+          name={plan.name}
+          id={plan.id}
+          defaultValue={plan.name}
+          onChange={handleChange}
+        />
+        <Button size="sm" onClick={handleSave}>
+          Save
+        </Button>
+        <Button size="sm" px={5} onClick={handleCancel}>
+          Cancel
+        </Button>
+      </HStack>
     </Fragment>
   ) : (
     <Fragment>
       <strong className="clickable" onClick={handleClick}>
-        {plan.name}
+        {plan.name} <Icon as={EditIcon} ml={2} w={3} h={3} />
       </strong>
     </Fragment>
   );
 
   return (
-    <div className="plan">
-      <div></div>
-      {planName}
-      <div className="plan_buttons">
-        <button onClick={handleReorder}>Reorder</button>
-        {" | "}
-        <button onClick={handleDelete}>X</button>
-      </div>
-      <div className="plan-details">
-        <StartDay day={plan.start_day} plan={plan} />
-      </div>
+    <Box borderWidth="1px" borderRadius="lg" my={4} p={4} position="relative">
+      <HStack>
+        <Box width="xl" p={0}>
+          {planName}
+          <Divider my={4} />
+        </Box>
+
+        <Box my={4} p={4}>
+          <HStack>
+            <Button onClick={handleReorder}>Reorder Days</Button>
+            <Spacer />
+            <Button onClick={handleDelete}>X</Button>
+          </HStack>
+        </Box>
+      </HStack>
+
+      <StartDay day={plan.start_day} plan={plan} />
+
       <ul>
         {plan.day_set.map((day) => (
           <PlanDay key={day.id} plan={plan} day={day} />
         ))}
         <CreatePlanDayForm plan={plan} />
       </ul>
-      <Link to={`/plan/${plan.id}/shopping-list`}>Shopping List</Link>
-      {" | "}
-      <Link to={`/plan/${plan.id}/schedule`}>Schedule</Link>
-      {" | "}
-      <Link to={`/plan/${plan.id}/recipes`}>Recipes</Link>
-    </div>
+
+      <Box>
+        <HStack>
+          <Link to={`/plan/${plan.id}/shopping-list`}>
+            <Button>Shopping List</Button>
+          </Link>
+          <Link to={`/plan/${plan.id}/schedule`}>
+            <Button>Schedule</Button>
+          </Link>
+          <Link to={`/plan/${plan.id}/recipes`}>
+            <Button>Recipes</Button>
+          </Link>
+        </HStack>
+      </Box>
+    </Box>
   );
 }
 
