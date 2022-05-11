@@ -1,4 +1,5 @@
-import { Box, Button, HStack, Input, Select } from "@chakra-ui/react";
+import { EditIcon } from "@chakra-ui/icons";
+import { Box, Button, HStack, Icon, Input, Select } from "@chakra-ui/react";
 import { useContext, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import DataContext from "../../../context/dataContext";
@@ -240,6 +241,15 @@ const MealIngredient = (props) => {
       {meal_ingredient.quantity} {meal_ingredient.unit}
       {" - "}
       {name}{" "}
+      <Icon
+        as={EditIcon}
+        ml={2}
+        w={3}
+        h={3}
+        position="absolute"
+        top="2"
+        right="2"
+      />
     </Box>
   );
 

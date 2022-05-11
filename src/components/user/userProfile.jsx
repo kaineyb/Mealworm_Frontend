@@ -1,4 +1,4 @@
-import { Box, Button } from "@chakra-ui/react";
+import { Box, Button, Divider, Heading, Spacer, Text } from "@chakra-ui/react";
 import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import DataContext from "../../context/dataContext";
@@ -35,35 +35,41 @@ function UserProfile(props) {
   }
 
   return (
-    <div>
-      <Box my={5} p={5} borderWidth="1px" borderRadius="lg">
-        <h2>User Profile:</h2>
-        <ul>
-          <li>User ID:{user.id}</li>
-          <li>Username: {user.username}</li>
-          <li>Email: {user.email}</li>
-        </ul>
-      </Box>
-      <Button mr={4} onClick={context.updateData}>
-        Reload Data from Server
-      </Button>
-      <Button onClick={setStores}>Set Stores to Faux Data</Button>
-      <Box my={5} p={4} borderWidth="1px" borderRadius="lg">
-        <h2>Token Details:</h2>
-        <strong>Access Token Time</strong>
-        <br />
-        {`${aT.hours} hours, ${aT.minutes} minutes, ${aT.seconds} seconds`}
-        <br />
-        <br />
-        <strong>Refresh Token Time</strong>
-        <br />
-        {`${rT.hours} hours, ${rT.minutes} minutes, ${rT.seconds} seconds`}
+    <Box>
+      <Heading as="h1">User Profile</Heading>
+      <Divider my={4} />
+      <Box my={5} p={5} borderWidth="1px" borderRadius="lg" position="relative">
+        <Heading size="md">User Details</Heading>
+        <Divider my={4} />
+        <Text>User ID:{user.id}</Text>
+        <Text>Username: {user.username}</Text>
+        <Text>Email: {user.email}</Text>
+
+        <Button mt={5} position="absolute" bottom="5" right="5">
+          <Link to="/logout">Logout</Link>
+        </Button>
       </Box>
 
-      <Link to="/logout">
-        <Button my={5}>Logout</Button>
-      </Link>
-    </div>
+      <Box my={5} p={4} borderWidth="1px" borderRadius="lg">
+        <Heading size="md">Secret Admin Box</Heading>
+        <Divider my={4} />
+        <Box>
+          <Heading size="sl">Access Token Time</Heading>
+          <Spacer />
+          {`${aT.hours} hours, ${aT.minutes} minutes, ${aT.seconds} seconds`}
+          <Divider my={4} />
+
+          <Heading size="sl">Refresh Token Time</Heading>
+          {`${rT.hours} hours, ${rT.minutes} minutes, ${rT.seconds} seconds`}
+        </Box>
+        <Box mt={4}>
+          <Button mr={4} onClick={context.updateData}>
+            Reload Data from Server
+          </Button>
+          <Button onClick={setStores}>Set Stores to Faux Data</Button>
+        </Box>
+      </Box>
+    </Box>
   );
 }
 
