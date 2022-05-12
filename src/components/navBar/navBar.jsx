@@ -1,32 +1,38 @@
-import { Box, Flex, Link, Spacer } from "@chakra-ui/react";
-import React, { Component, Fragment } from "react";
-import { Link as RouterLink } from "react-router-dom";
+import { Box, Flex, HStack, Spacer } from "@chakra-ui/react";
+import React, { Fragment, useState } from "react";
 import config from "../../services/config.json";
+import MenuToggle from "./menuToggle";
 import NavbarUser from "./navBarUser";
 
-class Navbar extends Component {
-  render() {
-    return (
-      <Fragment>
-        <header>
-          <Box mb={20}>
-            <nav>
-              <Flex direction={{ base: "column", md: "row" }}>
-                <Link as={RouterLink} to="/">
-                  <Box borderWidth="1px" borderRadius="lg" p={4} m={1}>
-                    <strong>{config.siteName}</strong>
-                  </Box>
-                </Link>
+const Navbar = (props) => {
+  const [isOpen, setIsOpen] = useState(false);
+  const toggle = () => setIsOpen(!isOpen);
 
+  return (
+    <Fragment>
+      <header>
+        <nav>
+          <Flex direction={{ base: "column", md: "row" }}>
+            <Box borderWidth="1px" borderRadius="lg" p={4} m={1}>
+              <HStack>
+                <strong>{config.siteName}</strong>
                 <Spacer />
+                <MenuToggle toggle={toggle} isOpen={isOpen} />
+              </HStack>
+            </Box>
+            <Spacer />
+            <Box
+              display={{ base: isOpen ? "block" : "none", md: "block" }}
+              flexBasis={{ base: "100%", md: "auto" }}
+            >
+              <Flex direction={{ base: "column", md: "row" }}>
                 <NavbarUser />
               </Flex>
-            </nav>
-          </Box>
-        </header>
-      </Fragment>
-    );
-  }
-}
-
+            </Box>
+          </Flex>
+        </nav>
+      </header>
+    </Fragment>
+  );
+};
 export default Navbar;
