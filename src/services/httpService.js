@@ -2,7 +2,7 @@
 import axios from "axios";
 import config from "./config.json";
 
-axios.defaults.baseURL = "http://127.0.0.1:8000/";
+axios.defaults.baseURL = process.env.REACT_APP_BACKEND_URL;
 
 const { accessTokenKey, refreshTokenKey } = config;
 
