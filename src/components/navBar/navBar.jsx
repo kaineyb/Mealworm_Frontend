@@ -31,6 +31,7 @@ const Navbar = (props) => {
             </Box>
           </Flex>
         </nav>
+        <Box mb={50}></Box>
       </header>
     </Fragment>
   );
