@@ -32,6 +32,8 @@ class LoginForm extends BaseForm {
     };
 
     const loginResult = await toast.promise(auth.login(userDetails), {
+      pending:
+        "If you see this, then the backend is offline or asleep, please wait :)",
       error: "Couldn't log you in, username or password incorrect.",
     });
 
