@@ -28,7 +28,7 @@ function ShoppingListTable(props) {
     } else if (item) {
       return item.name;
     } else {
-      return "No Section";
+      return "";
     }
   };
 

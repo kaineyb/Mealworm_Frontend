@@ -1,6 +1,7 @@
-import { Button } from "@chakra-ui/react";
+import { Button, Flex, Heading } from "@chakra-ui/react";
 import Joi from "joi";
 import React from "react";
+import { toast } from "react-toastify";
 //  Contexts
 import UserContext from "../../../context/userContext";
 import auth from "../../../services/authService";
@@ -30,7 +31,9 @@ class LoginForm extends BaseForm {
       password: this.state.data.password,
     };
 
-    const loginResult = await auth.login(userDetails);
+    const loginResult = await toast.promise(auth.login(userDetails), {
+      error: "Couldn't log you in, username or password incorrect.",
+    });
 
     if (loginResult === true) {
       this.context.toggleLoggedIn();
@@ -45,36 +48,35 @@ class LoginForm extends BaseForm {
 
     return (
       <form>
-        <h1> Login: </h1>
+        <Flex direction={{ base: "column" }} gap={2}>
+          <Heading as="h1">Login</Heading>
 
-        <Input
-          autoFocus
-          name="username"
-          label="Your Username"
-          placeholder="Enter username"
-          autoComplete="username"
-          error={errors["username"]}
-          onChange={this.handleChange}
-        />
-        <br />
+          <Input
+            autoFocus
+            name="username"
+            label="Your Username"
+            placeholder="Enter username"
+            error={errors["username"]}
+            onChange={this.handleChange}
+          />
 
-        <Input
-          type="password"
-          name="password"
-          label="Your Password"
-          placeholder="Enter Password"
-          autoComplete="current-password"
-          error={errors["password"]}
-          onChange={this.handleChange}
-        />
-        <br />
-        <Button
-          type="submit"
-          onClick={this.handleSubmit}
-          disabled={this.validate()}
-        >
-          Login
-        </Button>
+          <Input
+            type="password"
+            name="password"
+            label="Your Password"
+            placeholder="Enter Password"
+            autoComplete="current-password"
+            error={errors["password"]}
+            onChange={this.handleChange}
+          />
+          <Button
+            type="submit"
+            onClick={this.handleSubmit}
+            disabled={this.validate()}
+          >
+            Login
+          </Button>
+        </Flex>
       </form>
     );
   }

@@ -1,3 +1,4 @@
+import { Button, Flex, Heading } from "@chakra-ui/react";
 import Joi from "joi";
 import React from "react";
 import { toast } from "react-toastify";
@@ -38,7 +39,8 @@ class RegisterForm extends BaseForm {
     const registerResult = await toast.promise(auth.register(userDetails), {
       pending: "Attempting to create an account for you",
       success: `Created an account for you! Welcome to the site ${userDetails.username}`,
-      error: "Couldn't create an account for you :(",
+      error:
+        "Couldn't create an account for you, username or email may already be taken",
     });
 
     if (registerResult.status === 201) {
@@ -65,43 +67,42 @@ class RegisterForm extends BaseForm {
 
     return (
       <form>
-        <h1> Register: </h1>
-        <Input
-          name="username"
-          label="Requested Username"
-          placeholder="Enter username"
-          autoComplete="username"
-          error={errors["username"]}
-          onChange={this.handleChange}
-        />
-        <br />
-        <Input
-          name="email"
-          type="email"
-          label="Your Email Address"
-          placeholder="Enter Email"
-          autoComplete="email"
-          error={errors["email"]}
-          onChange={this.handleChange}
-        />
-        <br />
-        <Input
-          name="password"
-          type="password"
-          label="Password"
-          placeholder="Enter password"
-          autoComplete="current-password"
-          error={errors["password"]}
-          onChange={this.handleChange}
-        />
-        <br />
-        <button
-          type="submit"
-          onClick={this.handleSubmit}
-          disabled={this.validate()}
-        >
-          Register
-        </button>
+        <Flex direction={{ base: "column" }} gap={2}>
+          <Heading as="h1">Register</Heading>
+          <Input
+            name="username"
+            label="Requested Username"
+            placeholder="Enter username"
+            autoComplete="username"
+            error={errors["username"]}
+            onChange={this.handleChange}
+          />
+          <Input
+            name="email"
+            type="email"
+            label="Your Email Address"
+            placeholder="Enter Email"
+            autoComplete="email"
+            error={errors["email"]}
+            onChange={this.handleChange}
+          />
+          <Input
+            name="password"
+            type="password"
+            label="Password"
+            placeholder="Enter password"
+            autoComplete="current-password"
+            error={errors["password"]}
+            onChange={this.handleChange}
+          />
+          <Button
+            type="submit"
+            onClick={this.handleSubmit}
+            disabled={this.validate()}
+          >
+            Register
+          </Button>
+        </Flex>
       </form>
     );
   }
