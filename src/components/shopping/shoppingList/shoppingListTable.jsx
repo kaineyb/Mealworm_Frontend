@@ -28,7 +28,7 @@ function ShoppingListTable(props) {
     } else if (item) {
       return item.name;
     } else {
-      return "";
+      return "-";
     }
   };
 
@@ -106,14 +106,14 @@ function ShoppingListTable(props) {
 
     return rows.map((row) => (
       <Tr key={row.id}>
-        <Td>{row.section}</Td>
-        <Td>{row.name}</Td>
-        <Td>
-          {row.quantity} {row.unit}
-        </Td>
-        <Td>
+        <Td data-label="">
           <Checkbox />
         </Td>
+        <Td data-label="Quantity">
+          {row.quantity} {row.unit}
+        </Td>
+        <Td data-label="Ingredient">{row.name}</Td>
+        <Td data-label="Section">{row.section}</Td>
       </Tr>
     ));
   };
@@ -122,13 +122,13 @@ function ShoppingListTable(props) {
     <Fragment>
       <Box borderWidth="1px" borderRadius="lg" p={5}>
         <TableContainer>
-          <Table variant="striped">
+          <Table variant={"striped"}>
             <Thead>
               <Tr>
-                <Th scope="col">Section</Th>
-                <Th scope="col">Ingredient</Th>
+                <Th scope="col"></Th>
                 <Th scope="col">Quantity</Th>
-                <Th scope="col">Got?</Th>
+                <Th scope="col">Ingredient</Th>
+                <Th scope="col">Section</Th>
               </Tr>
             </Thead>
             <Tbody>{generateTableRows(shoppingListData)}</Tbody>

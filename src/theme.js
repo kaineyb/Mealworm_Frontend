@@ -12,5 +12,25 @@ const fonts = {
   mono: "Menlo, monospace",
 };
 
+const components = {
+  Table: {
+    variants: {
+      striped: {
+        tr: {
+          _odd: {
+            background: "red.500",
+            borderColor: "red.500",
+            borderBottomWidth: 5,
+          },
+          _even: {
+            background: "green.500",
+            borderBottom: "green.500",
+          },
+        },
+      },
+    },
+  },
+};
+
 const theme = extendTheme({ config, fonts, colors });
 export default theme;

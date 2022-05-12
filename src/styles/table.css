@@ -1,0 +1,50 @@
+@media screen and (max-width: 600px) {
+  table {
+    /* width: 100%; */
+    /* overflow: hidden; */
+  }
+
+  table thead {
+    clip: rect(0 0 0 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+  }
+
+  table tr {
+    display: block;
+  }
+
+  table td {
+    /* border-bottom: 1px solid #ddd; */
+    display: block;
+    font-size: 0.8em;
+    text-align: right !important;
+  }
+
+  table td {
+    border-bottom: 5px solid red;
+  }
+
+  table td::before {
+    /*
+      * aria-label has no advantage, it won't be read inside a table
+      content: attr(aria-label);
+      */
+    content: attr(data-label);
+    font-size: 0.6rem;
+    float: left;
+    /* border: 1px solid red; */
+    display: block;
+    clear: both;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+
+  table td:last-child {
+    border-bottom: 0;
+  }
+}
