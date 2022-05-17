@@ -33,15 +33,6 @@ function UserProfile(props) {
     getUser();
   }, []);
 
-  function setStores() {
-    const array1 = [
-      { id: 99990, name: "Boris Johnson" },
-      { id: 99991, name: "Kaine Bruce" },
-      { id: 99992, name: "Lucy Clarke" },
-    ];
-    context.setData("stores", array1);
-  }
-
   return (
     <Box>
       <Heading as="h1">User Profile</Heading>
@@ -82,7 +73,6 @@ function UserProfile(props) {
           width={"100%"}
         >
           <Button onClick={context.updateData}>Reload Data from Server</Button>
-          <Button onClick={setStores}>Set Stores to Faux Data</Button>
         </Flex>
       </Box>
     </Box>

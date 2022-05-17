@@ -12,10 +12,9 @@ class Hero extends Component {
           <Heading as="h2">Welcome to the Site!</Heading>
 
           <Box borderWidth="1px" borderRadius="lg" p={4} my={4}>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis porta
-            congue imperdiet. Nunc tincidunt, velit in commodo congue, nisi mi
-            laoreet tellus, et rhoncus ex urna eu mauris. Aliquam pulvinar massa
-            est, id suscipit elit ornare non.
+            {config.siteName} helps you organise your meals and meal plans, it
+            generates a shopping list from your plans to help speed up making a
+            shopping list :)
           </Box>
         </header>
       </section>

@@ -13,24 +13,8 @@ const fonts = {
 };
 
 const components = {
-  Table: {
-    variants: {
-      striped: {
-        tr: {
-          _odd: {
-            background: "red.500",
-            borderColor: "red.500",
-            borderBottomWidth: 5,
-          },
-          _even: {
-            background: "green.500",
-            borderBottom: "green.500",
-          },
-        },
-      },
-    },
-  },
+  Link: { baseStyle: { _focus: { boxShadow: "none" } } },
 };
 
-const theme = extendTheme({ config, fonts, colors });
+const theme = extendTheme({ config, fonts, colors, components });
 export default theme;
