@@ -17,12 +17,18 @@ class Navbar extends Component {
     ["Login", "/login"],
     ["Register", "/register"],
   ];
+
   render() {
     if (this.context.loggedIn) {
       return (
         <React.Fragment>
           {this.loggedIn.map((item) => (
-            <Link as={RouterLink} to={item[1]} key={item[0]}>
+            <Link
+              as={RouterLink}
+              to={item[1]}
+              key={item[0]}
+              onClick={this.props.toggle}
+            >
               <Box
                 key={item[0]}
                 borderWidth="1px"

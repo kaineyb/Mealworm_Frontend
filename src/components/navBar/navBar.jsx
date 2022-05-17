@@ -16,7 +16,7 @@ const Navbar = (props) => {
           <Flex direction={{ base: "column", md: "row" }}>
             <Box borderWidth="1px" borderRadius="lg" p={4} m={1}>
               <HStack>
-                <Link as={RouterLink} to="/">
+                <Link as={RouterLink} to="/" onClick={isOpen ? toggle : null}>
                   <strong>{config.siteName}</strong>
                 </Link>
                 <Spacer />
@@ -29,7 +29,7 @@ const Navbar = (props) => {
               flexBasis={{ base: "100%", md: "auto" }}
             >
               <Flex direction={{ base: "column", md: "row" }}>
-                <NavbarUser />
+                <NavbarUser toggle={toggle} />
               </Flex>
             </Box>
           </Flex>
