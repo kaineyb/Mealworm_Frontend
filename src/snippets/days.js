@@ -49,7 +49,7 @@ const getDay = (dayNumber, startDay) => {
 
   const result = position % length;
 
-  return daysArray[result][1];
+  return daysArray[result][0];
 };
 
 const isWeekend = (longDay) => {

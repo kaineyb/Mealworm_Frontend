@@ -77,10 +77,9 @@ function Schedule() {
       </Box>
       <Box borderWidth="1px" borderRadius="lg" p={5}>
         <TableContainer>
-          <Table variant="striped">
+          <Table variant="striped" size="sm">
             <Thead>
               <Tr>
-                <Th scope="col">#</Th>
                 <Th scope="col">Day</Th>
                 <Th scope="col">Meal</Th>
               </Tr>
@@ -93,7 +92,6 @@ function Schedule() {
                     days.getDay(day.order, plan.start_day)
                   )}
                 >
-                  <Td>{day.order}</Td>
                   <Td>{days.getDay(day.order, plan.start_day)} </Td>
                   <Td>{mealFromID(day.meal, meals)}</Td>
                 </Tr>

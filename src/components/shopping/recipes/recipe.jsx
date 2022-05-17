@@ -2,8 +2,8 @@ import {
   Badge,
   Box,
   Divider,
+  Flex,
   Heading,
-  Stack,
   Table,
   TableContainer,
   Tbody,
@@ -24,58 +24,49 @@ function Recipe(props) {
   };
 
   return (
-    <Box
-      key={day.id}
-      borderWidth="1px"
-      borderRadius="lg"
-      p={5}
-      my={5}
-      position="relative"
-    >
+    <Box key={day.id} borderWidth="1px" borderRadius="lg" p={5} my={5}>
       <Heading as="h4" size="sm" mb={2}>
         {mealFromID(day.meal, meals)}
       </Heading>
-      <Stack direction="row" position="absolute" top="5" right="5">
-        <Badge variant="outline">{day.order}</Badge>
-        <Badge variant="subtle">{days.getDay(day.order, plan.start_day)}</Badge>
-      </Stack>
+      <Flex direction={{ base: "column", sm: "row" }} gap={2} mb={2}>
+        <Badge variant="outline">Day: {day.order}</Badge>
+        <Badge variant="subtle">
+          {days.longDay(days.getDay(day.order, plan.start_day))}
+        </Badge>
+      </Flex>
 
       <Divider my={5} />
-      <Box borderWidth="1px" borderRadius="lg" p={5} my={5}>
-        <TableContainer>
-          <Table variant="striped">
-            <Thead>
-              <Tr>
-                <Th scope="col">Quantity</Th>
-                <Th scope="col">Unit</Th>
-                <Th scope="col">Ingredient</Th>
+      <TableContainer>
+        <Table variant="striped" size={"sm"}>
+          <Thead>
+            <Tr>
+              <Th scope="col">Ingredients</Th>
+            </Tr>
+          </Thead>
+          <Tbody>
+            {MealIngredients(day.meal).map((ingredient) => (
+              <Tr key={ingredient.id}>
+                <Td>
+                  {ingredient.quantity} {ingredient.unit}{" "}
+                  {ingredient.unit === " x " ? "" : " - "}
+                  {mealFromID(ingredient.ingredient, ingredients)}
+                </Td>
               </Tr>
-            </Thead>
-            <Tbody>
-              {MealIngredients(day.meal).map((ingredient) => (
-                <Tr key={ingredient.id}>
-                  <Td>{ingredient.quantity}</Td>
-                  <Td>{ingredient.unit}</Td>
-                  <Td>{mealFromID(ingredient.ingredient, ingredients)}</Td>
-                </Tr>
-              ))}
-            </Tbody>
-          </Table>
-        </TableContainer>
-      </Box>
+            ))}
+          </Tbody>
+        </Table>
+      </TableContainer>
 
-      <Box borderWidth="1px" borderRadius="lg" p={5} my={5}>
-        <Heading as="h6" size="s">
-          Recipe <Badge>Coming Soon :)</Badge>
-        </Heading>
-        <Divider my={5}></Divider>
-        <Text>
-          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Inventore
-          neque pariatur itaque minus similique odit asperiores. Maiores,
-          aliquid commodi adipisci esse libero officia. Beatae doloremque ipsam
-          architecto quisquam soluta eaque.
-        </Text>
-      </Box>
+      <Heading as="h6" size="s" mt={5}>
+        Recipe <Badge>Coming Soon :)</Badge>
+      </Heading>
+      <Divider my={5} />
+      <Text>
+        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Inventore
+        neque pariatur itaque minus similique odit asperiores. Maiores, aliquid
+        commodi adipisci esse libero officia. Beatae doloremque ipsam architecto
+        quisquam soluta eaque.
+      </Text>
     </Box>
   );
 }
