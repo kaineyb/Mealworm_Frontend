@@ -1,7 +1,9 @@
 import {
-  Box,
   Checkbox,
+  Divider,
+  Heading,
   Table,
+  TableCaption,
   TableContainer,
   Tbody,
   Td,
@@ -28,7 +30,7 @@ function ShoppingListTable(props) {
     } else if (item) {
       return item.name;
     } else {
-      return "-";
+      return "No Section";
     }
   };
 
@@ -82,61 +84,92 @@ function ShoppingListTable(props) {
     return ingredientTotals;
   };
 
-  const sortShoppingData = (data) => {
-    // data.push({
-    //   id: 0,
-    //   ingredient: 0,
-    //   name: "LOL",
-    //   sectionId: 0,
-    //   section: "Injected",
-    //   aisle: 1,
-    //   unit: "flibbles",
-    //   quantity: 0,
-    // });
-    return _.orderBy(data, ["aisle", "section", "name"], ["asc"]);
+  const sortShoppingData = (obj) => {
+    const newResult = _.orderBy(obj, ["aisle", "section"], ["asc"]);
+
+    Object.values(newResult).forEach((item) => {
+      item["items"] = _.orderBy(item["items"], ["name"], ["asc"]);
+    });
+
+    return newResult;
+  };
+
+  const splitDataIntoSections = (obj) => {
+    const sections = {};
+
+    const items = Object.values(obj);
+
+    items.forEach((item) => {
+      if (!sections[item.sectionId]) {
+        sections[item.sectionId] = {
+          section: item.section,
+          sectionId: item.sectionId,
+          aisle: item.aisle,
+          items: [],
+        };
+      }
+      sections[item.sectionId]["items"].push({
+        id: item.id,
+        ingredient: item.ingredient,
+        name: item.name,
+        quantity: item.quantity,
+        unit: item.unit,
+      });
+    });
+
+    return sections;
   };
 
   const mealTotals = combineIngredients(plan);
   const shoppingListData = generateIngredientTotals(mealTotals);
+  const sectionedData = splitDataIntoSections(shoppingListData);
+  const sortedSectionedData = sortShoppingData(sectionedData);
 
-  const generateTableRows = (shoppingListData) => {
-    let rows = Object.values(shoppingListData);
-
-    rows = sortShoppingData(rows);
-
-    return rows.map((row) => (
+  const generateTableRows = (tableRows) => {
+    return tableRows.map((row) => (
       <Tr key={row.id}>
-        <Td data-label="">
+        <Td px={3} m={0} width="0px">
           <Checkbox />
         </Td>
-        <Td data-label="Quantity">
-          {row.quantity} {row.unit}
+        <Td fontSize={["0.8rem", "1rem"]} p={0}>
+          {row.quantity} {row.unit} {row.unit === " x " ? "" : " - "}
+          {row.name}
         </Td>
-        <Td data-label="Ingredient">{row.name}</Td>
-        <Td data-label="Section">{row.section}</Td>
       </Tr>
     ));
   };
 
-  return (
-    <Fragment>
-      <Box borderWidth="1px" borderRadius="lg" p={5}>
-        <TableContainer>
-          <Table variant={"striped"}>
-            <Thead>
-              <Tr>
-                <Th scope="col"></Th>
-                <Th scope="col">Quantity</Th>
-                <Th scope="col">Ingredient</Th>
-                <Th scope="col">Section</Th>
-              </Tr>
-            </Thead>
-            <Tbody>{generateTableRows(shoppingListData)}</Tbody>
-          </Table>
-        </TableContainer>
-      </Box>
-    </Fragment>
-  );
+  const generateTables = (obj) => {
+    const tables = Object.values(obj);
+
+    return tables.map((table) => (
+      <TableContainer
+        key={table.sectionId}
+        borderWidth="1px"
+        borderRadius="lg"
+        // p={5}
+        mb={5}
+      >
+        <Table variant={"striped"}>
+          <TableCaption placement="top" textAlign={"left"}>
+            <Heading as="h6">
+              {table.aisle ? `Aisle: ${table.aisle} - ` : ""} {table.section}
+            </Heading>
+            <Divider mt={2} />
+          </TableCaption>
+          <Thead>
+            <Tr>
+              <Th scope="col"></Th>
+              <Th scope="col"></Th>
+            </Tr>
+          </Thead>
+          <Tbody>{generateTableRows(table.items)}</Tbody>
+        </Table>
+      </TableContainer>
+    ));
+  };
+
+  return <Fragment>{generateTables(sortedSectionedData)}</Fragment>;
 }
 
 export default ShoppingListTable;

@@ -1,4 +1,12 @@
-import { Box, Button, Divider, Heading, Spacer, Text } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  Divider,
+  Flex,
+  Heading,
+  Spacer,
+  Text,
+} from "@chakra-ui/react";
 import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import DataContext from "../../context/dataContext";
@@ -38,19 +46,24 @@ function UserProfile(props) {
     <Box>
       <Heading as="h1">User Profile</Heading>
       <Divider my={4} />
-      <Box my={5} p={5} borderWidth="1px" borderRadius="lg" position="relative">
+      <Box my={5} p={5} borderWidth="1px" borderRadius="lg">
         <Heading size="md">User Details</Heading>
         <Divider my={4} />
-        <Text>User ID:{user.id}</Text>
-        <Text>Username: {user.username}</Text>
-        <Text>Email: {user.email}</Text>
+        <Flex direction={{ base: "column", md: "row" }} gap={2}>
+          <Box>
+            <Text>User ID:{user.id}</Text>
+            <Text>Username: {user.username}</Text>
+            <Text>Email: {user.email}</Text>
+          </Box>
+          <Spacer />
 
-        <Button mt={5} position="absolute" bottom="5" right="5">
-          <Link to="/logout">Logout</Link>
-        </Button>
+          <Button>
+            <Link to="/logout">Logout</Link>
+          </Button>
+        </Flex>
       </Box>
 
-      <Box my={5} p={4} borderWidth="1px" borderRadius="lg">
+      <Box my={5} p={5} borderWidth="1px" borderRadius="lg">
         <Heading size="md">Secret Admin Box</Heading>
         <Divider my={4} />
         <Box>
@@ -62,12 +75,15 @@ function UserProfile(props) {
           <Heading size="sl">Refresh Token Time</Heading>
           {`${rT.hours} hours, ${rT.minutes} minutes, ${rT.seconds} seconds`}
         </Box>
-        <Box mt={4}>
-          <Button mr={4} onClick={context.updateData}>
-            Reload Data from Server
-          </Button>
+        <Flex
+          direction={{ base: "column", md: "row" }}
+          mt={4}
+          gap={2}
+          width={"100%"}
+        >
+          <Button onClick={context.updateData}>Reload Data from Server</Button>
           <Button onClick={setStores}>Set Stores to Faux Data</Button>
-        </Box>
+        </Flex>
       </Box>
     </Box>
   );
