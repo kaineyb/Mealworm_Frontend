@@ -131,7 +131,7 @@ function ShoppingListTable(props) {
         <Td px={3} m={0} width="0px">
           <Checkbox />
         </Td>
-        <Td fontSize={["0.8rem", "1rem"]} p={0}>
+        <Td p={0}>
           {row.quantity} {row.unit} {row.unit === " x " ? "" : " - "}
           {row.name}
         </Td>
@@ -147,12 +147,11 @@ function ShoppingListTable(props) {
         key={table.sectionId}
         borderWidth="1px"
         borderRadius="lg"
-        // p={5}
         mb={5}
       >
-        <Table variant={"striped"}>
-          <TableCaption placement="top" textAlign={"left"}>
-            <Heading as="h6">
+        <Table variant={"striped"} size={"sm"}>
+          <TableCaption placement="top" textAlign={"left"} m={0}>
+            <Heading as="h6" size="sm">
               {table.aisle ? `Aisle: ${table.aisle} - ` : ""} {table.section}
             </Heading>
             <Divider mt={2} />
