@@ -1,4 +1,4 @@
-import { Box, Divider, Heading } from "@chakra-ui/react";
+import { Box, Heading } from "@chakra-ui/react";
 import React, { Component } from "react";
 import config from "../services/config.json";
 
@@ -7,8 +7,6 @@ class Hero extends Component {
     return (
       <section>
         <header>
-          <Heading as="h1">{config.siteName}</Heading>
-          <Divider my={4} />
           <Heading as="h2">Welcome to the Site!</Heading>
 
           <Box borderWidth="1px" borderRadius="lg" p={4} my={4}>
