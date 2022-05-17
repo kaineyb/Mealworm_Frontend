@@ -186,7 +186,7 @@ function Plan(props) {
         <Flex direction={{ base: "column", sm: "row" }} gap={2}>
           <Link to={`/plan/${plan.id}/shopping-list`}>
             <Button leftIcon={<AiOutlineShoppingCart />} w="100%">
-              Shopping Lists
+              Shopping List
             </Button>
           </Link>
           <Link to={`/plan/${plan.id}/schedule`}>

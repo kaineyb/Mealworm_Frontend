@@ -75,9 +75,9 @@ function Schedule() {
         Starts on a <strong>{days.longDay(plan.start_day)}</strong> and lasts{" "}
         <strong>{plan.day_set.length}</strong> days
       </Box>
-      <Box borderWidth="1px" borderRadius="lg" p={5}>
+      <Box borderWidth="1px" borderRadius="lg" p={0} pt={3}>
         <TableContainer>
-          <Table variant="striped" size="sm">
+          <Table variant="striped" size="sm" m={0}>
             <Thead>
               <Tr>
                 <Th scope="col">Day</Th>
