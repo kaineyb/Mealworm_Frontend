@@ -58,6 +58,7 @@ class LoginForm extends BaseForm {
             name="username"
             label="Your Username"
             placeholder="Enter username"
+            autoComplete="username"
             error={errors["username"]}
             onChange={this.handleChange}
           />

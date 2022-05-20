@@ -4,6 +4,7 @@ import http from "../services/httpService";
 import Hero from "./hero";
 import NotFound from "./notFound";
 import PrivateRoute from "./privateRoute";
+import Aisles from "./shopping/aisles/aisles";
 // Components
 import SimpleForm from "./shopping/component/simpleForm";
 // Shopping Components
@@ -64,6 +65,24 @@ function RouteList(props) {
         }
       />
       <Route
+        path="/aisles"
+        element={
+          <PrivateRoute>
+            <Aisles />
+          </PrivateRoute>
+        }
+      />
+
+      <Route
+        path="/ingredients"
+        element={
+          <PrivateRoute>
+            <Ingredients />
+          </PrivateRoute>
+        }
+      />
+      <Route path="/meals" element={<Meals />} />
+      <Route
         path="/plans"
         element={
           <PrivateRoute>
@@ -96,17 +115,6 @@ function RouteList(props) {
           </PrivateRoute>
         }
       />
-
-      <Route path="/meals" element={<Meals />} />
-      <Route
-        path="/ingredients"
-        element={
-          <PrivateRoute>
-            <Ingredients />
-          </PrivateRoute>
-        }
-      />
-
       <Route
         path="/profile"
         element={
