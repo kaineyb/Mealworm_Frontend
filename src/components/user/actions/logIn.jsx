@@ -1,26 +1,25 @@
-import { Component } from "react";
-import auth from "../../../services/authService";
-import { toast } from "react-toastify";
+import { useContext, useEffect } from "react";
 import { Navigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import { default as dataContext } from "../../../context/dataContext";
+import auth from "../../../services/authService";
 
-import DataContext from "../../../context/dataContext";
+function LogIn(props) {
+  const { updateData } = useContext(dataContext);
 
-class LogIn extends Component {
-  async componentDidMount() {
-    const { setUser } = this.props.user;
-    this.context.updateData();
+  const { setUser } = props.user;
 
-    const user = await auth.getCurrentUserObj();
-    await setUser(user);
-
+  useEffect(() => {
+    updateData();
+    async function getUser() {
+      const user = await auth.getCurrentUserObj();
+      setUser(user);
+    }
+    getUser();
     toast.success("Logged in!");
-  }
+  }, []);
 
-  render() {
-    return <Navigate to="/" replace />;
-  }
+  return <Navigate to="/" replace />;
 }
-
-LogIn.contextType = DataContext;
 
 export default LogIn;

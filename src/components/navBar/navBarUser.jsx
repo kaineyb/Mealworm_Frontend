@@ -1,10 +1,11 @@
 import { Box, Link } from "@chakra-ui/react";
-import React, { Component } from "react";
+import React, { useContext } from "react";
 import { Link as RouterLink } from "react-router-dom";
-import UserContext from "../../context/userContext";
+import userContext from "../../context/userContext";
 
-class Navbar extends Component {
-  loggedIn = [
+function Navbar(props) {
+  const user = useContext(userContext);
+  const loggedIn = [
     ["Stores", "/stores"],
     ["Sections", "/sections"],
     ["Ingredients", "/ingredients"],
@@ -13,51 +14,40 @@ class Navbar extends Component {
     ["Profile", "/profile"],
   ];
 
-  loggedOut = [
+  const loggedOut = [
     ["Login", "/login"],
     ["Register", "/register"],
   ];
-
-  render() {
-    if (this.context.loggedIn) {
-      return (
-        <React.Fragment>
-          {this.loggedIn.map((item) => (
-            <Link
-              as={RouterLink}
-              to={item[1]}
-              key={item[0]}
-              onClick={this.props.toggle}
-            >
-              <Box
-                key={item[0]}
-                borderWidth="1px"
-                borderRadius="lg"
-                p={4}
-                m={1}
-              >
-                {item[0]}
-              </Box>
-            </Link>
-          ))}
-        </React.Fragment>
-      );
-    } else {
-      return (
-        <React.Fragment>
-          {this.loggedOut.map((item) => (
-            <Link as={RouterLink} to={item[1]} key={item[0]}>
-              <Box borderWidth="1px" borderRadius="lg" p={4} m={1}>
-                {item[0]}
-              </Box>
-            </Link>
-          ))}
-        </React.Fragment>
-      );
-    }
+  if (user.loggedIn) {
+    return (
+      <React.Fragment>
+        {loggedIn.map((item) => (
+          <Link
+            as={RouterLink}
+            to={item[1]}
+            key={item[0]}
+            onClick={props.toggle}
+          >
+            <Box key={item[0]} borderWidth="1px" borderRadius="lg" p={4} m={1}>
+              {item[0]}
+            </Box>
+          </Link>
+        ))}
+      </React.Fragment>
+    );
+  } else {
+    return (
+      <React.Fragment>
+        {loggedOut.map((item) => (
+          <Link as={RouterLink} to={item[1]} key={item[0]}>
+            <Box borderWidth="1px" borderRadius="lg" p={4} m={1}>
+              {item[0]}
+            </Box>
+          </Link>
+        ))}
+      </React.Fragment>
+    );
   }
 }
-
-Navbar.contextType = UserContext;
 
 export default Navbar;

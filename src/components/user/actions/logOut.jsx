@@ -1,22 +1,23 @@
-import { Component } from "react";
-import auth from "../../../services/authService";
-import { toast } from "react-toastify";
+import { useContext, useEffect } from "react";
 import { Navigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import dataContext from "../../../context/dataContext";
+import auth from "../../../services/authService";
+import userContext from "./../../../context/userContext";
 
-class LogOut extends Component {
-  componentDidMount() {
-    const { user: userContext, data: dataContext } = this.props;
+function LogOut(props) {
+  const data = useContext(dataContext);
+  const user = useContext(userContext);
 
+  useEffect(() => {
     auth.logout(); // Removes from LocalStorage
-    userContext.clearUser(); // Removes from State
-    dataContext.clearData(); // Removes from State
-    userContext.toggleLoggedIn();
+    user.clearUser(); // Removes from State
+    data.clearData(); // Removes from State
+    user.toggleLoggedIn();
     toast.success("Logged out!");
-  }
+  }, []);
 
-  render() {
-    return <Navigate to="/" replace />;
-  }
+  return <Navigate to="/" replace />;
 }
 
 export default LogOut;

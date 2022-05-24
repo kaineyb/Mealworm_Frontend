@@ -1,6 +1,6 @@
 // React
 import { Container } from "@chakra-ui/react";
-import React, { Component, Fragment } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 // 3rd Party
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -11,126 +11,112 @@ import RouteList from "./components/routes";
 import DataContext from "./context/dataContext";
 // Contexts
 import UserContext from "./context/userContext";
-// This needs to be imported at some level to get the JWT Token in Browser
 import auth from "./services/authService";
 // config
 import config from "./services/config.json";
 import dataService from "./services/dataService";
 
-class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      user: null,
-      loggedIn: false,
-      data: {},
-    };
-  }
+function App(props) {
+  const [user, setUser] = useState(null);
+  const [loggedIn, setLoggedIn] = useState(false);
+  const [mainData, setMainData] = useState({});
 
-  async componentDidMount() {
+  useEffect(() => {
     document.title = config.siteName;
-    console.log("App.js CDM - Fired");
+    console.log("App.js Fired");
+  }, []);
 
-    const loggedIn = await auth.loggedIn();
+  useEffect(() => {
+    async function setAuth() {
+      const loggedIn = await auth.loggedIn();
 
-    const { data } = this.state;
-
-    if (loggedIn && Object.keys(data).length === 0) {
-      this.updateData();
+      if (loggedIn) {
+        var user = await auth.getCurrentUserObj();
+        setLoggedIn(true);
+        setUser(user);
+      } else {
+        setLoggedIn(false);
+        setUser({});
+      }
     }
+    setAuth();
+  }, []);
 
-    if (loggedIn) {
-      var user = await auth.getCurrentUserObj();
-      this.setState({ loggedIn, user });
+  useEffect(() => {
+    if (loggedIn && Object.keys(mainData).length === 0) {
+      updateData();
     }
-  }
+  }, [loggedIn]);
 
-  updateData = async () => {
+  const updateData = async () => {
     const promise = await toast.promise(dataService.getAll(), {
       pending: "Getting data from server 🧐",
       success: "Got latest data from server 🥰",
       error: "Couldn't get data from server! 🤬",
     });
 
-    this.setState({ data: promise });
+    setMainData(promise);
   };
 
-  clearData = () => {
-    this.setState({ data: {} });
+  const clearData = () => {
+    setMainData({});
   };
 
-  /**
-   * Look ma, my first docstring in JS.
-   * @param {String} property - the key or property of the object to replace
-   * @param {Object} payload - the object to replace
-   */
-  setData = (property, payload) => {
-    const newData = { ...this.state.data };
+  const setData = (property, payload) => {
+    const newData = { ...mainData };
 
     newData[property] = payload;
-    // console.log("setData", property, payload);
 
-    this.setState({ data: newData });
+    setData(newData);
   };
 
-  // Arrow functions ftw lol
-  toggleLoggedIn = () => {
-    if (this.state.loggedIn) {
-      this.setState({ loggedIn: false });
-    } else {
-      this.setState({ loggedIn: true });
-    }
+  const toggleLoggedIn = () => {
+    setLoggedIn(!loggedIn);
   };
 
-  setUser = (user) => {
-    this.setState({ user: { ...user } });
+  const clearUser = () => {
+    setUser(null);
   };
 
-  clearUser = () => {
-    this.setState({ user: null });
+  const userContextValue = {
+    user,
+    loggedIn,
+    toggleLoggedIn,
+    clearUser,
+    setUser,
   };
 
-  render() {
-    const userContextValue = {
-      user: this.state.user,
-      loggedIn: this.state.loggedIn,
-      toggleLoggedIn: this.toggleLoggedIn,
-      clearUser: this.clearUser,
-      setUser: this.setUser,
-    };
+  const dataContextValue = {
+    data: mainData,
+    updateData,
+    clearData,
+    setData,
+  };
 
-    const dataContextValue = {
-      data: this.state.data,
-      updateData: this.updateData,
-      clearData: this.clearData,
-      setData: this.setData,
-    };
-
-    return (
-      <Fragment>
-        <Container maxWidth="container.md">
-          <DataContext.Provider value={dataContextValue}>
-            <UserContext.Provider value={userContextValue}>
-              <ToastContainer
-                theme="dark"
-                newestOnTop={true}
-                position="bottom-right"
+  return (
+    <Fragment>
+      <Container maxWidth="container.md">
+        <DataContext.Provider value={dataContextValue}>
+          <UserContext.Provider value={userContextValue}>
+            <ToastContainer
+              theme="dark"
+              newestOnTop={true}
+              position="bottom-right"
+            />
+            <NavBar />
+            <main>
+              <RouteList
+                loggedIn={loggedIn}
+                dataContextValue={dataContextValue}
+                userContextValue={userContextValue}
               />
-              <NavBar />
-              <main>
-                <RouteList
-                  loggedIn={this.state.loggedIn}
-                  dataContextValue={dataContextValue}
-                  userContextValue={userContextValue}
-                />
-              </main>
-            </UserContext.Provider>
-          </DataContext.Provider>
-        </Container>
-        <Footer />
-      </Fragment>
-    );
-  }
+            </main>
+          </UserContext.Provider>
+        </DataContext.Provider>
+      </Container>
+      <Footer />
+    </Fragment>
+  );
 }
 
 export default App;

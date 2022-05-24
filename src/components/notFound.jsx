@@ -1,9 +1,11 @@
-import React, { Component } from "react";
+import React, { useEffect } from "react";
+import config from "../services/config.json";
 
-class NotFound extends Component {
-  render() {
-    return <h1>404 - Not Found!</h1>;
-  }
+function NotFound(props) {
+  useEffect(() => {
+    document.title = `${config.siteName} - 404 Not Found!`;
+  }, []);
+  return <h1>404 - Not Found!</h1>;
 }
 
 export default NotFound;

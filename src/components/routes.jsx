@@ -60,7 +60,14 @@ function RouteList(props) {
           </PrivateRoute>
         }
       />
-      <Route path="/meals" element={<Meals />} />
+      <Route
+        path="/meals"
+        element={
+          <PrivateRoute>
+            <Meals />
+          </PrivateRoute>
+        }
+      />
       <Route
         path="/plans"
         element={
