@@ -1,9 +1,8 @@
-import http from "./httpService";
-import config from "./config.json";
-
 // 3rd Party
 import jwtDecode from "jwt-decode";
 import { DateTime } from "luxon";
+import config from "./config.json";
+import http from "./httpService";
 
 const { accessTokenKey, refreshTokenKey } = config;
 
@@ -60,6 +59,22 @@ async function checkTokensValid(access, refresh) {
   return false;
 }
 
+function tokenNotExpired(token) {
+  const now = DateTime.now();
+
+  if (token) {
+    const tokenEpoch = jwtDecode(token).exp;
+    const tokenISO = DateTime.fromSeconds(tokenEpoch).toISO();
+    const tokenDT = DateTime.fromISO(tokenISO);
+
+    const tokenDurationObj = tokenDT.diff(now, ["seconds"]).toObject();
+
+    if (tokenDurationObj.seconds > 0) {
+      return true;
+    }
+  }
+}
+
 function tokenTimeOut(token) {
   const now = DateTime.now();
 
@@ -87,5 +102,6 @@ const jwt = {
   checkTokensValid,
   checkTokenValid,
   tokenTimeOut,
+  tokenNotExpired,
 };
 export default jwt;

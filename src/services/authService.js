@@ -100,6 +100,13 @@ export async function loggedIn() {
     return false;
   }
 
+  const accessHasTime = jwtService.tokenNotExpired(access);
+  const refreshHasTime = jwtService.tokenNotExpired(refresh);
+
+  if (accessHasTime && refreshHasTime) {
+    return true;
+  }
+
   const accessValid = await jwtService.checkTokenValid("access", access);
   const refreshValid = await jwtService.checkTokenValid("refresh", refresh);
 
