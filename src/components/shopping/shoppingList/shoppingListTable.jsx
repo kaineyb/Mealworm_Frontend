@@ -1,22 +1,55 @@
 import {
+  Box,
   Checkbox,
   Divider,
+  Flex,
   Heading,
+  Select,
   Table,
   TableCaption,
   TableContainer,
   Tbody,
   Td,
+  Text,
   Th,
   Thead,
   Tr,
 } from "@chakra-ui/react";
 import _ from "lodash";
-import { Fragment } from "react";
+import { Fragment, useContext, useState } from "react";
 import mealFromID from "../../../snippets/meals";
+import dataContext from "./../../../context/dataContext";
 
 function ShoppingListTable(props) {
   const { meals, plan, ingredients, sections } = props;
+
+  const {
+    data: { stores },
+  } = useContext(dataContext);
+
+  const [store, setStore] = useState(0);
+
+  const handleChangeSelect = (event) => {
+    setStore(parseInt(event.target.value));
+  };
+
+  const getAisleForSection = (sectionId) => {
+    if (store === 0) {
+      return null;
+    }
+
+    const myStore = stores.filter((_store) => _store.id === store)[0];
+
+    const myAisle = myStore["aisles"].filter(
+      (_aisle) => _aisle.section === sectionId
+    )[0];
+
+    if (myAisle) {
+      return myAisle.aisle_number;
+    } else {
+      return null;
+    }
+  };
 
   // Go through each meal and look at the ingredient,
   // check the id and unit, and add them to our object.
@@ -73,7 +106,7 @@ function ShoppingListTable(props) {
             name: ingredient.name,
             sectionId: ingredient.section,
             section: sectionFromId(ingredient.section, sections),
-            aisle: null,
+            aisle: getAisleForSection(ingredient.section),
             unit: mealIngredient.unit,
             quantity: mealIngredient.quantity * amount,
           };
@@ -82,16 +115,6 @@ function ShoppingListTable(props) {
     });
 
     return ingredientTotals;
-  };
-
-  const sortShoppingData = (obj) => {
-    const newResult = _.orderBy(obj, ["aisle", "section"], ["asc"]);
-
-    Object.values(newResult).forEach((item) => {
-      item["items"] = _.orderBy(item["items"], ["name"], ["asc"]);
-    });
-
-    return newResult;
   };
 
   const splitDataIntoSections = (obj) => {
@@ -118,6 +141,17 @@ function ShoppingListTable(props) {
     });
 
     return sections;
+  };
+
+  const sortShoppingData = (obj) => {
+    console.log(obj);
+    const newResult = _.orderBy(obj, ["aisle", "section"], ["asc"]);
+
+    Object.values(newResult).forEach((item) => {
+      item["items"] = _.orderBy(item["items"], ["name"], ["asc"]);
+    });
+
+    return newResult;
   };
 
   const mealTotals = combineIngredients(plan);
@@ -168,7 +202,21 @@ function ShoppingListTable(props) {
     ));
   };
 
-  return <Fragment>{generateTables(sortedSectionedData)}</Fragment>;
+  return (
+    <Fragment>
+      <Box borderWidth={"1px"} my={5} p={5}>
+        <Flex direction={{ base: "row", sm: "row" }} gap={2}>
+          <Text>What store are you shopping at today?</Text>
+          <Select size="sm" width="sm" ml={5} onChange={handleChangeSelect}>
+            {stores.map((store) => (
+              <option value={store.id}>{store.name}</option>
+            ))}
+          </Select>
+        </Flex>
+      </Box>
+      {generateTables(sortedSectionedData)}
+    </Fragment>
+  );
 }
 
 export default ShoppingListTable;
