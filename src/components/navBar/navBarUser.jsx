@@ -7,7 +7,6 @@ class Navbar extends Component {
   loggedIn = [
     ["Stores", "/stores"],
     ["Sections", "/sections"],
-    ["Aisles", "/aisles"],
     ["Ingredients", "/ingredients"],
     ["Meals", "/meals"],
     ["Plans", "/plans"],

@@ -10,8 +10,8 @@ import {
 } from "@chakra-ui/react";
 import { useContext, useEffect, useState } from "react";
 import { toast } from "react-toastify";
-import dataContext from "./../../../context/dataContext";
-import http from "./../../../services/httpService";
+import dataContext from "../../../context/dataContext";
+import http from "../../../services/httpService";
 const CreateAisleLine = (props) => {
   const { line_id, removeLine, section } = props;
 

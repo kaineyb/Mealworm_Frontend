@@ -1,19 +1,17 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
-import http from "../services/httpService";
 import Hero from "./hero";
 import NotFound from "./notFound";
 import PrivateRoute from "./privateRoute";
-import Aisles from "./shopping/aisles/aisles";
-// Components
-import SimpleForm from "./shopping/component/simpleForm";
 // Shopping Components
 import Ingredients from "./shopping/ingredients/ingredients";
 import Meals from "./shopping/meals/meals";
 import Plans from "./shopping/plans/plans";
 import Recipes from "./shopping/recipes/recipes";
 import Schedule from "./shopping/schedule/schedule";
+import Sections from "./shopping/sections";
 import ShoppingList from "./shopping/shoppingList/shoppingList";
+import Stores from "./shopping/stores/stores";
 import LogOut from "./user/actions/logOut";
 // User Components
 import LoginForm from "./user/forms/loginForm";
@@ -42,12 +40,7 @@ function RouteList(props) {
         path="/stores"
         element={
           <PrivateRoute>
-            <SimpleForm
-              name="stores"
-              singularTitle="Store"
-              pluralTitle="Stores"
-              endpoint={http.storesEP}
-            />
+            <Stores />
           </PrivateRoute>
         }
       />
@@ -55,24 +48,10 @@ function RouteList(props) {
         path="/sections"
         element={
           <PrivateRoute>
-            <SimpleForm
-              name="sections"
-              singularTitle="Section"
-              pluralTitle="Sections"
-              endpoint={http.sectionsEP}
-            />
+            <Sections />
           </PrivateRoute>
         }
       />
-      <Route
-        path="/aisles"
-        element={
-          <PrivateRoute>
-            <Aisles />
-          </PrivateRoute>
-        }
-      />
-
       <Route
         path="/ingredients"
         element={
