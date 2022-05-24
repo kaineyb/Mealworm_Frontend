@@ -144,7 +144,6 @@ function ShoppingListTable(props) {
   };
 
   const sortShoppingData = (obj) => {
-    console.log(obj);
     const newResult = _.orderBy(obj, ["aisle", "section"], ["asc"]);
 
     Object.values(newResult).forEach((item) => {
@@ -207,9 +206,20 @@ function ShoppingListTable(props) {
       <Box borderWidth={"1px"} my={5} p={5}>
         <Flex direction={{ base: "row", sm: "row" }} gap={2}>
           <Text>What store are you shopping at today?</Text>
-          <Select size="sm" width="sm" ml={5} onChange={handleChangeSelect}>
+          <Select
+            defaultValue={0}
+            size="sm"
+            width="sm"
+            ml={5}
+            onChange={handleChangeSelect}
+          >
+            <option value="0" disabled>
+              Please select a Store
+            </option>
             {stores.map((store) => (
-              <option value={store.id}>{store.name}</option>
+              <option key={store.id} value={store.id}>
+                {store.name}
+              </option>
             ))}
           </Select>
         </Flex>
