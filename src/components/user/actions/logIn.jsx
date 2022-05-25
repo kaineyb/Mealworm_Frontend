@@ -10,7 +10,6 @@ function LogIn(props) {
   const { setUser } = props.user;
 
   useEffect(() => {
-    updateData();
     async function getUser() {
       const user = await auth.getCurrentUserObj();
       setUser(user);

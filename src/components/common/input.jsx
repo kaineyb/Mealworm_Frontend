@@ -1,4 +1,10 @@
-import { FormLabel, Input as ChakraInput } from "@chakra-ui/react";
+import {
+  Alert,
+  AlertIcon,
+  AlertTitle,
+  FormLabel,
+  Input as ChakraInput,
+} from "@chakra-ui/react";
 import React from "react";
 
 const Input = ({ name, label, error, ...rest }) => {
@@ -6,7 +12,13 @@ const Input = ({ name, label, error, ...rest }) => {
     <React.Fragment>
       <FormLabel htmlFor={name}>{label}</FormLabel>
       <ChakraInput {...rest} name={name} id={name} />
-      {error && <div>{error}</div>}
+
+      {error && (
+        <Alert status="error" borderRadius={10}>
+          <AlertIcon />
+          <AlertTitle>{error}</AlertTitle>
+        </Alert>
+      )}
     </React.Fragment>
   );
 };

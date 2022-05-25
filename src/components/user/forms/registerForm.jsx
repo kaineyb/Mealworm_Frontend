@@ -36,26 +36,45 @@ class RegisterForm extends BaseForm {
       password: this.state.data.password,
     };
 
-    const registerResult = await toast.promise(auth.register(userDetails), {
-      pending: "Attempting to create an account for you",
-      success: `Created an account for you! Welcome to the site ${userDetails.username}`,
-      error:
-        "Couldn't create an account for you, username or email may already be taken",
-    });
+    const result = null;
 
-    if (registerResult.status === 201) {
-      // console.log(`User created ${userDetails.username}`);
-      let loginDetails = { ...userDetails };
-
-      delete loginDetails.email;
-
-      const loginResult = await toast.promise(auth.login(userDetails), {
-        pending: "Attempting to Log you in!",
-        error: "Couldn't log you in, please try to login manually",
+    try {
+      const registerResult = await toast.promise(auth.register(userDetails), {
+        pending: "Attempting to create an account for you",
+        success: `Created an account for you! Welcome to the site ${userDetails.username}`,
+        error:
+          "Couldn't create an account for you, username or email may already be taken",
       });
 
-      if (loginResult === true) {
-        this.context.toggleLoggedIn();
+      result = registerResult;
+
+      console.log(registerResult);
+
+      if (registerResult.status === 201) {
+        // console.log(`User created ${userDetails.username}`);
+        let loginDetails = { ...userDetails };
+
+        delete loginDetails.email;
+
+        const loginResult = await toast.promise(auth.login(userDetails), {
+          pending: "Attempting to Log you in!",
+          error: "Couldn't log you in, please try to login manually",
+        });
+
+        if (loginResult === true) {
+          this.context.toggleLoggedIn();
+        }
+      }
+    } catch (ex) {
+      if (ex.response.data.email) {
+        const errors = { ...this.state.errors };
+        errors["email"] = ex.response.data.email;
+        this.setState({ errors });
+      }
+      if (ex.response.data.username) {
+        const errors = { ...this.state.errors };
+        errors["username"] = ex.response.data.username;
+        this.setState({ errors });
       }
     }
   }

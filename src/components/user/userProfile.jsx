@@ -48,9 +48,9 @@ function UserProfile(props) {
           </Box>
           <Spacer />
 
-          <Button>
-            <Link to="/logout">Logout</Link>
-          </Button>
+          <Link to="/logout">
+            <Button>Logout</Button>
+          </Link>
         </Flex>
       </Box>
 
