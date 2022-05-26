@@ -49,7 +49,7 @@ export const en = {
       promise: {
         pending: (storeName) => `Deleting ${storeName} from server...`,
         success: (storeName) => `Deleted ${storeName} from server! :)`,
-        error: (storeName) => `Couldn't deleted ${storeName} from server! :(`,
+        error: (storeName) => `Couldn't delete ${storeName} from server! :(`,
       },
     },
   },
