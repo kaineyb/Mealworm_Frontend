@@ -12,6 +12,7 @@ import { useContext, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import DataContext from "../../../context/dataContext";
 import http from "../../../services/httpService";
+import { en } from "../../../services/textService";
 
 const MealIngredient = (props) => {
   const { meal_ingredient, name, meal } = props;
@@ -27,13 +28,7 @@ const MealIngredient = (props) => {
 
   const { quantity, unit, ingredient } = meal_ingredient;
 
-  const units = [
-    [" x ", "Items"],
-    ["g", "Grams"],
-    ["kg", "Kilograms"],
-    ["ml", "Millilitres"],
-    ["l", "Litres"],
-  ];
+  const units = en.units;
 
   const context = useContext(DataContext);
 
@@ -56,19 +51,17 @@ const MealIngredient = (props) => {
   };
 
   const handleCancel = () => {
-    console.log("cancel fired");
     setNewQuantity("");
     setNewUnit("");
     setNewMealIngredient("");
     setEditable(false);
-    console.log("cancel fired");
   };
 
   const validateSave = newQuantity > 0 ? true : false;
 
   const handleDelete = () => {
     const deleteMe = window.confirm(
-      `Really Delete "${quantity} ${unit} ${name}"?`
+      en.mealIngredient.delete.confirm(quantity, unit, name)
     );
 
     if (deleteMe) {
@@ -101,9 +94,9 @@ const MealIngredient = (props) => {
         `${http.mealsEP}${meal.id}/ingredients/${meal_ingredient.id}/`
       ),
       {
-        pending: `Deleting Meal Ingredient for Meal: ${meal.name} on server`,
-        success: `Deleted Meal Ingredient for meal: ${meal.name} on server!`,
-        error: `Couldn't delete Meal Ingredient for meal: ${meal.name} on server :(`,
+        pending: en.mealIngredient.delete.promise.pending(meal.name),
+        success: en.mealIngredient.delete.promise.success(meal.name),
+        error: en.mealIngredient.delete.promise.error(meal.name),
       }
     );
   };
@@ -156,9 +149,9 @@ const MealIngredient = (props) => {
         payload
       ),
       {
-        pending: `Updating Meal Ingredient for Meal: ${meal.name} on server`,
-        success: `Updated Meal Ingredient for meal: ${meal.name} on server!`,
-        error: `Couldn't update Meal Ingredient for meal: ${meal.name} on server :(`,
+        pending: en.mealIngredient.patchPromise.pending(meal.name),
+        success: en.mealIngredient.patchPromise.success(meal.name),
+        error: en.mealIngredient.patchPromise.error(meal.name),
       }
     );
   };
@@ -227,20 +220,20 @@ const MealIngredient = (props) => {
         <IconButton
           disabled={!validateSave}
           colorScheme={"green"}
-          aria-label="Save"
+          aria-label={en.mealIngredient.ariaSave}
           icon={<CheckIcon />}
           size="sm"
           onClick={handleSave}
         />
         <IconButton
-          aria-label="Cancel"
+          aria-label={en.mealIngredient.ariaCancel}
           icon={<CloseIcon />}
           size="sm"
           onClick={handleCancel}
         />
         <IconButton
           colorScheme={"red"}
-          aria-label="Delete Meal"
+          aria-label={en.mealIngredient.ariaDelete}
           icon={<DeleteIcon />}
           size="sm"
           onClick={handleDelete}

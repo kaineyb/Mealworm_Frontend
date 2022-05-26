@@ -1,33 +1,23 @@
+import { en } from "../services/textService";
+
 const daysArray = [
-  ["Mon", "Monday"],
-  ["Tue", "Tuesday"],
-  ["Wed", "Wednesday"],
-  ["Thu", "Thursday"],
-  ["Fri", "Friday"],
-  ["Sat", "Saturday"],
-  ["Sun", "Sunday"],
+  [en.days.short.monday, en.days.long.monday],
+  [en.days.short.tuesday, en.days.long.tuesday],
+  [en.days.short.wednesday, en.days.long.wednesday],
+  [en.days.short.thursday, en.days.long.thursday],
+  [en.days.short.friday, en.days.long.friday],
+  [en.days.short.saturday, en.days.long.saturday],
+  [en.days.short.sunday, en.days.long.sunday],
 ];
 
 const longDay = (day) => {
-  switch (day) {
-    case "Mon":
-      return "Monday";
-    case "Tue":
-      return "Tuesday";
-    case "Wed":
-      return "Wednesday";
-    case "Thu":
-      return "Thursday";
-    case "Fri":
-      return "Friday";
-    case "Sat":
-      return "Saturday";
-    case "Sun":
-      return "Sunday";
-    default:
-      break;
-  }
-  return "Day Not Found";
+  let result = "Not Found";
+  daysArray.forEach((item) => {
+    if (day === item[0]) {
+      result = item[1];
+    }
+  });
+  return result;
 };
 
 const calculateOffset = (shortDay) => {
@@ -53,7 +43,7 @@ const getDay = (dayNumber, startDay) => {
 };
 
 const isWeekend = (longDay) => {
-  if (longDay === "Saturday" || longDay === "Sunday") {
+  if (longDay === en.days.long.saturday || longDay === en.days.long.sunday) {
     return "weekend";
   } else {
     return "";

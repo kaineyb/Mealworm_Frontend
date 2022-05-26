@@ -4,6 +4,7 @@ import { Fragment, useContext, useState } from "react";
 import { toast } from "react-toastify";
 import dataContext from "../../../context/dataContext";
 import http from "../../../services/httpService";
+import { en } from "./../../../services/textService";
 
 const CreateMealIngredientLine = (props) => {
   const { meal, units, ingredients, removeLine, line_id } = props;
@@ -63,9 +64,9 @@ const CreateMealIngredientLine = (props) => {
     const result = await toast.promise(
       http.post(`${http.mealsEP}${meal.id}/ingredients/`, payload),
       {
-        pending: `Creating Meal Ingredient for Meal: ${meal.name} on server`,
-        success: `Created Meal Ingredient for meal: ${meal.name} on server!`,
-        error: `Couldn't create Meal Ingredient for meal: ${meal.name} on server :(`,
+        pending: en.mealIngredient.postPromise.pending(meal.name),
+        success: en.mealIngredient.postPromise.success(meal.name),
+        error: en.mealIngredient.postPromise.error(meal.name),
       }
     );
     return result.data["id"];
@@ -81,7 +82,7 @@ const CreateMealIngredientLine = (props) => {
           type="number"
           min="1"
           id={`${name_id}-input-quantity`}
-          placeholder="Enter Quantity..."
+          placeholder={en.mealIngredient.enterQuantity}
           onChange={(event) => handleChangeQuantity(event)}
         />
         <Select
@@ -92,7 +93,7 @@ const CreateMealIngredientLine = (props) => {
           defaultValue="header"
         >
           <option value="header" disabled hidden>
-            Choose Unit...
+            {en.mealIngredient.chooseUnit}
           </option>
           {units.map((selection) => (
             <option key={selection[0]} value={selection[0]}>
@@ -108,7 +109,7 @@ const CreateMealIngredientLine = (props) => {
           defaultValue="header"
         >
           <option value="header" disabled hidden>
-            Choose Ingredient...
+            {en.mealIngredient.chooseIngredient}
           </option>
           {ingredients.map((ingredient) => (
             <option key={ingredient.id} value={ingredient.id}>
@@ -121,12 +122,12 @@ const CreateMealIngredientLine = (props) => {
           disabled={!validateSave}
           onClick={handleSave}
           colorScheme={"green"}
-          aria-label="Save"
+          aria-label={en.mealIngredient.ariaSave}
           icon={<CheckIcon />}
           size="sm"
         />
         <IconButton
-          aria-label="Cancel"
+          aria-label={en.mealIngredient.ariaCancel}
           icon={<CloseIcon />}
           size="sm"
           onClick={() => removeLine(line_id)}

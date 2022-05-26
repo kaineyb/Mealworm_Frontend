@@ -5,6 +5,7 @@ import { toast } from "react-toastify";
 //  Contexts
 import UserContext from "../../../context/userContext";
 import auth from "../../../services/authService";
+import { en } from "../../../services/textService";
 import BaseForm from "../../common/baseForm";
 // Components
 import Input from "../../common/input";
@@ -40,10 +41,9 @@ class RegisterForm extends BaseForm {
 
     try {
       const registerResult = await toast.promise(auth.register(userDetails), {
-        pending: "Attempting to create an account for you",
-        success: `Created an account for you! Welcome to the site ${userDetails.username}`,
-        error:
-          "Couldn't create an account for you, username or email may already be taken",
+        pending: en.registerForm.pending,
+        success: en.registerForm.success(userDetails.username),
+        error: en.registerForm.error,
       });
 
       result = registerResult;
@@ -57,8 +57,8 @@ class RegisterForm extends BaseForm {
         delete loginDetails.email;
 
         const loginResult = await toast.promise(auth.login(userDetails), {
-          pending: "Attempting to Log you in!",
-          error: "Couldn't log you in, please try to login manually",
+          pending: en.registerForm.loginPromise.pending,
+          error: en.registerForm.loginPromise.error,
         });
 
         if (loginResult === true) {
@@ -66,6 +66,7 @@ class RegisterForm extends BaseForm {
         }
       }
     } catch (ex) {
+      console.log(ex.response);
       if (ex.response.data.email) {
         const errors = { ...this.state.errors };
         errors["email"] = ex.response.data.email;
@@ -90,8 +91,8 @@ class RegisterForm extends BaseForm {
           <Heading as="h1">Register</Heading>
           <Input
             name="username"
-            label="Requested Username"
-            placeholder="Enter username"
+            label={en.registerForm.requestedUsername}
+            placeholder={en.user.enterUsername}
             autoComplete="username"
             error={errors["username"]}
             onChange={this.handleChange}
@@ -99,8 +100,8 @@ class RegisterForm extends BaseForm {
           <Input
             name="email"
             type="email"
-            label="Your Email Address"
-            placeholder="Enter Email"
+            label={en.user.yourEmail}
+            placeholder={en.user.enterEmail}
             autoComplete="email"
             error={errors["email"]}
             onChange={this.handleChange}
@@ -108,8 +109,8 @@ class RegisterForm extends BaseForm {
           <Input
             name="password"
             type="password"
-            label="Password"
-            placeholder="Enter password"
+            label={en.user.yourPassword}
+            placeholder={en.user.enterPassword}
             autoComplete="current-password"
             error={errors["password"]}
             onChange={this.handleChange}
@@ -119,7 +120,7 @@ class RegisterForm extends BaseForm {
             onClick={this.handleSubmit}
             disabled={this.validate()}
           >
-            Register
+            {en.user.register}
           </Button>
         </Flex>
       </form>

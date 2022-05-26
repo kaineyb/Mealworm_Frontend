@@ -2,6 +2,7 @@ import { Box, Divider, Heading } from "@chakra-ui/react";
 import { Fragment, useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import dataContext from "../../../context/dataContext";
+import { en } from "../../../services/textService";
 import PlanLinks from "./../../planLinks";
 import Recipe from "./recipe";
 
@@ -65,7 +66,7 @@ function Recipes(props) {
     <Fragment>
       <Box>
         <Heading as="h6" mt={5}>
-          Recipes for {plan.name}
+          {en.recipes.recipesFor} {plan.name}
         </Heading>
         <Divider my={5} />
         <PlanLinks plan={plan} />

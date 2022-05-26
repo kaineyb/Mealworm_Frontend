@@ -10,6 +10,7 @@ import {
 } from "@chakra-ui/react";
 import { Fragment, useContext, useState } from "react";
 import { toast } from "react-toastify";
+import { en } from "../../../services/textService";
 // Snippets
 import days from "../../../snippets/days";
 import dataContext from "./../../../context/dataContext";
@@ -59,9 +60,9 @@ function StartDay(props) {
 
   const doSave = async (payload) => {
     await toast.promise(http.patch(`${http.plansEP}${plan.id}/`, payload), {
-      pending: `Updating Start Day for Plan: ${plan.name} on server`,
-      success: `Updated Start Day for Plan: ${plan.name} on server!`,
-      error: `Couldn't update Start Day for Plan: ${plan.name} on server :(`,
+      pending: en.startDayPlans.promise.pending(plan.name),
+      success: en.startDayPlans.promise.success(plan.name),
+      error: en.startDayPlans.promise.error(plan.name),
     });
   };
 
@@ -81,7 +82,7 @@ function StartDay(props) {
       >
         <Flex direction={{ base: "column", sm: "row" }} gap={3}>
           <Text width={"7rem"}>
-            <strong>Starts On: </strong>
+            <strong>{en.startDayPlans.startsOn}</strong>
           </Text>
           <Select
             size="sm"
@@ -97,13 +98,13 @@ function StartDay(props) {
 
           <IconButton
             colorScheme={"green"}
-            aria-label="Save"
+            aria-label={en.startDayPlans.ariaSave}
             icon={<CheckIcon />}
             size="sm"
             onClick={handleSave}
           />
           <IconButton
-            aria-label="Cancel"
+            aria-label={en.startDayPlans.ariaCancel}
             icon={<CloseIcon />}
             size="sm"
             onClick={handleCancel}
@@ -124,7 +125,7 @@ function StartDay(props) {
         p={4}
       >
         <Text>
-          <strong>Starts On: </strong>
+          <strong>{en.startDayPlans.startsOn}</strong>
           {days.longDay(currentDay)}
         </Text>{" "}
         <Icon as={EditIcon} w={3} h={3} position="absolute" top="2" right="2" />

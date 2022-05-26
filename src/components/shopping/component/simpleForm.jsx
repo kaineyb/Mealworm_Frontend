@@ -5,6 +5,7 @@ import { toast } from "react-toastify";
 import DataContext from "../../../context/dataContext";
 import http from "../../../services/httpService";
 import EditableInput from "../../common/editableInput";
+import { en } from "./../../../services/textService";
 import CreateForm from "./createForm";
 
 function SimpleForm(props) {
@@ -95,9 +96,9 @@ function SimpleForm(props) {
     await toast.promise(
       http.patch(`${endpoint}${item.id}/`, { name: item.name }),
       {
-        pending: `Updating ${item.name} on server...`,
-        success: `Updated ${item.name} on server! :)`,
-        error: `Couldn't update ${item.name} on server! :(`,
+        pending: en.simpleForm.promise.pending(item.name),
+        success: en.simpleForm.promise.success(item.name),
+        error: en.simpleForm.promise.error(item.name),
       }
     );
   };
@@ -117,7 +118,7 @@ function SimpleForm(props) {
   const handleDelete = async (item) => {
     const { name, endpoint, singularTitle } = props;
 
-    const deleteMe = window.confirm(`Really Delete "${item.name}"?`);
+    const deleteMe = window.confirm(en.simpleForm.delete.confirm(item.name));
 
     const currentState = [...local];
 
@@ -128,15 +129,24 @@ function SimpleForm(props) {
 
       try {
         await toast.promise(http.delete(`${endpoint}${item.id}/`), {
-          pending: `Deleting ${singularTitle}: ${item.name}`,
-          success: `Deleted ${singularTitle}: ${item.name}!`,
+          pending: en.simpleForm.delete.promise.pending(
+            singularTitle,
+            item.name
+          ),
+          success: en.simpleForm.delete.promise.success(
+            singularTitle,
+            item.name
+          ),
         });
       } catch (error) {
         if (error.response && error.response.status === 404) {
-          toast.error(`This ${singularTitle} has already been deleted!`);
+          toast.error(en.simpleForm.delete.error.alreadyDeleted(singularTitle));
         } else if (!error.response) {
           toast.error(
-            `Deleting ${singularTitle} Failed!: ${item.name}, please try again later`
+            en.simpleForm.delete.error.failedTryAgainLater(
+              singularTitle,
+              item.name
+            )
           );
           context.setData(name, currentState);
           toggleEditable(item);
@@ -154,8 +164,8 @@ function SimpleForm(props) {
 
     try {
       const result = await toast.promise(http.post(`${endpoint}`, payload), {
-        pending: `Creating ${singularTitle}: ${itemName}`,
-        success: `${singularTitle} "${itemName}" created! `,
+        pending: en.simpleForm.created.promise.pending(singularTitle, itemName),
+        success: en.simpleForm.created.promise.success(singularTitle, itemName),
       });
 
       if (result.status === 201) {
@@ -165,9 +175,7 @@ function SimpleForm(props) {
       }
     } catch (error) {
       if (!error.response) {
-        toast.error(
-          ` Creating ${singularTitle}: ${itemName} failed! Please try again later`
-        );
+        toast.error(en.simpleForm.created.error(singularTitle, itemName));
       }
     }
   };

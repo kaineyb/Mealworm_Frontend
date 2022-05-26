@@ -3,6 +3,7 @@ import { Navigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { default as dataContext } from "../../../context/dataContext";
 import auth from "../../../services/authService";
+import { en } from "./../../../services/textService";
 
 function LogIn(props) {
   const { updateData } = useContext(dataContext);
@@ -15,7 +16,7 @@ function LogIn(props) {
       setUser(user);
     }
     getUser();
-    toast.success("Logged in!");
+    toast.success(en.user.loggedIn);
   }, []);
 
   return <Navigate to="/" replace />;

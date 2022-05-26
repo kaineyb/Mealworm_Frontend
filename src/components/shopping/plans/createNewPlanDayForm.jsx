@@ -2,6 +2,7 @@ import { AddIcon } from "@chakra-ui/icons";
 import { Button, Divider } from "@chakra-ui/react";
 import _ from "lodash";
 import { Fragment, useState } from "react";
+import { en } from "../../../services/textService";
 import CreatePlanDayLine from "./createNewPlanDayLine";
 
 const CreatePlanDayForm = (props) => {
@@ -46,7 +47,7 @@ const CreatePlanDayForm = (props) => {
     <Fragment>
       <Divider my={4} />
       <Button leftIcon={<AddIcon />} onClick={handleAddDay} w="100%">
-        Add Day
+        {en.plans.addDay}
       </Button>
       <Divider my={4} />
       {lines.map((line) => (

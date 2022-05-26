@@ -19,6 +19,7 @@ import _ from "lodash";
 import { Fragment, useContext, useState } from "react";
 import mealFromID from "../../../snippets/meals";
 import dataContext from "./../../../context/dataContext";
+import { en } from "./../../../services/textService";
 
 function ShoppingListTable(props) {
   const { meals, plan, ingredients, sections } = props;
@@ -63,7 +64,7 @@ function ShoppingListTable(props) {
     } else if (item) {
       return item.name;
     } else {
-      return "No Section";
+      return en.sections.without;
     }
   };
 
@@ -205,7 +206,7 @@ function ShoppingListTable(props) {
     <Fragment>
       <Box borderWidth={"1px"} my={5} p={5}>
         <Flex direction={{ base: "row", sm: "row" }} gap={2}>
-          <Text>What store are you shopping at today?</Text>
+          <Text>{en.shoppingList.whatStore}</Text>
           <Select
             defaultValue={0}
             size="sm"
@@ -214,7 +215,7 @@ function ShoppingListTable(props) {
             onChange={handleChangeSelect}
           >
             <option value="0" disabled>
-              Please select a Store
+              {en.shoppingList.selectStore}
             </option>
             {stores.map((store) => (
               <option key={store.id} value={store.id}>

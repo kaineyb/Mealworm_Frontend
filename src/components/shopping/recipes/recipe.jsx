@@ -13,6 +13,7 @@ import {
   Thead,
   Tr,
 } from "@chakra-ui/react";
+import { en } from "../../../services/textService";
 import days from "../../../snippets/days";
 import mealFromID from "../../../snippets/meals";
 function Recipe(props) {
@@ -29,7 +30,10 @@ function Recipe(props) {
         {mealFromID(day.meal, meals)}
       </Heading>
       <Flex direction={{ base: "column", sm: "row" }} gap={2} mb={2}>
-        <Badge variant="outline">Day: {day.order}</Badge>
+        <Badge variant="outline">
+          {en.planDays.day}
+          {day.order}
+        </Badge>
         <Badge variant="subtle">
           {days.longDay(days.getDay(day.order, plan.start_day))}
         </Badge>
@@ -40,7 +44,7 @@ function Recipe(props) {
         <Table variant="striped" size={"sm"}>
           <Thead>
             <Tr>
-              <Th scope="col">Ingredients</Th>
+              <Th scope="col">{en.ingredients.titlePlural}</Th>
             </Tr>
           </Thead>
           <Tbody>
@@ -58,15 +62,10 @@ function Recipe(props) {
       </TableContainer>
 
       <Heading as="h6" size="s" mt={5}>
-        Recipe <Badge>Coming Soon :)</Badge>
+        {en.recipes.recipe} <Badge>{en.recipes.comingSoonBadge}</Badge>
       </Heading>
       <Divider my={5} />
-      <Text>
-        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Inventore
-        neque pariatur itaque minus similique odit asperiores. Maiores, aliquid
-        commodi adipisci esse libero officia. Beatae doloremque ipsam architecto
-        quisquam soluta eaque.
-      </Text>
+      <Text>{en.recipes.loremIpsum}</Text>
     </Box>
   );
 }

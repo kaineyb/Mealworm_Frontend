@@ -10,6 +10,7 @@ import {
 } from "@chakra-ui/react";
 import { useContext, useEffect, useState } from "react";
 import { toast } from "react-toastify";
+import { en } from "../../../services/textService";
 import dataContext from "./../../../context/dataContext";
 import http from "./../../../services/httpService";
 const CreatePlanDayLine = (props) => {
@@ -76,9 +77,9 @@ const CreatePlanDayLine = (props) => {
     const result = await toast.promise(
       http.post(`${http.plansEP}${plan.id}/days/`, payload),
       {
-        pending: `Creating Day for Plan: ${plan.name} on server`,
-        success: `Created Day for Plan: ${plan.name} on server!`,
-        error: `Couldn't create Day for Plan: ${plan.name} on server :(`,
+        pending: en.planDays.postPromise.pending(plan.name),
+        success: en.planDays.postPromise.success(plan.name),
+        error: en.planDays.postPromise.error(plan.name),
       }
     );
     return result.data["id"];
@@ -87,7 +88,7 @@ const CreatePlanDayLine = (props) => {
   return (
     <Box key={line_id}>
       <Flex direction={{ base: "column", sm: "row" }} gap={2}>
-        <Text>Day:</Text>
+        <Text>{en.planDays.day}</Text>
         <Input
           size="sm"
           type="number"
@@ -103,7 +104,7 @@ const CreatePlanDayLine = (props) => {
           defaultValue="header"
         >
           <option value="header" disabled hidden>
-            Choose Meal...
+            {en.planDays.chooseMeal}
           </option>
           {meals.map((meals) => (
             <option key={meals.id} value={meals.id}>
@@ -114,14 +115,14 @@ const CreatePlanDayLine = (props) => {
 
         <IconButton
           colorScheme={"green"}
-          aria-label="Save"
+          aria-label={en.planDays.ariaSave}
           icon={<CheckIcon />}
           size="sm"
           onClick={handleSave}
           disabled={!validateSave}
         />
         <IconButton
-          aria-label="Cancel"
+          aria-label={en.planDays.ariaCancel}
           icon={<CloseIcon />}
           size="sm"
           onClick={() => removeLine(line_id)}

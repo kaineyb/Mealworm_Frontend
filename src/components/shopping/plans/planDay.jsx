@@ -15,6 +15,7 @@ import {
 } from "@chakra-ui/react";
 import { Fragment, useContext, useEffect, useState } from "react";
 import { toast } from "react-toastify";
+import { en } from "../../../services/textService";
 import dataContext from "./../../../context/dataContext";
 import http from "./../../../services/httpService";
 
@@ -65,7 +66,7 @@ function PlanDay(props) {
 
   const handleDelete = () => {
     const deleteMe = window.confirm(
-      `Really Delete "Day ${day.order}: ${mealName}"?`
+      en.planDays.delete.confirm(day.order, mealName)
     );
 
     if (deleteMe) {
@@ -94,9 +95,9 @@ function PlanDay(props) {
     await toast.promise(
       http.delete(`${http.plansEP}${plan.id}/days/${day.id}/`),
       {
-        pending: `Deleting Day for Plan: ${plan.name} on server`,
-        success: `Deleting Day for Plan: ${plan.name} on server!`,
-        error: `Couldn't delete Day for Plan: ${plan.name} on server :(`,
+        pending: en.planDays.delete.promise.pending(plan.name),
+        success: en.planDays.delete.promise.success(plan.name),
+        error: en.planDays.delete.promise.error(plan.name),
       }
     );
   };
@@ -148,9 +149,9 @@ function PlanDay(props) {
     await toast.promise(
       http.patch(`${http.plansEP}${plan.id}/days/${day.id}/`, payload),
       {
-        pending: `Updating Day for Plan: ${plan.name} on server`,
-        success: `Updated Day for Plan: ${plan.name} on server!`,
-        error: `Couldn't update Day for Plan: ${plan.name} on server :(`,
+        pending: en.planDays.patchPromise.pending(plan.name),
+        success: en.planDays.patchPromise.success(plan.name),
+        error: en.planDays.patchPromise.error(plan.name),
       }
     );
   };
@@ -168,7 +169,7 @@ function PlanDay(props) {
         p={4}
       >
         <Flex direction={{ base: "column", sm: "row" }} gap={2}>
-          <Text>Day:</Text>
+          <Text>{en.planDays.day}</Text>
           <NumberInput
             size="sm"
             min="1"
@@ -188,8 +189,8 @@ function PlanDay(props) {
             defaultValue={meal}
             onChange={handleMealChange}
           >
-            <option value="header" disabled hidden>
-              Choose Meal...
+            <option value="header" disabled>
+              {en.planDays.chooseMeal}
             </option>
             {meals.map((meals) => (
               <option key={meals.id} value={meals.id}>
@@ -200,21 +201,21 @@ function PlanDay(props) {
 
           <IconButton
             colorScheme={"green"}
-            aria-label="Save"
+            aria-label={en.planDays.ariaSave}
             icon={<CheckIcon />}
             size="sm"
             onClick={handleSave}
             disabled={!validateSave}
           />
           <IconButton
-            aria-label="Cancel"
+            aria-label={en.planDays.ariaCancel}
             icon={<CloseIcon />}
             size="sm"
             onClick={handleCancel}
           />
           <IconButton
             colorScheme={"red"}
-            aria-label="Delete"
+            aria-label={en.planDays.ariaDelete}
             icon={<DeleteIcon />}
             size="sm"
             onClick={handleDelete}
@@ -235,7 +236,7 @@ function PlanDay(props) {
       my={4}
       p={4}
     >
-      Day: {day.order} - {mealName}{" "}
+      {en.planDays.day} {day.order} - {mealName}{" "}
       <Icon
         as={EditIcon}
         ml={2}

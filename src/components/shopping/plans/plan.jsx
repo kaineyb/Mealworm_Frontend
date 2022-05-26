@@ -20,6 +20,7 @@ import { Fragment, useContext, useState } from "react";
 import { AiOutlineClockCircle, AiOutlineShoppingCart } from "react-icons/ai";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
+import { en } from "../../../services/textService";
 import dataContext from "./../../../context/dataContext";
 import http from "./../../../services/httpService";
 import CreatePlanDayForm from "./createNewPlanDayForm";
@@ -79,14 +80,14 @@ function Plan(props) {
 
     const endpoint = http.plansEP;
     await toast.promise(http.patch(`${endpoint}${id}/`, payload), {
-      pending: `Updating ${item.name} on server...`,
-      success: `Updated ${item.name} on server! :)`,
-      error: `Couldn't update ${item.name} on server! :(`,
+      pending: en.plans.patchPromise.pending(item.name),
+      success: en.plans.patchPromise.success(item.name),
+      error: en.plans.patchPromise.error(item.name),
     });
   };
 
   const handleDelete = () => {
-    const deleteMe = window.confirm(`Really delete Plan: "${name}" ?`);
+    const deleteMe = window.confirm(en.plans.delete.confirm(name));
 
     if (deleteMe) {
       const newPlans = plans.filter((_plan) => _plan.id !== plan.id);
@@ -99,9 +100,9 @@ function Plan(props) {
   const doDelete = async () => {
     const endpoint = http.plansEP;
     await toast.promise(http.delete(`${endpoint}${plan.id}/`), {
-      pending: `Deleting ${name} from server...`,
-      success: `Deleted ${name} from server! :)`,
-      error: `Couldn't deleted ${name} from server! :(`,
+      pending: en.plans.delete.promise.pending(name),
+      success: en.plans.delete.promise.success(name),
+      error: en.plans.delete.promise.error(name),
     });
   };
 
@@ -133,20 +134,20 @@ function Plan(props) {
         />
         <IconButton
           colorScheme={"green"}
-          aria-label="Save"
+          aria-label={en.plans.ariaSave}
           icon={<CheckIcon />}
           size="sm"
           onClick={handleSave}
         />
         <IconButton
-          aria-label="Cancel"
+          aria-label={en.plans.ariaCancel}
           icon={<CloseIcon />}
           size="sm"
           onClick={handleCancel}
         />
         <IconButton
           colorScheme={"red"}
-          aria-label="Delete"
+          aria-label={en.plans.ariaDelete}
           icon={<DeleteIcon />}
           size="sm"
           onClick={handleDelete}
@@ -177,7 +178,7 @@ function Plan(props) {
           <PlanDay key={day.id} plan={plan} day={day} />
         ))}
         <Button leftIcon={<RepeatIcon />} onClick={handleReorder} w="100%">
-          Reorder Days
+          {en.plans.reorderDays}
         </Button>
         <CreatePlanDayForm plan={plan} />{" "}
       </ul>
@@ -186,17 +187,17 @@ function Plan(props) {
         <Flex direction={{ base: "column", sm: "row" }} gap={2}>
           <Link to={`/plan/${plan.id}/shopping-list`}>
             <Button leftIcon={<AiOutlineShoppingCart />} w="100%">
-              Shopping List
+              {en.plans.shoppingList}
             </Button>
           </Link>
           <Link to={`/plan/${plan.id}/schedule`}>
             <Button leftIcon={<AiOutlineClockCircle />} w="100%">
-              Schedule
+              {en.plans.schedule}
             </Button>
           </Link>
           <Link to={`/plan/${plan.id}/recipes`}>
             <Button leftIcon={<CalendarIcon />} w="100%" flexGrow={2}>
-              Recipes
+              {en.plans.recipes}
             </Button>
           </Link>
         </Flex>

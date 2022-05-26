@@ -1,5 +1,6 @@
 import { Button, Flex, FormControl, Input, Select } from "@chakra-ui/react";
 import { Fragment, React, useState } from "react";
+import { en } from "../../../services/textService";
 
 const CreateIngredientForm = (props) => {
   const [value, setValue] = useState("");
@@ -41,7 +42,7 @@ const CreateIngredientForm = (props) => {
             onChange={handleChangeSelect}
           >
             <option value="0" disabled hidden>
-              Choose Section...
+              {en.sections.choose}
             </option>
             {selectOptions.map((selection) => (
               <option key={selection.id} value={selection.id}>

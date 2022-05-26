@@ -2,21 +2,22 @@ import { Box, Link } from "@chakra-ui/react";
 import React, { useContext } from "react";
 import { Link as RouterLink } from "react-router-dom";
 import userContext from "../../context/userContext";
+import { en } from "./../../services/textService";
 
 function Navbar(props) {
   const user = useContext(userContext);
   const loggedIn = [
-    ["Stores", "/stores"],
-    ["Sections", "/sections"],
-    ["Ingredients", "/ingredients"],
-    ["Meals", "/meals"],
-    ["Plans", "/plans"],
-    ["Profile", "/profile"],
+    [en.stores.titlePlural, "/stores"],
+    [en.sections.titlePlural, "/sections"],
+    [en.ingredients.titlePlural, "/ingredients"],
+    [en.meals.titlePlural, "/meals"],
+    [en.plans.titlePlural, "/plans"],
+    [en.user.profile, "/profile"],
   ];
 
   const loggedOut = [
-    ["Login", "/login"],
-    ["Register", "/register"],
+    [en.user.logIn, "/login"],
+    [en.user.register, "/register"],
   ];
   if (user.loggedIn) {
     return (

@@ -2,6 +2,7 @@ import { Divider, Heading } from "@chakra-ui/react";
 import React, { useContext, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import dataContext from "../../../context/dataContext";
+import { en } from "../../../services/textService";
 import http from "./../../../services/httpService";
 import CreateForm from "./../component/createForm";
 import Plan from "./plan";
@@ -35,9 +36,9 @@ function Plans(props) {
     delete plan["id"];
 
     const result = await toast.promise(http.post(http.plansEP, plan), {
-      pending: `Creating Plan: ${plan.name} on server`,
-      success: `Created Plan: ${plan.name} on server!`,
-      error: `Couldn't create Plan: ${plan.name} on server :(`,
+      pending: en.plans.postPromise.pending(plan.name),
+      success: en.plans.postPromise.success(plan.name),
+      error: en.plans.postPromise.error(plan.name),
     });
 
     plan["id"] = result.data["id"];
@@ -48,12 +49,12 @@ function Plans(props) {
 
   return (
     <div>
-      <Heading as="h1">Plans</Heading>
+      <Heading as="h1">{en.plans.titlePlural}</Heading>
       <Divider my={4} />
       <CreateForm
         doCreate={handleCreate}
-        placeHolder={"New Plan name..."}
-        buttonLabel={"Create new Plan"}
+        placeHolder={en.plans.newName}
+        buttonLabel={en.plans.createNew}
       />
       <Divider my={4} />
       <div className="plans">

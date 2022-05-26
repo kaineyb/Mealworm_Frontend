@@ -12,6 +12,7 @@ import React, { Fragment, useContext, useState } from "react";
 import { toast } from "react-toastify";
 import dataContext from "../../../context/dataContext";
 import http from "../../../services/httpService";
+import { en } from "../../../services/textService";
 import Aisle from "./aisle";
 
 const Store = (props) => {
@@ -37,7 +38,9 @@ const Store = (props) => {
   };
 
   const handleDelete = () => {
-    const deleteConfirmed = window.confirm(`Really Delete "${store.name}"?`);
+    const deleteConfirmed = window.confirm(
+      en.stores.delete.confirm(store.name)
+    );
 
     if (!deleteConfirmed) {
       setEditable(false);
@@ -51,9 +54,9 @@ const Store = (props) => {
 
   const doDelete = async () => {
     await toast.promise(http.delete(`${http.storesEP}${store.id}/`), {
-      pending: `Deleting ${store.name} from server...`,
-      success: `Deleted ${store.name} from server! :)`,
-      error: `Couldn't deleted ${store.name} from server! :(`,
+      pending: en.stores.delete.promise.pending(store.name),
+      success: en.stores.delete.promise.success(store.name),
+      error: en.stores.delete.promise.error(store.name),
     });
   };
 
@@ -73,9 +76,9 @@ const Store = (props) => {
     const payload = { name: newStoreName };
 
     await toast.promise(http.patch(`${http.storesEP}${store.id}/`, payload), {
-      pending: `Updating ${newStoreName} on server...`,
-      success: `Updated ${newStoreName} on server! :)`,
-      error: `Couldn't update ${newStoreName} on server! :(`,
+      pending: en.stores.patchPromise.pending(newStoreName),
+      success: en.stores.patchPromise.success(newStoreName),
+      error: en.stores.patchPromise.error(newStoreName),
     });
   };
 
@@ -105,20 +108,20 @@ const Store = (props) => {
         <IconButton
           onClick={handleSave}
           colorScheme={"green"}
-          aria-label="Save"
+          aria-label={en.aria.save}
           icon={<CheckIcon />}
           size="sm"
         />
         <IconButton
           onClick={handleCancel}
-          aria-label="Cancel"
+          aria-label={en.aria.cancel}
           icon={<CloseIcon />}
           size="sm"
         />
         <IconButton
           onClick={handleDelete}
           colorScheme={"red"}
-          aria-label="Delete"
+          aria-label={en.aria.delete}
           icon={<DeleteIcon />}
           size="sm"
         />

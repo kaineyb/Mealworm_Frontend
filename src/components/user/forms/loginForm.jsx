@@ -9,6 +9,7 @@ import BaseForm from "../../common/baseForm";
 import Input from "../../common/input";
 // My Components
 import LogIn from "../actions/logIn";
+import { en } from "./../../../services/textService";
 
 class LoginForm extends BaseForm {
   constructor(props) {
@@ -32,9 +33,8 @@ class LoginForm extends BaseForm {
     };
 
     const loginResult = await toast.promise(auth.login(userDetails), {
-      pending:
-        "If you see this, then the backend is offline or asleep, please wait :)",
-      error: "Couldn't log you in, username or password incorrect.",
+      pending: en.loginForm.resultPromise.pending,
+      error: en.loginForm.resultPromise.error,
     });
 
     if (loginResult === true) {
@@ -51,13 +51,13 @@ class LoginForm extends BaseForm {
     return (
       <form>
         <Flex direction={{ base: "column" }} gap={2}>
-          <Heading as="h1">Login</Heading>
+          <Heading as="h1">{en.user.logIn}</Heading>
 
           <Input
             autoFocus
             name="username"
-            label="Your Username"
-            placeholder="Enter username"
+            label={en.user.yourUsername}
+            placeholder={en.user.enterUsername}
             autoComplete="username"
             error={errors["username"]}
             onChange={this.handleChange}
@@ -66,8 +66,8 @@ class LoginForm extends BaseForm {
           <Input
             type="password"
             name="password"
-            label="Your Password"
-            placeholder="Enter Password"
+            label={en.user.yourPassword}
+            placeholder={en.user.enterPassword}
             autoComplete="current-password"
             error={errors["password"]}
             onChange={this.handleChange}
@@ -77,7 +77,7 @@ class LoginForm extends BaseForm {
             onClick={this.handleSubmit}
             disabled={this.validate()}
           >
-            Login
+            {en.user.logIn}
           </Button>
         </Flex>
       </form>

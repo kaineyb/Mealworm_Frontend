@@ -24,6 +24,7 @@ import { Fragment, useContext, useState } from "react";
 import { toast } from "react-toastify";
 import dataContext from "../../../context/dataContext";
 import http from "../../../services/httpService";
+import { en } from "../../../services/textService";
 
 const Aisle = (props) => {
   const { store, stores, sectionID, sections } = props;
@@ -114,9 +115,9 @@ const Aisle = (props) => {
     const result = await toast.promise(
       http.post(`${http.storesEP}${store.id}/aisles/`, payload),
       {
-        pending: `Creating Aisle for ${section.name} at ${store.name} on server`,
-        success: `Created Aisle for ${section.name} at ${store.name} on server!`,
-        error: `Couldn't create Aisle for ${section.name} at ${store.name} on server :(`,
+        pending: en.aisles.postPromise.pending(section.name, store.name),
+        success: en.aisles.postPromise.success(section.name, store.name),
+        error: en.aisles.postPromise.error(section.name, store.name),
       }
     );
 
@@ -129,21 +130,21 @@ const Aisle = (props) => {
     await toast.promise(
       http.patch(`${http.storesEP}${store.id}/aisles/${aisle.id}/`, payload),
       {
-        pending: `Updating Aisle Number for Section: ${aisle.section_name} on server`,
-        success: `Updated Aisle Number for Section: ${aisle.section_name} on server!`,
-        error: `Couldn't update Aisle Number for Section: ${aisle.section_name} on server :(`,
+        pending: en.aisles.patchPromise.pending(aisle.section_name),
+        success: en.aisles.patchPromise.success(aisle.section_name),
+        error: en.aisles.patchPromise.error(aisle.section_name),
       }
     );
   };
 
   const handleDelete = () => {
     const deleteMe = window.confirm(
-      `Really Delete "Aisle No ${aisleNumber} for Section: ${aisle.section.name} @  ${store.name}" ?`
+      en.aisles.delete.confirm(aisleNumber, aisle.section.name, store.name)
     );
 
     if (deleteMe) {
       const {
-        data: { sections },
+        // data: { sections },
         setData,
       } = context;
 
@@ -168,9 +169,21 @@ const Aisle = (props) => {
     await toast.promise(
       http.delete(`${http.storesEP}${store.id}/aisles/${aisle.id}/`),
       {
-        pending: `Deleting Aisle No: ${aisleNumber} for Section: ${aisle.section_name} @  ${store.name} on server`,
-        success: `Deleted Aisle No: ${aisleNumber} for Section: ${aisle.section_name} @  ${store.name} on server!`,
-        error: `Couldn't delete Aisle No: ${aisleNumber} for Section: ${aisle.section_name} @  ${store.name} on server :(`,
+        pending: en.aisles.delete.promise.pending(
+          aisleNumber,
+          aisle.section_name,
+          store.name
+        ),
+        success: en.aisles.delete.promise.success(
+          aisleNumber,
+          aisle.section_name,
+          store.name
+        ),
+        error: en.aisles.delete.promise.error(
+          aisleNumber,
+          aisle.section_name,
+          store.name
+        ),
       }
     );
   };
@@ -204,7 +217,7 @@ const Aisle = (props) => {
           <Divider />
           <Flex {...flexProps}>
             <Text>
-              <strong>Aisle:</strong>
+              <strong>{en.aisles.aisle}</strong>
             </Text>
             <NumberInput
               size="sm"
@@ -220,20 +233,20 @@ const Aisle = (props) => {
             </NumberInput>
             <IconButton
               colorScheme={"green"}
-              aria-label="Save"
+              aria-label={en.aisles.ariaSave}
               icon={<CheckIcon />}
               size="sm"
               disabled={!isValid}
               onClick={handleSave}
             />
             <IconButton
-              aria-label="Cancel"
+              aria-label={en.aisles.ariaCancel}
               icon={<CloseIcon />}
               size="sm"
               onClick={handleCancel}
             />
             <IconButton
-              aria-label="Delete"
+              aria-label={en.aisles.ariaDelete}
               display={isDeleteAble ? "block" : "none"}
               disabled={!isDeleteAble}
               colorScheme={"red"}
@@ -255,8 +268,8 @@ const Aisle = (props) => {
           </Text>
           <Divider />
           <Text>
-            <strong>Aisle: </strong>
-            {aisleNumber === 0 ? <em>Not Set</em> : aisleNumber}
+            <strong>{en.aisles.aisle} </strong>
+            {aisleNumber === 0 ? <em>{en.aisles.notSet}</em> : aisleNumber}
           </Text>
         </VStack>
         <Icon as={EditIcon} w={3} h={3} position="absolute" top="2" right="2" />

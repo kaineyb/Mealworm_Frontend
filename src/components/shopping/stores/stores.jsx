@@ -5,6 +5,7 @@ import { toast } from "react-toastify";
 import DataContext from "../../../context/dataContext";
 import http from "../../../services/httpService";
 import CreateForm from "../component/createForm";
+import { en } from "./../../../services/textService";
 import Store from "./store";
 
 function Stores(props) {
@@ -44,8 +45,8 @@ function Stores(props) {
 
     try {
       const result = await toast.promise(http.post(`${endpoint}`, payload), {
-        pending: `Creating ${singularTitle}: ${itemName}`,
-        success: `${singularTitle} "${itemName}" created! `,
+        pending: en.stores.postPromise.pending(singularTitle, itemName),
+        success: en.stores.postPromise.success(singularTitle, itemName),
       });
 
       if (result.status === 201) {
@@ -55,9 +56,7 @@ function Stores(props) {
       }
     } catch (error) {
       if (!error.response) {
-        toast.error(
-          ` Creating ${singularTitle}: ${itemName} failed! Please try again later`
-        );
+        toast.error(en.stores.postPromise.error(singularTitle, itemName));
       }
     }
   };
@@ -71,8 +70,8 @@ function Stores(props) {
 
       <CreateForm
         doCreate={handleCreate}
-        placeHolder={`New ${props.singularTitle} name...`}
-        buttonLabel={`Create new ${props.singularTitle}`}
+        placeHolder={en.stores.newName}
+        buttonLabel={en.stores.createNew}
       />
       <Divider mt={4} />
       <Box borderWidth="1px" borderRadius="lg" p={4} mt={4}>

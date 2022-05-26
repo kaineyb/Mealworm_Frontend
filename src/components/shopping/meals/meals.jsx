@@ -3,6 +3,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import dataContext from "../../../context/dataContext";
 import http from "../../../services/httpService";
+import { en } from "../../../services/textService";
 import CreateForm from "../component/createForm";
 import Meal from "./meal";
 
@@ -35,9 +36,9 @@ function Meals(props) {
     delete meal["id"];
 
     const result = await toast.promise(http.post(http.mealsEP, meal), {
-      pending: `Creating Meal: ${meal.name} on server`,
-      success: `Created Meal: ${meal.name} on server!`,
-      error: `Couldn't create Meal: ${meal.name} on server :(`,
+      pending: en.meals.postPromise.pending(meal.name),
+      success: en.meals.postPromise.pending(meal.name),
+      error: en.meals.postPromise.pending(meal.name),
     });
 
     meal["id"] = result.data["id"];
@@ -53,8 +54,8 @@ function Meals(props) {
 
       <CreateForm
         doCreate={handleCreate}
-        placeHolder={"New Meal name..."}
-        buttonLabel={"Create new Meal"}
+        placeHolder={en.meals.newName}
+        buttonLabel={en.meals.createNew}
       />
       <Divider my={4} />
       <div className="meals">

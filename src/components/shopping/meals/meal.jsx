@@ -12,6 +12,7 @@ import { Fragment, useContext, useState } from "react";
 import { toast } from "react-toastify";
 import dataContext from "../../../context/dataContext";
 import http from "../../../services/httpService";
+import { en } from "../../../services/textService";
 import MealIngredients from "./mealIngredients";
 
 const Meal = (props) => {
@@ -67,14 +68,14 @@ const Meal = (props) => {
 
     const endpoint = http.mealsEP;
     await toast.promise(http.patch(`${endpoint}${id}/`, payload), {
-      pending: `Updating ${item.name} on server...`,
-      success: `Updated ${item.name} on server! :)`,
-      error: `Couldn't update ${item.name} on server! :(`,
+      pending: en.meals.patchPromise.pending(item.name),
+      success: en.meals.patchPromise.success(item.name),
+      error: en.meals.patchPromise.error(item.name),
     });
   };
 
   const handleDelete = () => {
-    const deleteMe = window.confirm(`Really delete Meal: "${name}" ?`);
+    const deleteMe = window.confirm(en.meals.delete.confirm(name));
 
     if (deleteMe) {
       const {
@@ -92,9 +93,9 @@ const Meal = (props) => {
   const doDelete = async () => {
     const endpoint = http.mealsEP;
     await toast.promise(http.delete(`${endpoint}${meal.id}/`), {
-      pending: `Deleting ${name} from server...`,
-      success: `Deleted ${name} from server! :)`,
-      error: `Couldn't deleted ${name} from server! :(`,
+      pending: en.meals.delete.promise.pending(name),
+      success: en.meals.delete.promise.success(name),
+      error: en.meals.delete.promise.error(name),
     });
   };
 
@@ -110,20 +111,20 @@ const Meal = (props) => {
         />
         <IconButton
           colorScheme={"green"}
-          aria-label="Save"
+          aria-label={en.meals.ariaSave}
           icon={<CheckIcon />}
           size="sm"
           onClick={handleSave}
         />
         <IconButton
-          aria-label="Cancel"
+          aria-label={en.meals.ariaCancel}
           icon={<CloseIcon />}
           size="sm"
           onClick={handleCancel}
         />
         <IconButton
           colorScheme={"red"}
-          aria-label="Delete Meal"
+          aria-label={en.meals.ariaDelete}
           icon={<DeleteIcon />}
           size="sm"
           onClick={handleDelete}

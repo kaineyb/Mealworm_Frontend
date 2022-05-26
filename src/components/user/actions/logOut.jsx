@@ -3,6 +3,7 @@ import { Navigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import dataContext from "../../../context/dataContext";
 import auth from "../../../services/authService";
+import { en } from "../../../services/textService";
 import userContext from "./../../../context/userContext";
 
 function LogOut(props) {
@@ -14,7 +15,7 @@ function LogOut(props) {
     user.clearUser(); // Removes from State
     data.clearData(); // Removes from State
     user.toggleLoggedIn();
-    toast.success("Logged out!");
+    toast.success(en.user.loggedOut);
   }, []);
 
   return <Navigate to="/" replace />;

@@ -13,6 +13,7 @@ import {
 import { Fragment, useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import dataContext from "../../../context/dataContext";
+import { en } from "../../../services/textService";
 import days from "../../../snippets/days";
 import mealFromID from "../../../snippets/meals";
 import PlanLinks from "./../../planLinks";
@@ -65,23 +66,21 @@ function Schedule() {
   return (
     <Fragment>
       <Heading as="h6" mt={5}>
-        Schedule for {plan.name}
+        {en.schedule.scheduleFor} {plan.name}
       </Heading>
       <Divider my={5} />
       <PlanLinks plan={plan} />
 
       <Box borderWidth="1px" borderRadius="lg" p={5} my={5}>
-        {" "}
-        Starts on a <strong>{days.longDay(plan.start_day)}</strong> and lasts{" "}
-        <strong>{plan.day_set.length}</strong> days
+        {en.schedule.blurb(plan, days.longDay(plan.start_day))}
       </Box>
       <Box borderWidth="1px" borderRadius="lg" p={0} pt={3}>
         <TableContainer>
           <Table variant="striped" size="sm" m={0}>
             <Thead>
               <Tr>
-                <Th scope="col">Day</Th>
-                <Th scope="col">Meal</Th>
+                <Th scope="col">{en.plans.day}</Th>
+                <Th scope="col">{en.meals.titleSingular}</Th>
               </Tr>
             </Thead>
             <Tbody>

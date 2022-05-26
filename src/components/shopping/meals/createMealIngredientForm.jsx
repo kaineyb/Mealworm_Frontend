@@ -2,6 +2,7 @@ import { AddIcon } from "@chakra-ui/icons";
 import { Flex, IconButton } from "@chakra-ui/react";
 import { Fragment, useContext, useEffect, useState } from "react";
 import dataContext from "../../../context/dataContext";
+import { en } from "../../../services/textService";
 import CreateMealIngredientLine from "./createMealIngredientLine";
 
 const CreateMealIngredientForm = (props) => {
@@ -12,13 +13,7 @@ const CreateMealIngredientForm = (props) => {
 
   const context = useContext(dataContext);
 
-  const units = [
-    [" x ", "Items"],
-    ["g", "Grams"],
-    ["kg", "Kilograms"],
-    ["ml", "Millilitres"],
-    ["l", "Litres"],
-  ];
+  const units = en.units;
 
   useEffect(() => {
     async function getIngredients() {
@@ -48,7 +43,7 @@ const CreateMealIngredientForm = (props) => {
     <Fragment>
       <Flex direction={{ base: "column" }} gap={3}>
         <IconButton
-          aria-label="Delete Meal"
+          aria-label={en.meals.ariaDelete}
           icon={<AddIcon />}
           onClick={handleAddAnother}
         />

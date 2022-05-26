@@ -5,6 +5,7 @@ import { toast } from "react-toastify";
 import DataContext from "../../../context/dataContext";
 import http from "../../../services/httpService";
 import EditableInputSelect from "../../common/editableInputSelect";
+import { en } from "./../../../services/textService";
 import CreateIngredientForm from "./createIngredientForm";
 
 function Ingredients(props) {
@@ -190,9 +191,9 @@ function Ingredients(props) {
   const doSave = async (id, item) => {
     const endpoint = http.ingredientsEP;
     await toast.promise(http.patch(`${endpoint}${id}/`, item), {
-      pending: `Updating ${item.name} on server...`,
-      success: `Updated ${item.name} on server! :)`,
-      error: `Couldn't update ${item.name} on server! :(`,
+      pending: en.ingredients.patchPromise.pending(item.name),
+      success: en.ingredients.patchPromise.success(item.name),
+      error: en.ingredients.patchPromise.error(item.name),
     });
   };
 
@@ -200,10 +201,10 @@ function Ingredients(props) {
     const { name, endpoint, singularTitle } = {
       name: "ingredients",
       endpoint: http.ingredientsEP,
-      singularTitle: "Ingredient",
+      singularTitle: en.ingredients.titleSingular,
     };
 
-    const deleteMe = window.confirm(`Really Delete "${item.name}"?`);
+    const deleteMe = window.confirm(en.ingredients.delete.confirm(item.name));
 
     const currentState = [...ingredients];
 
@@ -214,15 +215,24 @@ function Ingredients(props) {
 
       try {
         await toast.promise(http.delete(`${endpoint}${item.id}/`), {
-          pending: `Deleting ${singularTitle}: ${item.name}`,
-          success: `Deleted ${singularTitle}: ${item.name}!`,
+          pending: en.ingredients.delete.promise.pending(
+            singularTitle,
+            item.name
+          ),
+          success: en.ingredients.delete.promise.success(
+            singularTitle,
+            item.name
+          ),
         });
       } catch (error) {
         if (error.response && error.response.status === 404) {
-          toast.error(`This ${singularTitle} has already been deleted!`);
+          toast.error(en.ingredients.delete.error.alreadyDeleted(item.name));
         } else if (!error.response) {
           toast.error(
-            `Deleting ${singularTitle} Failed!: ${item.name}, please try again later`
+            en.ingredients.delete.error.failedTryAgainLater(
+              singularTitle,
+              item.name
+            )
           );
           context.setData(name, currentState);
           toggleEditable(item);
@@ -270,9 +280,9 @@ function Ingredients(props) {
 
     const endpoint = http.ingredientsEP;
     const result = await toast.promise(http.post(`${endpoint}`, payload), {
-      pending: `Adding ${item.name} to server...`,
-      success: `Added ${item.name} to server! :)`,
-      error: `Couldn't add ${item.name} to server! :(`,
+      pending: en.ingredients.postPromise.pending(item.name),
+      success: en.ingredients.postPromise.success(item.name),
+      error: en.ingredients.postPromise.error(item.name),
     });
 
     const updatedItem = localCopy.filter((_item) => _item === item)[0];
@@ -301,7 +311,7 @@ function Ingredients(props) {
           <div className="ingredient-section">
             <Box borderWidth="1px" borderRadius="lg" my={4} p={4}>
               <Heading mb={4} as="h3" size="sm">
-                Without Section <Divider mt={4} />
+                {en.sections.without} <Divider mt={4} />
               </Heading>
               {noSection.map((ingredient) => (
                 <EditableInputSelect
@@ -372,13 +382,13 @@ function Ingredients(props) {
 
   return (
     <div>
-      <Heading as="h1">Ingredients</Heading>
+      <Heading as="h1">{en.ingredients.titlePlural}</Heading>
       <Divider my={4} />
 
       <CreateIngredientForm
         handleCreate={handleCreate}
-        placeHolder={`New Ingredient name...`}
-        buttonLabel={`Create new Ingredient`}
+        placeHolder={en.ingredients.newName}
+        buttonLabel={en.ingredients.createNew}
         selectOptions={sections}
       />
       <Divider my={4} />

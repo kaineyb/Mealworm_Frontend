@@ -1,3 +1,5 @@
+import { en } from "../services/textService";
+
 const mealFromID = (id, meals, object) => {
   const item = meals.filter((meal) => meal["id"] === id)[0];
   if (item && object) {
@@ -5,7 +7,7 @@ const mealFromID = (id, meals, object) => {
   } else if (item) {
     return item.name;
   } else {
-    return "Item not found";
+    return en.meals.notFound;
   }
 };
 

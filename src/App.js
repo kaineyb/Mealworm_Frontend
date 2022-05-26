@@ -15,6 +15,7 @@ import auth from "./services/authService";
 // config
 import config from "./services/config.json";
 import dataService from "./services/dataService";
+import { en } from "./services/textService";
 
 function App(props) {
   const [user, setUser] = useState(null);
@@ -50,9 +51,9 @@ function App(props) {
 
   const updateData = async () => {
     const promise = await toast.promise(dataService.getAll(), {
-      pending: "Getting data from server 🧐",
-      success: "Got latest data from server 🥰",
-      error: "Couldn't get data from server! 🤬",
+      pending: en.updateDataPromise.pending,
+      success: en.updateDataPromise.success,
+      error: en.updateDataPromise.error,
     });
 
     setMainData(promise);
@@ -67,7 +68,7 @@ function App(props) {
 
     newData[property] = payload;
 
-    setData(newData);
+    setMainData(newData);
   };
 
   const toggleLoggedIn = () => {

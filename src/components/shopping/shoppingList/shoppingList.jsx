@@ -2,6 +2,7 @@ import { Divider, Heading } from "@chakra-ui/react";
 import { useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import dataContext from "../../../context/dataContext";
+import { en } from "../../../services/textService";
 import PlanLinks from "./../../planLinks";
 import ShoppingListTable from "./shoppingListTable";
 
@@ -75,7 +76,8 @@ function ShoppingList(props) {
   return (
     <div>
       <Heading as="h6" mt={5}>
-        Shopping List for {plan.name}
+        {en.shoppingList.shoppingListFor}
+        {plan.name}
       </Heading>
       <Divider my={5} />
       <PlanLinks plan={plan} />
