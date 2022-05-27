@@ -1,4 +1,12 @@
-import { Box, Flex, HStack, Link, Spacer } from "@chakra-ui/react";
+import {
+  Box,
+  Flex,
+  HStack,
+  Link,
+  Spacer,
+  Text,
+  useColorModeValue,
+} from "@chakra-ui/react";
 import React, { Fragment, useState } from "react";
 import { Link as RouterLink } from "react-router-dom";
 import config from "../../services/config.json";
@@ -9,20 +17,26 @@ const Navbar = (props) => {
   const [isOpen, setIsOpen] = useState(false);
   const toggle = () => setIsOpen(!isOpen);
 
+  const bg = useColorModeValue("gray.100", "whiteAlpha.200");
+  const color = useColorModeValue("black", "white");
+
   return (
     <Fragment>
       <header>
         <nav>
           <Flex direction={{ base: "column", md: "row" }}>
-            <Box borderWidth="1px" borderRadius="lg" p={4} m={1}>
-              <HStack>
-                <Link as={RouterLink} to="/" onClick={isOpen ? toggle : null}>
-                  <strong>{config.siteName}</strong>
-                </Link>
-                <Spacer />
-                <MenuToggle toggle={toggle} isOpen={isOpen} />
-              </HStack>
-            </Box>
+            <HStack>
+              <Link as={RouterLink} to="/" onClick={isOpen ? toggle : null}>
+                <Box borderWidth="1px" p={4} my={1} _hover={{ bg: bg }}>
+                  <Text>
+                    <strong>{config.siteName}</strong>
+                  </Text>
+                </Box>
+              </Link>
+              <Spacer />
+              <MenuToggle toggle={toggle} isOpen={isOpen} />
+            </HStack>
+
             <Spacer />
             <Box
               display={{ base: isOpen ? "block" : "none", md: "block" }}

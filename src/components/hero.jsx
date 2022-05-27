@@ -12,7 +12,7 @@ function Hero(props) {
       <header>
         <Heading as="h2">{en.hero.header}</Heading>
 
-        <Box borderWidth="1px" borderRadius="lg" p={4} my={4}>
+        <Box borderWidth="1px" p={4} my={4}>
           {en.hero.text}
         </Box>
       </header>

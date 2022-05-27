@@ -6,6 +6,7 @@ import DataContext from "../../../context/dataContext";
 import http from "../../../services/httpService";
 import CreateForm from "../component/createForm";
 import { en } from "./../../../services/textService";
+import { setTitle } from "./../../../snippets/setTitle";
 import Store from "./store";
 
 function Stores(props) {
@@ -24,6 +25,10 @@ function Stores(props) {
   const context = useContext(DataContext);
 
   const { data } = context;
+
+  useEffect(() => {
+    setTitle("Stores");
+  }, []);
 
   useEffect(() => {
     async function getStores() {
@@ -73,14 +78,12 @@ function Stores(props) {
         placeHolder={en.stores.newName}
         buttonLabel={en.stores.createNew}
       />
-      <Divider mt={4} />
-      <Box borderWidth="1px" borderRadius="lg" p={4} mt={4}>
-        <Flex direction={{ base: "column" }} gap={3}>
-          {stores.map((store) => (
-            <Store key={store.id} store={store} />
-          ))}
-        </Flex>
-      </Box>
+      <Divider my={4} />
+      <Flex direction={{ base: "column" }} gap={3}>
+        {stores?.map((store) => (
+          <Store key={store.id} store={store} />
+        ))}
+      </Flex>
     </div>
   );
 }

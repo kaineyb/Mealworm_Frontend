@@ -163,7 +163,7 @@ function Plan(props) {
   );
 
   return (
-    <Box borderWidth="1px" borderRadius="lg" my={4} p={4} position="relative">
+    <Box borderWidth="1px" my={4} p={4} position="relative">
       <Flex>
         <Box width="xl" p={0}>
           {planName}

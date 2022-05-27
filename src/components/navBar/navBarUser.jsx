@@ -1,4 +1,4 @@
-import { Box, Link } from "@chakra-ui/react";
+import { Box, Link, useColorModeValue } from "@chakra-ui/react";
 import React, { useContext } from "react";
 import { Link as RouterLink } from "react-router-dom";
 import userContext from "../../context/userContext";
@@ -19,6 +19,17 @@ function Navbar(props) {
     [en.user.logIn, "/login"],
     [en.user.register, "/register"],
   ];
+
+  const bg = useColorModeValue("gray.100", "whiteAlpha.200");
+  const color = useColorModeValue("black", "white");
+
+  const boxProps = {
+    borderWidth: "1px",
+    p: 4,
+    my: 1,
+    _hover: { bg: bg, color: color },
+  };
+
   if (user.loggedIn) {
     return (
       <React.Fragment>
@@ -29,9 +40,7 @@ function Navbar(props) {
             key={item[0]}
             onClick={props.toggle}
           >
-            <Box key={item[0]} borderWidth="1px" borderRadius="lg" p={4} m={1}>
-              {item[0]}
-            </Box>
+            <Box {...boxProps}>{item[0]}</Box>
           </Link>
         ))}
       </React.Fragment>
@@ -41,9 +50,7 @@ function Navbar(props) {
       <React.Fragment>
         {loggedOut.map((item) => (
           <Link as={RouterLink} to={item[1]} key={item[0]}>
-            <Box borderWidth="1px" borderRadius="lg" p={4} m={1}>
-              {item[0]}
-            </Box>
+            <Box {...boxProps}>{item[0]}</Box>
           </Link>
         ))}
       </React.Fragment>

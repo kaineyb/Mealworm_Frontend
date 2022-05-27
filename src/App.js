@@ -12,10 +12,9 @@ import DataContext from "./context/dataContext";
 // Contexts
 import UserContext from "./context/userContext";
 import auth from "./services/authService";
-// config
-import config from "./services/config.json";
 import dataService from "./services/dataService";
 import { en } from "./services/textService";
+import { setTitle } from "./snippets/setTitle";
 
 function App(props) {
   const [user, setUser] = useState(null);
@@ -23,7 +22,7 @@ function App(props) {
   const [mainData, setMainData] = useState({});
 
   useEffect(() => {
-    document.title = config.siteName;
+    setTitle("Welcome");
     console.log("App.js Fired");
   }, []);
 

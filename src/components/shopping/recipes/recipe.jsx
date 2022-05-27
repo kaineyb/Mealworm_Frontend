@@ -25,7 +25,7 @@ function Recipe(props) {
   };
 
   return (
-    <Box key={day.id} borderWidth="1px" borderRadius="lg" p={5} my={5}>
+    <Box key={day.id} borderWidth="1px" p={5} my={5}>
       <Heading as="h4" size="sm" mb={2}>
         {mealFromID(day.meal, meals)}
       </Heading>

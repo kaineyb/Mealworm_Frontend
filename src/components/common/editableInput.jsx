@@ -29,7 +29,6 @@ const EditableInput = ({
           bg={bg}
           color={color}
           borderWidth="1px"
-          borderRadius="lg"
           p={4}
           className="clickable"
         >
@@ -73,7 +72,6 @@ const EditableInput = ({
           color={color}
           position="relative"
           borderWidth="1px"
-          borderRadius="lg"
           p={4}
           onClick={onClick}
           className="clickable"

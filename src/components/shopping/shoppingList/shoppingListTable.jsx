@@ -177,12 +177,7 @@ function ShoppingListTable(props) {
     const tables = Object.values(obj);
 
     return tables.map((table) => (
-      <TableContainer
-        key={table.sectionId}
-        borderWidth="1px"
-        borderRadius="lg"
-        mb={5}
-      >
+      <TableContainer key={table.sectionId} borderWidth="1px" mb={5}>
         <Table variant={"striped"} size={"sm"}>
           <TableCaption placement="top" textAlign={"left"} m={0}>
             <Heading as="h6" size="sm">

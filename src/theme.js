@@ -14,6 +14,7 @@ const fonts = {
 
 const components = {
   Link: { baseStyle: { _focus: { boxShadow: "none" } } },
+  Button: { defaultProps: { borderLeftRadius: "0" } },
 };
 
 const theme = extendTheme({ config, fonts, colors, components });

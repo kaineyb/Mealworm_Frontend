@@ -12,6 +12,7 @@ import { Link } from "react-router-dom";
 import DataContext from "../../context/dataContext";
 import auth from "../../services/authService";
 import jwtService from "../../services/jwtService";
+import { setTitle } from "./../../snippets/setTitle";
 
 function UserProfile(props) {
   const [user, setUser] = useState({});
@@ -26,6 +27,10 @@ function UserProfile(props) {
   // console.log("refreshTime", rT);
 
   useEffect(() => {
+    setTitle("User Profile");
+  }, []);
+
+  useEffect(() => {
     async function getUser() {
       const userInfo = await auth.getCurrentUserObj();
       setUser(userInfo);
@@ -37,7 +42,7 @@ function UserProfile(props) {
     <Box>
       <Heading as="h1">User Profile</Heading>
       <Divider my={4} />
-      <Box my={5} p={5} borderWidth="1px" borderRadius="lg">
+      <Box my={5} p={5} borderWidth="1px">
         <Heading size="md">User Details</Heading>
         <Divider my={4} />
         <Flex direction={{ base: "column", md: "row" }} gap={2}>
@@ -54,7 +59,7 @@ function UserProfile(props) {
         </Flex>
       </Box>
 
-      <Box my={5} p={5} borderWidth="1px" borderRadius="lg">
+      <Box my={5} p={5} borderWidth="1px">
         <Heading size="md">Secret Admin Box</Heading>
         <Divider my={4} />
         <Box>

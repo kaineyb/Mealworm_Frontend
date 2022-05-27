@@ -1,5 +1,5 @@
 import { Box, Divider, Flex, Heading } from "@chakra-ui/react";
-import React, { useContext, useEffect, useState } from "react";
+import React, { Fragment, useContext, useEffect, useState } from "react";
 // 3rd Party
 import { toast } from "react-toastify";
 import DataContext from "../../../context/dataContext";
@@ -200,7 +200,7 @@ function SimpleForm(props) {
   };
 
   return (
-    <div>
+    <Fragment>
       <Box>
         <Heading as="h1">{props.pluralTitle}</Heading>
       </Box>
@@ -211,13 +211,11 @@ function SimpleForm(props) {
         placeHolder={`New ${props.singularTitle} name...`}
         buttonLabel={`Create new ${props.singularTitle}`}
       />
-      <Divider mt={4} />
-      <Box borderWidth="1px" borderRadius="lg" p={4} mt={4}>
-        <Flex direction={{ base: "column" }} gap={3}>
-          {renderMap()}
-        </Flex>
-      </Box>
-    </div>
+      <Divider my={4} />
+      <Flex direction={{ base: "column" }} gap={3}>
+        {renderMap()}
+      </Flex>
+    </Fragment>
   );
 }
 

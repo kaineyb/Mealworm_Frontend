@@ -141,7 +141,7 @@ const Meal = (props) => {
 
   return (
     <div className="meal">
-      <Box my={4} borderWidth="1px" borderRadius="lg" p={4}>
+      <Box my={4} borderWidth="1px" p={4}>
         <Heading mb={4} as="h3" size="sm">
           {mealName} <Divider mt={4} />
         </Heading>

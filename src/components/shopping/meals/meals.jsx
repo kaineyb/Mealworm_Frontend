@@ -5,11 +5,16 @@ import dataContext from "../../../context/dataContext";
 import http from "../../../services/httpService";
 import { en } from "../../../services/textService";
 import CreateForm from "../component/createForm";
+import { setTitle } from "./../../../snippets/setTitle";
 import Meal from "./meal";
 
 function Meals(props) {
   const [meals, setMeals] = useState([]); // An array of all meals available
   const context = useContext(dataContext);
+
+  useEffect(() => {
+    setTitle("Meals");
+  }, []);
 
   useEffect(() => {
     async function getMeals() {

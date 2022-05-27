@@ -14,7 +14,7 @@ const Input = ({ name, label, error, ...rest }) => {
       <ChakraInput {...rest} name={name} id={name} />
 
       {error && (
-        <Alert status="error" borderRadius={10}>
+        <Alert status="error">
           <AlertIcon />
           <AlertTitle>{error}</AlertTitle>
         </Alert>

@@ -33,14 +33,7 @@ const EditableInputSelect = ({
   if (editable) {
     return (
       <React.Fragment>
-        <Box
-          bg={bg}
-          color={color}
-          borderWidth="1px"
-          borderRadius="lg"
-          p={4}
-          mb={4}
-        >
+        <Box bg={bg} color={color} borderWidth="1px" p={4} mb={4}>
           <Flex gap={3} direction={{ base: "column", sm: "row" }}>
             <Input defaultValue={name} onChange={onChangeInput} />
             <Select
@@ -94,7 +87,6 @@ const EditableInputSelect = ({
           className="clickable"
           onClick={onClick}
           borderWidth="1px"
-          borderRadius="lg"
           p={4}
           mb={4}
         >

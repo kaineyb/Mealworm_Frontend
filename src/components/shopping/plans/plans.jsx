@@ -4,12 +4,17 @@ import { toast } from "react-toastify";
 import dataContext from "../../../context/dataContext";
 import { en } from "../../../services/textService";
 import http from "./../../../services/httpService";
+import { setTitle } from "./../../../snippets/setTitle";
 import CreateForm from "./../component/createForm";
 import Plan from "./plan";
 
 function Plans(props) {
   const [plans, setPlans] = useState([]);
   const context = useContext(dataContext);
+
+  useEffect(() => {
+    setTitle("Plans");
+  }, []);
 
   useEffect(() => {
     async function getPlans() {

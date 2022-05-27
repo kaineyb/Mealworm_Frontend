@@ -3,6 +3,7 @@ import { Fragment, useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import dataContext from "../../../context/dataContext";
 import { en } from "../../../services/textService";
+import { setTitle } from "./../../../snippets/setTitle";
 import PlanLinks from "./../../planLinks";
 import Recipe from "./recipe";
 
@@ -21,6 +22,10 @@ function Recipes(props) {
   const [plan, setPlan] = useState({ id: null, name: null, day_set: [] });
 
   const context = useContext(dataContext);
+
+  useEffect(() => {
+    setTitle(`Recipes for ${plan.name}`);
+  }, [plan]);
 
   useEffect(() => {
     async function getPlans() {

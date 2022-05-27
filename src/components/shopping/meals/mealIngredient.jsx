@@ -175,7 +175,6 @@ const MealIngredient = (props) => {
       color={color}
       my={4}
       borderWidth="1px"
-      borderRadius="lg"
       p={4}
       className="clickable meal_ingredient"
       key={meal_ingredient.id}
@@ -247,7 +246,6 @@ const MealIngredient = (props) => {
       position="relative"
       my={4}
       borderWidth="1px"
-      borderRadius="lg"
       p={4}
       className="clickable meal_ingredient"
       key={meal_ingredient.id}

@@ -164,7 +164,6 @@ function PlanDay(props) {
         key={day.id}
         position="relative"
         borderWidth="1px"
-        borderRadius="lg"
         my={4}
         p={4}
       >
@@ -232,7 +231,6 @@ function PlanDay(props) {
       className="clickable"
       onClick={handleClick}
       borderWidth="1px"
-      borderRadius="lg"
       my={4}
       p={4}
     >

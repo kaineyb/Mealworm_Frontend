@@ -6,6 +6,7 @@ import DataContext from "../../../context/dataContext";
 import http from "../../../services/httpService";
 import EditableInputSelect from "../../common/editableInputSelect";
 import { en } from "./../../../services/textService";
+import { setTitle } from "./../../../snippets/setTitle";
 import CreateIngredientForm from "./createIngredientForm";
 
 function Ingredients(props) {
@@ -14,6 +15,10 @@ function Ingredients(props) {
   const [pending, setPending] = useState([]);
 
   const context = useContext(DataContext);
+
+  useEffect(() => {
+    setTitle("Ingredients");
+  }, []);
 
   useEffect(() => {
     async function getIngredients() {
@@ -309,7 +314,7 @@ function Ingredients(props) {
       return (
         <Fragment>
           <div className="ingredient-section">
-            <Box borderWidth="1px" borderRadius="lg" my={4} p={4}>
+            <Box borderWidth="1px" my={4} p={4}>
               <Heading mb={4} as="h3" size="sm">
                 {en.sections.without} <Divider mt={4} />
               </Heading>
@@ -346,7 +351,7 @@ function Ingredients(props) {
       <Fragment>
         {sections.map((section) => (
           <div key={section.id} className="ingredient-section">
-            <Box borderWidth="1px" borderRadius="lg" my={4} p={4}>
+            <Box borderWidth="1px" my={4} p={4}>
               <Heading mb={4} as="h3" size="sm">
                 {section.name} <Divider mt={4} />
               </Heading>{" "}

@@ -8,7 +8,7 @@ import { en } from "./../services/textService";
 function PlanLinks(props) {
   const { plan } = props;
   return (
-    <Box borderWidth="1px" borderRadius="lg" p={5} mb={5}>
+    <Box borderWidth="1px" p={5} mb={5}>
       <Flex direction={{ base: "column", sm: "rows" }} gap={2}>
         <Link as={RouterLink} to={`/plan/${plan.id}/shopping-list`}>
           <Button w="100%" leftIcon={<AiOutlineShoppingCart />}>

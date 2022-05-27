@@ -60,7 +60,8 @@ const Store = (props) => {
     });
   };
 
-  const handleSave = () => {
+  const handleSave = (e) => {
+    e.preventDefault();
     if (newStoreName === "") {
       setEditable(false);
       return;
@@ -91,41 +92,42 @@ const Store = (props) => {
     color: color,
     position: "relative",
     borderWidth: "1px",
-    borderRadius: "lg",
     p: 4,
   };
 
   const editStoreMode = (
     <Box>
-      <Flex direction={{ base: "column", sm: "row" }} gap={2}>
-        <Input
-          onChange={handleChange}
-          size="sm"
-          name={store.name}
-          id={store.id}
-          defaultValue={store.name}
-        />{" "}
-        <IconButton
-          onClick={handleSave}
-          colorScheme={"green"}
-          aria-label={en.aria.save}
-          icon={<CheckIcon />}
-          size="sm"
-        />
-        <IconButton
-          onClick={handleCancel}
-          aria-label={en.aria.cancel}
-          icon={<CloseIcon />}
-          size="sm"
-        />
-        <IconButton
-          onClick={handleDelete}
-          colorScheme={"red"}
-          aria-label={en.aria.delete}
-          icon={<DeleteIcon />}
-          size="sm"
-        />
-      </Flex>
+      <form onSubmit={(e) => handleSave(e)}>
+        <Flex direction={{ base: "column", sm: "row" }} gap={2}>
+          <Input
+            onChange={handleChange}
+            size="sm"
+            name={store.name}
+            id={store.id}
+            defaultValue={store.name}
+          />{" "}
+          <IconButton
+            type="submit"
+            colorScheme={"green"}
+            aria-label={en.aria.save}
+            icon={<CheckIcon />}
+            size="sm"
+          />
+          <IconButton
+            onClick={handleCancel}
+            aria-label={en.aria.cancel}
+            icon={<CloseIcon />}
+            size="sm"
+          />
+          <IconButton
+            onClick={handleDelete}
+            colorScheme={"red"}
+            aria-label={en.aria.delete}
+            icon={<DeleteIcon />}
+            size="sm"
+          />
+        </Flex>
+      </form>
     </Box>
   );
 

@@ -200,7 +200,6 @@ const Aisle = (props) => {
     bg: bg,
     color: color,
     borderWidth: "1px",
-    borderRadius: "5px",
     borderColor: borderColor,
     p: 5,
     my: 5,

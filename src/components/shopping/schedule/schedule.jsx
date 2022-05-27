@@ -16,6 +16,7 @@ import dataContext from "../../../context/dataContext";
 import { en } from "../../../services/textService";
 import days from "../../../snippets/days";
 import mealFromID from "../../../snippets/meals";
+import { setTitle } from "./../../../snippets/setTitle";
 import PlanLinks from "./../../planLinks";
 
 function Schedule() {
@@ -32,6 +33,10 @@ function Schedule() {
   const [plan, setPlan] = useState({ id: null, name: null, day_set: [] });
 
   const context = useContext(dataContext);
+
+  useEffect(() => {
+    setTitle(`Schedule for ${plan.name}`);
+  }, [plan]);
 
   useEffect(() => {
     async function getPlans() {
@@ -71,10 +76,10 @@ function Schedule() {
       <Divider my={5} />
       <PlanLinks plan={plan} />
 
-      <Box borderWidth="1px" borderRadius="lg" p={5} my={5}>
+      <Box borderWidth="1px" p={5} my={5}>
         {en.schedule.blurb(plan, days.longDay(plan.start_day))}
       </Box>
-      <Box borderWidth="1px" borderRadius="lg" p={0} pt={3}>
+      <Box borderWidth="1px" p={0} pt={3}>
         <TableContainer>
           <Table variant="striped" size="sm" m={0}>
             <Thead>
