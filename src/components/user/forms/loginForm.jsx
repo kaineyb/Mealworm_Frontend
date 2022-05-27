@@ -38,7 +38,7 @@ class LoginForm extends BaseForm {
     });
 
     if (loginResult === true) {
-      this.context.toggleLoggedIn();
+      this.context.setLoggedIn(true);
     }
   }
 

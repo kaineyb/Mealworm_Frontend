@@ -87,6 +87,22 @@ async function refreshAccessToken(refreshToken) {
   }
 }
 
+export function quickCheck() {
+  const user = JSON.parse(localStorage.getItem("user"));
+  const { access, refresh } = jwtService.getJwtTokens();
+
+  if (!access || !refresh || !user) {
+    return false;
+  }
+
+  const accessHasTime = jwtService.tokenNotExpired(access);
+  const refreshHasTime = jwtService.tokenNotExpired(refresh);
+
+  if (accessHasTime && refreshHasTime) {
+    return true;
+  }
+}
+
 // Check if Logged In:
 export async function loggedIn() {
   const user = JSON.parse(localStorage.getItem("user"));
@@ -137,5 +153,6 @@ const auth = {
   loggedIn,
   getCurrentUserObj,
   getCurrentUserName,
+  quickCheck,
 };
 export default auth;

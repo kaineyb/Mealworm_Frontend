@@ -41,8 +41,8 @@ class RegisterForm extends BaseForm {
 
     try {
       const registerResult = await toast.promise(auth.register(userDetails), {
-        pending: en.registerForm.pending,
-        success: en.registerForm.success(userDetails.username),
+        pending: en.registerForm.resultPromise.pending,
+        success: en.registerForm.resultPromise.success(userDetails.username),
         error: en.registerForm.error,
       });
 
@@ -62,19 +62,18 @@ class RegisterForm extends BaseForm {
         });
 
         if (loginResult === true) {
-          this.context.toggleLoggedIn();
+          this.context.setLoggedIn(true);
         }
       }
-    } catch (ex) {
-      console.log(ex.response);
-      if (ex.response.data.email) {
+    } catch (error) {
+      if (error.response.data.email) {
         const errors = { ...this.state.errors };
-        errors["email"] = ex.response.data.email;
+        errors["email"] = error.response.data.email;
         this.setState({ errors });
       }
-      if (ex.response.data.username) {
+      if (error.response.data.username) {
         const errors = { ...this.state.errors };
-        errors["username"] = ex.response.data.username;
+        errors["username"] = error.response.data.username;
         this.setState({ errors });
       }
     }

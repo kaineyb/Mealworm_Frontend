@@ -19,7 +19,7 @@ import { en } from "./services/textService";
 
 function App(props) {
   const [user, setUser] = useState(null);
-  const [loggedIn, setLoggedIn] = useState(false);
+  const [loggedIn, setLoggedIn] = useState(auth.quickCheck());
   const [mainData, setMainData] = useState({});
 
   useEffect(() => {
@@ -71,10 +71,6 @@ function App(props) {
     setMainData(newData);
   };
 
-  const toggleLoggedIn = () => {
-    setLoggedIn(!loggedIn);
-  };
-
   const clearUser = () => {
     setUser(null);
   };
@@ -82,7 +78,7 @@ function App(props) {
   const userContextValue = {
     user,
     loggedIn,
-    toggleLoggedIn,
+    setLoggedIn,
     clearUser,
     setUser,
   };

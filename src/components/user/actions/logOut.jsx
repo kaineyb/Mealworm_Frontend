@@ -14,7 +14,7 @@ function LogOut(props) {
     auth.logout(); // Removes from LocalStorage
     user.clearUser(); // Removes from State
     data.clearData(); // Removes from State
-    user.toggleLoggedIn();
+    user.setLoggedIn(false);
     toast.success(en.user.loggedOut);
   }, []);
 
