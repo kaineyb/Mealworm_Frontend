@@ -159,7 +159,7 @@ function PlanDay(props) {
   const boxProps = {
     bg: bg,
     color: color,
-    my: 4,
+    mb: 4,
     p: 4,
   };
 
