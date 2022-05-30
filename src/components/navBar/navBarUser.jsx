@@ -24,10 +24,10 @@ function Navbar(props) {
   const color = useColorModeValue("black", "white");
 
   const boxProps = {
-    borderWidth: "1px",
+    borderTopWidth: "5px",
     p: 4,
     my: 1,
-    _hover: { bg: bg, color: color },
+    _hover: { bg: bg, color: color, borderColor: "purple.400" },
   };
 
   if (user.loggedIn) {

@@ -20,6 +20,13 @@ const Navbar = (props) => {
   const bg = useColorModeValue("gray.100", "whiteAlpha.200");
   const color = useColorModeValue("black", "white");
 
+  const boxProps = {
+    borderTopWidth: "5px",
+    p: 4,
+    my: 1,
+    _hover: { bg: bg, color: color, borderColor: "purple.400" },
+  };
+
   return (
     <Fragment>
       <header>
@@ -27,7 +34,7 @@ const Navbar = (props) => {
           <Flex direction={{ base: "column", md: "row" }}>
             <HStack>
               <Link as={RouterLink} to="/" onClick={isOpen ? toggle : null}>
-                <Box borderWidth="1px" p={4} my={1} _hover={{ bg: bg }}>
+                <Box {...boxProps}>
                   <Text>
                     <strong>{config.siteName}</strong>
                   </Text>
