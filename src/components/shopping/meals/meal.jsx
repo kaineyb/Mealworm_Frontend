@@ -91,8 +91,16 @@ const Meal = (props) => {
     });
   };
 
+  const headerProps = {
+    mb: 0,
+    as: "h3",
+    size: "sm",
+    variant: "sectionHeader",
+    position: "relative",
+  };
+
   const mealName = editable ? (
-    <Fragment>
+    <Heading {...headerProps}>
       <Flex direction={{ base: "column", sm: "row" }} gap={2}>
         <Input
           size="sm"
@@ -122,20 +130,27 @@ const Meal = (props) => {
           onClick={handleDelete}
         />
       </Flex>
-    </Fragment>
+    </Heading>
   ) : (
-    <Fragment>
-      <strong className="clickable" onClick={handleClick}>
-        {name} <Icon as={EditIcon} ml={2} w={3} h={3} />
+    <Heading {...headerProps} className="clickable" onClick={handleClick}>
+      <strong>
+        {name}{" "}
+        <Icon
+          as={EditIcon}
+          ml={2}
+          w={3}
+          h={3}
+          position="absolute"
+          top={2}
+          right={2}
+        />
       </strong>
-    </Fragment>
+    </Heading>
   );
 
   return (
     <Fragment>
-      <Heading mb={0} as="h3" size="sm" variant="sectionHeader">
-        {mealName}
-      </Heading>
+      {mealName}
       <Box mb={4} borderWidth="1px" borderTopWidth={0} p={4}>
         <MealIngredients meal_ingredients={meal.meal_ingredients} meal={meal} />
       </Box>

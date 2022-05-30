@@ -122,8 +122,15 @@ function Plan(props) {
     setData("plans", newPlans);
   };
 
+  const headerProps = {
+    as: "h3",
+    size: "sm",
+    variant: "sectionHeader",
+    position: "relative",
+  };
+
   const planName = editable ? (
-    <Fragment>
+    <Heading {...headerProps}>
       <Flex direction={{ base: "column", sm: "row" }} gap={2}>
         <Input
           size="sm"
@@ -153,20 +160,27 @@ function Plan(props) {
           onClick={handleDelete}
         />
       </Flex>
-    </Fragment>
+    </Heading>
   ) : (
-    <Fragment>
-      <strong className="clickable" onClick={handleClick}>
-        {plan.name} <Icon as={EditIcon} ml={2} w={3} h={3} />
+    <Heading {...headerProps} className="clickable" onClick={handleClick}>
+      <strong>
+        {plan.name}{" "}
+        <Icon
+          as={EditIcon}
+          ml={2}
+          w={3}
+          h={3}
+          position="absolute"
+          top={2}
+          right={2}
+        />
       </strong>
-    </Fragment>
+    </Heading>
   );
 
   return (
     <Fragment>
-      <Heading as="h3" size="sm" variant="sectionHeader">
-        {planName}
-      </Heading>
+      {planName}
       <StartDay day={plan.start_day} plan={plan} />
       <Box
         borderWidth="1px"

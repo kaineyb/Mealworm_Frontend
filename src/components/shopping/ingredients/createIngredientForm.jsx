@@ -23,6 +23,8 @@ const CreateIngredientForm = (props) => {
     setSelection(0);
   };
 
+  const validate = value !== "" ? true : false;
+
   return (
     <Fragment>
       <FormControl>
@@ -51,6 +53,7 @@ const CreateIngredientForm = (props) => {
             ))}
           </Select>
           <Button
+            disabled={!validate}
             width="100%"
             px={5}
             type="submit"

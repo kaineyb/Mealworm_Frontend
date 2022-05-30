@@ -16,6 +16,8 @@ const CreateForm = (props) => {
     setValue("");
   };
 
+  const validate = value !== "" ? true : false;
+
   return (
     <Fragment>
       <form>
@@ -33,6 +35,7 @@ const CreateForm = (props) => {
             <Button
               px={10}
               onClick={(event) => handleOnClick(event, value)}
+              disabled={!validate}
               size={"sm"}
               type="submit"
             >
