@@ -1,18 +1,12 @@
 import {
   Box,
   Checkbox,
-  Divider,
-  Flex,
   Heading,
   Select,
   Table,
-  TableCaption,
   TableContainer,
   Tbody,
   Td,
-  Text,
-  Th,
-  Thead,
   Tr,
 } from "@chakra-ui/react";
 import _ from "lodash";
@@ -177,48 +171,40 @@ function ShoppingListTable(props) {
     const tables = Object.values(obj);
 
     return tables.map((table) => (
-      <TableContainer key={table.sectionId} borderWidth="1px" mb={5}>
-        <Table variant={"striped"} size={"sm"}>
-          <TableCaption placement="top" textAlign={"left"} m={0}>
-            <Heading as="h6" size="sm">
-              {table.aisle ? `Aisle: ${table.aisle} - ` : ""} {table.section}
-            </Heading>
-            <Divider mt={2} />
-          </TableCaption>
-          <Thead>
-            <Tr>
-              <Th scope="col"></Th>
-              <Th scope="col"></Th>
-            </Tr>
-          </Thead>
-          <Tbody>{generateTableRows(table.items)}</Tbody>
-        </Table>
-      </TableContainer>
+      <Fragment key={table.sectionId}>
+        <Heading as="h3" size="sm" variant="sectionHeader">
+          {table.aisle ? `Aisle: ${table.aisle} - ` : ""} {table.section}
+        </Heading>
+        <TableContainer borderWidth="1px" mb={5}>
+          <Table variant={"striped"}>
+            <Tbody>{generateTableRows(table.items)}</Tbody>
+          </Table>
+        </TableContainer>
+      </Fragment>
     ));
   };
 
   return (
     <Fragment>
-      <Box borderWidth={"1px"} my={5} p={5}>
-        <Flex direction={{ base: "row", sm: "row" }} gap={2}>
-          <Text>{en.shoppingList.whatStore}</Text>
-          <Select
-            defaultValue={0}
-            size="sm"
-            width="sm"
-            ml={5}
-            onChange={handleChangeSelect}
-          >
-            <option value="0" disabled>
-              {en.shoppingList.selectStore}
+      <Heading
+        as="h3"
+        size="sm"
+        variant="sectionHeader"
+        bgGradient="linear(to-r, green.200, pink.500)"
+      >
+        {en.shoppingList.whatStore}
+      </Heading>
+      <Box borderWidth={"1px"} mb={5} p={5} borderTopWidth={0}>
+        <Select defaultValue={0} onChange={handleChangeSelect}>
+          <option value="0" disabled>
+            {en.shoppingList.selectStore}
+          </option>
+          {stores?.map((store) => (
+            <option key={store.id} value={store.id}>
+              {store.name}
             </option>
-            {stores.map((store) => (
-              <option key={store.id} value={store.id}>
-                {store.name}
-              </option>
-            ))}
-          </Select>
-        </Flex>
+          ))}
+        </Select>
       </Box>
       {generateTables(sortedSectionedData)}
     </Fragment>

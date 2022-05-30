@@ -30,10 +30,12 @@ const EditableInputSelect = ({
   const bg = useColorModeValue("gray.100", "whiteAlpha.200");
   const color = useColorModeValue("black", "white");
 
+  const boxProps = { bg: bg, color: color, p: 4, mb: 4 };
+
   if (editable) {
     return (
       <React.Fragment>
-        <Box bg={bg} color={color} borderWidth="1px" p={4} mb={4}>
+        <Box {...boxProps}>
           <Flex gap={3} direction={{ base: "column", sm: "row" }}>
             <Input defaultValue={name} onChange={onChangeInput} />
             <Select
@@ -81,14 +83,10 @@ const EditableInputSelect = ({
     return (
       <React.Fragment>
         <Box
-          bg={bg}
-          color={color}
+          {...boxProps}
           position="relative"
           className="clickable"
           onClick={onClick}
-          borderWidth="1px"
-          p={4}
-          mb={4}
         >
           {name}
           <Icon

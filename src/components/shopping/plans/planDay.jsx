@@ -156,17 +156,16 @@ function PlanDay(props) {
     );
   };
 
+  const boxProps = {
+    bg: bg,
+    color: color,
+    my: 4,
+    p: 4,
+  };
+
   const toggle = editable ? (
     <Fragment>
-      <Box
-        bg={bg}
-        color={color}
-        key={day.id}
-        position="relative"
-        borderWidth="1px"
-        my={4}
-        p={4}
-      >
+      <Box key={day.id} {...boxProps}>
         <Flex direction={{ base: "column", sm: "row" }} gap={2}>
           <Text>{en.planDays.day}</Text>
           <NumberInput
@@ -224,15 +223,11 @@ function PlanDay(props) {
     </Fragment>
   ) : (
     <Box
-      bg={bg}
-      color={color}
-      position="relative"
       key={day.id}
+      position="relative"
       className="clickable"
       onClick={handleClick}
-      borderWidth="1px"
-      my={4}
-      p={4}
+      {...boxProps}
     >
       {en.planDays.day} {day.order} - {mealName}{" "}
       <Icon

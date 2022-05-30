@@ -9,8 +9,8 @@ import {
 import {
   Box,
   Button,
-  Divider,
   Flex,
+  Heading,
   Icon,
   IconButton,
   Input,
@@ -163,46 +163,49 @@ function Plan(props) {
   );
 
   return (
-    <Box borderWidth="1px" my={4} p={4} position="relative">
-      <Flex>
-        <Box width="xl" p={0}>
-          {planName}
-          <Divider my={4} />
-        </Box>
-      </Flex>
-
+    <Fragment>
+      <Heading as="h3" size="sm" variant="sectionHeader">
+        {planName}
+      </Heading>
       <StartDay day={plan.start_day} plan={plan} />
+      <Box
+        borderWidth="1px"
+        borderTopWidth="0"
+        mb={4}
+        p={4}
+        position="relative"
+      >
+        <ul>
+          {plan.day_set.map((day) => (
+            <PlanDay key={day.id} plan={plan} day={day} />
+          ))}
+          <Button leftIcon={<RepeatIcon />} onClick={handleReorder} w="100%">
+            {en.plans.reorderDays}
+          </Button>
+          <CreatePlanDayForm plan={plan} />{" "}
+        </ul>
 
-      <ul>
-        {plan.day_set.map((day) => (
-          <PlanDay key={day.id} plan={plan} day={day} />
-        ))}
-        <Button leftIcon={<RepeatIcon />} onClick={handleReorder} w="100%">
-          {en.plans.reorderDays}
-        </Button>
-        <CreatePlanDayForm plan={plan} />{" "}
-      </ul>
-
-      <Box>
-        <Flex direction={{ base: "column", sm: "row" }} gap={2}>
-          <Link to={`/plan/${plan.id}/shopping-list`}>
-            <Button leftIcon={<AiOutlineShoppingCart />} w="100%">
-              {en.plans.shoppingList}
-            </Button>
-          </Link>
-          <Link to={`/plan/${plan.id}/schedule`}>
-            <Button leftIcon={<AiOutlineClockCircle />} w="100%">
-              {en.plans.schedule}
-            </Button>
-          </Link>
-          <Link to={`/plan/${plan.id}/recipes`}>
-            <Button leftIcon={<CalendarIcon />} w="100%" flexGrow={2}>
-              {en.plans.recipes}
-            </Button>
-          </Link>
-        </Flex>
+        <Box>
+          <Flex direction={{ base: "column", sm: "row" }} gap={2}>
+            <Link to={`/plan/${plan.id}/shopping-list`}>
+              <Button leftIcon={<AiOutlineShoppingCart />} w="100%">
+                {en.plans.shoppingList}
+              </Button>
+            </Link>
+            <Link to={`/plan/${plan.id}/schedule`}>
+              <Button leftIcon={<AiOutlineClockCircle />} w="100%">
+                {en.plans.schedule}
+              </Button>
+            </Link>
+            <Link to={`/plan/${plan.id}/recipes`}>
+              <Button leftIcon={<CalendarIcon />} w="100%" flexGrow={2}>
+                {en.plans.recipes}
+              </Button>
+            </Link>
+          </Flex>
+        </Box>
       </Box>
-    </Box>
+    </Fragment>
   );
 }
 

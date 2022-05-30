@@ -1,5 +1,5 @@
 import { Divider, Heading } from "@chakra-ui/react";
-import React, { useContext, useEffect, useState } from "react";
+import React, { Fragment, useContext, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import dataContext from "../../../context/dataContext";
 import http from "../../../services/httpService";
@@ -53,22 +53,20 @@ function Meals(props) {
   };
 
   return (
-    <div>
+    <Fragment>
       <Heading as="h1">Meals</Heading>
       <Divider my={4} />
-
       <CreateForm
         doCreate={handleCreate}
         placeHolder={en.meals.newName}
         buttonLabel={en.meals.createNew}
       />
       <Divider my={4} />
-      <div className="meals">
-        {meals.map((meal) => (
-          <Meal meal={meal} key={meal.id} />
-        ))}
-      </div>
-    </div>
+
+      {meals.map((meal) => (
+        <Meal meal={meal} key={meal.id} />
+      ))}
+    </Fragment>
   );
 }
 

@@ -20,7 +20,7 @@ const CreateForm = (props) => {
     <Fragment>
       <form>
         <FormControl>
-          <Flex direction={{ base: "column", sm: "row" }} gap={1}>
+          <Flex direction={{ base: "column", sm: "row" }} gap={2}>
             <Input
               size={"sm"}
               type="text"
@@ -31,10 +31,10 @@ const CreateForm = (props) => {
             />
             <Spacer />
             <Button
-              px={5}
-              type="submit"
+              px={10}
               onClick={(event) => handleOnClick(event, value)}
               size={"sm"}
+              type="submit"
             >
               {buttonLabel}
             </Button>

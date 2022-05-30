@@ -141,6 +141,7 @@ export const en = {
     ariaDelete: "Delete Meal",
     ariaCancel: "Cancel",
     ariaSave: "Save",
+    addIngredient: "Add Ingredient",
     postPromise: {
       pending: (mealName) => `Creating Meal: ${mealName} on server`,
       success: (mealName) => `Created Meal: ${mealName} on server!`,
@@ -310,10 +311,11 @@ export const en = {
   user: {
     profile: "Profile",
     userProfile: "User Profile",
-    userID: "User ID",
-    userName: "Username",
-    email: "Email",
-    secretAdminBox: "Secret Admin Box",
+    userDetails: "User Details",
+    userID: "User ID: ",
+    userName: "Username: ",
+    email: "Email: ",
+    secretAdminBox: "Secret Admin Box 🤫",
     accessTokenTime: "Access Token Time",
     refreshTokenTime: "Refresh Token Time",
     reloadDataFromServer: "Reload Data from Server",

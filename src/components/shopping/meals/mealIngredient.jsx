@@ -169,16 +169,10 @@ const MealIngredient = (props) => {
     setNewMealIngredient(event.target.value);
   };
 
+  const boxProps = { bg: bg, color: color, mb: 4, p: 4 };
+
   const toggle = editable ? (
-    <Box
-      bg={bg}
-      color={color}
-      my={4}
-      borderWidth="1px"
-      p={4}
-      className="clickable meal_ingredient"
-      key={meal_ingredient.id}
-    >
+    <Box key={meal_ingredient.id} {...boxProps}>
       <Flex direction={{ base: "column", sm: "row" }} gap={2}>
         <Input
           size="sm"
@@ -241,18 +235,14 @@ const MealIngredient = (props) => {
     </Box>
   ) : (
     <Box
-      bg={bg}
-      color={color}
-      position="relative"
-      my={4}
-      borderWidth="1px"
-      p={4}
-      className="clickable meal_ingredient"
       key={meal_ingredient.id}
+      className="clickable"
+      position="relative"
       onClick={handleClick}
+      {...boxProps}
     >
       {meal_ingredient.quantity} {meal_ingredient.unit}
-      {" - "}
+      {meal_ingredient.unit !== " x " ? " - " : ""}
       {name}{" "}
       <Icon
         as={EditIcon}

@@ -1,8 +1,8 @@
 import { CheckIcon, CloseIcon, DeleteIcon, EditIcon } from "@chakra-ui/icons";
 import {
   Box,
-  Divider,
   Flex,
+  Heading,
   Icon,
   IconButton,
   Input,
@@ -88,15 +88,17 @@ const Store = (props) => {
   };
 
   const boxProps = {
-    bg: bg,
-    color: color,
     position: "relative",
     borderWidth: "1px",
+    borderTopWidth: "0",
+    mt: 0,
     p: 4,
   };
 
+  const headingProps = { as: "h3", size: "sm", variant: "sectionHeader" };
+
   const editStoreMode = (
-    <Box>
+    <Heading {...headingProps}>
       <form onSubmit={(e) => handleSave(e)}>
         <Flex direction={{ base: "column", sm: "row" }} gap={2}>
           <Input
@@ -128,14 +130,27 @@ const Store = (props) => {
           />
         </Flex>
       </form>
-    </Box>
+    </Heading>
   );
 
   const standardStoreMode = (
-    <Box className="clickable" onClick={handleClick} position="relative">
+    <Heading
+      {...headingProps}
+      className="clickable"
+      position="relative"
+      onClick={handleClick}
+    >
       <strong>{store.name}</strong>{" "}
-      <Icon as={EditIcon} ml={2} w={3} h={3} position="relative" top="-0.5" />
-    </Box>
+      <Icon
+        as={EditIcon}
+        ml={2}
+        w={3}
+        h={3}
+        position="absolute"
+        top={2}
+        right={2}
+      />
+    </Heading>
   );
 
   const currentStoreMode = editable ? editStoreMode : standardStoreMode;
@@ -177,12 +192,15 @@ const Store = (props) => {
   );
 
   return (
-    <Box {...boxProps}>
-      {currentStoreMode}
-      <Divider my={5} />
-      {assignedSections}
-      {unassignedSections}
-    </Box>
+    <Fragment>
+      <Box>
+        {currentStoreMode}
+        <Box {...boxProps}>
+          {assignedSections}
+          {unassignedSections}
+        </Box>
+      </Box>
+    </Fragment>
   );
 };
 

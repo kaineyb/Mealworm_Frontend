@@ -1,5 +1,5 @@
 import { Divider, Heading } from "@chakra-ui/react";
-import React, { useContext, useEffect, useState } from "react";
+import React, { Fragment, useContext, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import dataContext from "../../../context/dataContext";
 import { en } from "../../../services/textService";
@@ -53,7 +53,7 @@ function Plans(props) {
   };
 
   return (
-    <div>
+    <Fragment>
       <Heading as="h1">{en.plans.titlePlural}</Heading>
       <Divider my={4} />
       <CreateForm
@@ -62,12 +62,10 @@ function Plans(props) {
         buttonLabel={en.plans.createNew}
       />
       <Divider my={4} />
-      <div className="plans">
-        {plans.map((plan) => (
-          <Plan key={plan.id} plan={plan} />
-        ))}
-      </div>
-    </div>
+      {plans.map((plan) => (
+        <Plan key={plan.id} plan={plan} />
+      ))}
+    </Fragment>
   );
 }
 

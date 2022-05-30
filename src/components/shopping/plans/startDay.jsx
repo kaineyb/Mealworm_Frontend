@@ -23,9 +23,6 @@ function StartDay(props) {
   const [currentDay, setCurrentDay] = useState(day);
   const [newDay, setNewDay] = useState(day);
 
-  const bg = useColorModeValue("gray.300", "blackAlpha.600");
-  const color = useColorModeValue("black", "white");
-
   const context = useContext(dataContext);
 
   const handleClick = () => {
@@ -69,23 +66,25 @@ function StartDay(props) {
   const handleChange = (event) => {
     setNewDay(event.target.value);
   };
+  const bg = useColorModeValue("purple.500", "purple.500");
+  const color = useColorModeValue("black", "white");
+
+  const boxProps = { bg: bg, color: color, p: 4 };
 
   const toggleDay = editable ? (
     <Fragment>
-      <Box
-        bg={bg}
-        color={color}
-        position="relative"
-        borderWidth="1px"
-        my={4}
-        p={4}
-      >
-        <Flex direction={{ base: "column", sm: "row" }} gap={3}>
-          <Text width={"7rem"}>
+      <Box {...boxProps}>
+        <Flex
+          direction={{ base: "column", sm: "row" }}
+          gap={3}
+          justifyContent={"flex-start"}
+        >
+          <Text>
             <strong>{en.startDayPlans.startsOn}</strong>
           </Text>
           <Select
             size="sm"
+            width={["100%", "70%"]}
             defaultValue={currentDay}
             onChange={(event) => handleChange(event)}
           >
@@ -115,14 +114,10 @@ function StartDay(props) {
   ) : (
     <Fragment>
       <Box
-        bg={bg}
-        color={color}
         className="clickable"
-        onClick={handleClick}
         position="relative"
-        borderWidth="1px"
-        my={4}
-        p={4}
+        onClick={handleClick}
+        {...boxProps}
       >
         <Text>
           <strong>{en.startDayPlans.startsOn}</strong>

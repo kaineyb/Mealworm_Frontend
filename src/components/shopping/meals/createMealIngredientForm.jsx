@@ -1,5 +1,5 @@
 import { AddIcon } from "@chakra-ui/icons";
-import { Flex, IconButton } from "@chakra-ui/react";
+import { Button, Flex } from "@chakra-ui/react";
 import { Fragment, useContext, useEffect, useState } from "react";
 import dataContext from "../../../context/dataContext";
 import { en } from "../../../services/textService";
@@ -42,11 +42,13 @@ const CreateMealIngredientForm = (props) => {
   return (
     <Fragment>
       <Flex direction={{ base: "column" }} gap={3}>
-        <IconButton
-          aria-label={en.meals.ariaDelete}
-          icon={<AddIcon />}
+        <Button
+          aria-label={en.meals.addIngredient}
+          leftIcon={<AddIcon />}
           onClick={handleAddAnother}
-        />
+        >
+          {en.meals.addIngredient}
+        </Button>
 
         {newLines.map((line) => (
           <CreateMealIngredientLine

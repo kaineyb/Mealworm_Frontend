@@ -1,13 +1,13 @@
-import { Box, Divider, Heading } from "@chakra-ui/react";
+import { Divider, Heading } from "@chakra-ui/react";
 import _ from "lodash";
 import React, { Fragment, useContext, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import DataContext from "../../../context/dataContext";
 import http from "../../../services/httpService";
-import EditableInputSelect from "../../common/editableInputSelect";
 import { en } from "./../../../services/textService";
 import { setTitle } from "./../../../snippets/setTitle";
 import CreateIngredientForm from "./createIngredientForm";
+import IngredientSection from "./ingredientSection";
 
 function Ingredients(props) {
   const [ingredients, setIngredients] = useState([]);
@@ -305,6 +305,15 @@ function Ingredients(props) {
     return _.orderBy(array, ["section", "name"], ["asc"]);
   };
 
+  const propItems = {
+    handleSave,
+    handleCancel,
+    handleDelete,
+    handleChangeInput,
+    handleChangeSelect,
+    toggleEditable,
+  };
+
   const renderNoSection = () => {
     const noSection = ingredients.filter((item) => item.section === null);
 
@@ -312,81 +321,69 @@ function Ingredients(props) {
       return;
     } else {
       return (
-        <Fragment>
-          <div className="ingredient-section">
-            <Box borderWidth="1px" my={4} p={4}>
-              <Heading mb={4} as="h3" size="sm">
-                {en.sections.without} <Divider mt={4} />
-              </Heading>
-              {noSection.map((ingredient) => (
-                <EditableInputSelect
-                  key={ingredient.id}
-                  name={ingredient.name}
-                  value={ingredient.name}
-                  id={ingredient.id}
-                  selectionOptions={sections}
-                  itemSelection={ingredient.section}
-                  onClick={() => toggleEditable(ingredient)}
-                  onChangeInput={(event) =>
-                    handleChangeInput(event, ingredient)
-                  }
-                  onChangeSelect={(event) =>
-                    handleChangeSelect(event, ingredient)
-                  }
-                  onSave={() => handleSave(ingredient)}
-                  onCancel={() => handleCancel(ingredient)}
-                  onDelete={() => handleDelete(ingredient)}
-                  editable={ingredient.editable}
-                />
-              ))}
-            </Box>
-          </div>
-        </Fragment>
+        <IngredientSection
+          heading={en.sections.without}
+          items={noSection}
+          selectionOptions={sections}
+          {...propItems}
+        />
       );
     }
   };
 
-  const renderSectionsIngredients = () => {
-    return (
-      <Fragment>
-        {sections.map((section) => (
-          <div key={section.id} className="ingredient-section">
-            <Box borderWidth="1px" my={4} p={4}>
-              <Heading mb={4} as="h3" size="sm">
-                {section.name} <Divider mt={4} />
-              </Heading>{" "}
-              {ingredients
-                .filter((item) => item.section === section.id)
-                .map((ingredient) => (
-                  <EditableInputSelect
-                    key={ingredient.id}
-                    name={ingredient.name}
-                    value={ingredient.name}
-                    id={ingredient.id}
-                    selectionOptions={sections}
-                    itemSelection={ingredient.section}
-                    onClick={() => toggleEditable(ingredient)}
-                    onChangeInput={(event) =>
-                      handleChangeInput(event, ingredient)
-                    }
-                    onChangeSelect={(event) =>
-                      handleChangeSelect(event, ingredient)
-                    }
-                    onSave={() => handleSave(ingredient)}
-                    onCancel={() => handleCancel(ingredient)}
-                    onDelete={() => handleDelete(ingredient)}
-                    editable={ingredient.editable}
-                  />
-                ))}
-            </Box>
-          </div>
-        ))}
-      </Fragment>
-    );
+  // const renderSectionsIngredients = () => {
+  //   return sections.map((section) => (
+  //     <Fragment>
+  //       <Heading
+  //         key={section.id}
+  //         mb={4}
+  //         as="h3"
+  //         size="sm"
+  //         variant="sectionHeader"
+  //       >
+  //         {section.name}
+  //       </Heading>
+  //       <Box borderWidth="1px" my={4} p={4}>
+  //         {ingredients
+  //           .filter((item) => item.section === section.id)
+  //           .map((ingredient) => (
+  //             <EditableInputSelect
+  //               key={ingredient.id}
+  //               name={ingredient.name}
+  //               value={ingredient.name}
+  //               id={ingredient.id}
+  //               selectionOptions={sections}
+  //               itemSelection={ingredient.section}
+  //               onClick={() => toggleEditable(ingredient)}
+  //               onChangeInput={(event) => handleChangeInput(event, ingredient)}
+  //               onChangeSelect={(event) =>
+  //                 handleChangeSelect(event, ingredient)
+  //               }
+  //               onSave={() => handleSave(ingredient)}
+  //               onCancel={() => handleCancel(ingredient)}
+  //               onDelete={() => handleDelete(ingredient)}
+  //               editable={ingredient.editable}
+  //             />
+  //           ))}
+  //       </Box>
+  //     </Fragment>
+  //   ));
+  // };
+
+  const newSection = () => {
+    return sections.map((section) => (
+      <IngredientSection
+        key={section.id}
+        heading={section.name}
+        items={ingredients.filter((item) => item.section === section.id)}
+        selectionOptions={sections}
+        {...propItems}
+      />
+    ));
   };
 
   return (
-    <div>
+    <Fragment>
       <Heading as="h1">{en.ingredients.titlePlural}</Heading>
       <Divider my={4} />
 
@@ -397,11 +394,10 @@ function Ingredients(props) {
         selectOptions={sections}
       />
       <Divider my={4} />
-      <div className="ingredients">
-        {renderNoSection()}
-        {renderSectionsIngredients()}
-      </div>
-    </div>
+      {renderNoSection()}
+      {newSection()}
+      {/* {renderSectionsIngredients()} */}
+    </Fragment>
   );
 }
 

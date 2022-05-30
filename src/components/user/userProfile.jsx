@@ -12,6 +12,7 @@ import { Link } from "react-router-dom";
 import DataContext from "../../context/dataContext";
 import auth from "../../services/authService";
 import jwtService from "../../services/jwtService";
+import { en } from "../../services/textService";
 import { setTitle } from "./../../snippets/setTitle";
 
 function UserProfile(props) {
@@ -38,37 +39,47 @@ function UserProfile(props) {
     getUser();
   }, []);
 
+  const boxProps = { mb: 5, p: 5, borderWidth: "1px", borderTopWidth: "0" };
+
   return (
     <Box>
-      <Heading as="h1">User Profile</Heading>
+      <Heading as="h1">{en.user.userProfile}</Heading>
       <Divider my={4} />
-      <Box my={5} p={5} borderWidth="1px">
-        <Heading size="md">User Details</Heading>
-        <Divider my={4} />
+      <Heading as="h3" size="sm" variant="sectionHeader">
+        {en.user.userDetails}
+      </Heading>
+      <Box {...boxProps}>
         <Flex direction={{ base: "column", md: "row" }} gap={2}>
           <Box>
-            <Text>User ID:{user.id}</Text>
-            <Text>Username: {user.username}</Text>
-            <Text>Email: {user.email}</Text>
+            <Text>
+              {en.user.userName} {user.username}
+            </Text>
+            <Text>
+              {en.user.email} {user.email}
+            </Text>
           </Box>
           <Spacer />
 
           <Link to="/logout">
-            <Button>Logout</Button>
+            <Button width="100%">{en.user.logOut}</Button>
           </Link>
         </Flex>
       </Box>
 
-      <Box my={5} p={5} borderWidth="1px">
-        <Heading size="md">Secret Admin Box</Heading>
-        <Divider my={4} />
+      <Heading as="h3" size="sm" variant="sectionHeader">
+        {en.user.secretAdminBox}
+      </Heading>
+      <Box {...boxProps}>
         <Box>
-          <Heading size="sl">Access Token Time</Heading>
-          <Spacer />
+          <Heading size="sl">
+            {en.user.userID} {user.id}
+          </Heading>
+          <Divider my={4} />
+          <Heading size="sl">{en.user.accessTokenTime}</Heading>
           {`${aT.hours} hours, ${aT.minutes} minutes, ${aT.seconds} seconds`}
           <Divider my={4} />
 
-          <Heading size="sl">Refresh Token Time</Heading>
+          <Heading size="sl">{en.user.refreshTokenTime}</Heading>
           {`${rT.hours} hours, ${rT.minutes} minutes, ${rT.seconds} seconds`}
         </Box>
         <Flex
@@ -77,7 +88,9 @@ function UserProfile(props) {
           gap={2}
           width={"100%"}
         >
-          <Button onClick={context.updateData}>Reload Data from Server</Button>
+          <Button onClick={context.updateData}>
+            {en.user.reloadDataFromServer}
+          </Button>
         </Flex>
       </Box>
     </Box>

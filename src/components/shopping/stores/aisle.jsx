@@ -199,11 +199,11 @@ const Aisle = (props) => {
   const boxProps = {
     bg: bg,
     color: color,
-    borderWidth: "1px",
     borderColor: borderColor,
     p: 5,
-    my: 5,
+    mb: 5,
     position: "relative",
+    borderWidth: aisleNumber === 0 ? "1px" : "0",
   };
 
   const flexProps = { direction: { base: "column", sm: "row" }, gap: 2 };
@@ -261,16 +261,15 @@ const Aisle = (props) => {
   const standardMode = (
     <Fragment>
       <Box onClick={handleToggle} className="clickable" {...boxProps}>
-        <VStack align={"flex-start"}>
-          <Text>
-            <strong>{section.name}</strong>
-          </Text>
-          <Divider />
-          <Text>
+        <Flex gap={3}>
+          <Text borderRightWidth={"1px"} pr={5} mr={5}>
             <strong>{en.aisles.aisle} </strong>
             {aisleNumber === 0 ? <em>{en.aisles.notSet}</em> : aisleNumber}
           </Text>
-        </VStack>
+          <Text>
+            <strong>{section.name}</strong>
+          </Text>
+        </Flex>
         <Icon as={EditIcon} w={3} h={3} position="absolute" top="2" right="2" />
       </Box>
     </Fragment>

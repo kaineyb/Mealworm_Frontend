@@ -1,13 +1,5 @@
 import { CheckIcon, CloseIcon, DeleteIcon, EditIcon } from "@chakra-ui/icons";
-import {
-  Box,
-  Divider,
-  Flex,
-  Heading,
-  Icon,
-  IconButton,
-  Input,
-} from "@chakra-ui/react";
+import { Box, Flex, Heading, Icon, IconButton, Input } from "@chakra-ui/react";
 import { Fragment, useContext, useState } from "react";
 import { toast } from "react-toastify";
 import dataContext from "../../../context/dataContext";
@@ -140,15 +132,14 @@ const Meal = (props) => {
   );
 
   return (
-    <div className="meal">
-      <Box my={4} borderWidth="1px" p={4}>
-        <Heading mb={4} as="h3" size="sm">
-          {mealName} <Divider mt={4} />
-        </Heading>
-
+    <Fragment>
+      <Heading mb={0} as="h3" size="sm" variant="sectionHeader">
+        {mealName}
+      </Heading>
+      <Box mb={4} borderWidth="1px" borderTopWidth={0} p={4}>
         <MealIngredients meal_ingredients={meal.meal_ingredients} meal={meal} />
       </Box>
-    </div>
+    </Fragment>
   );
 };
 

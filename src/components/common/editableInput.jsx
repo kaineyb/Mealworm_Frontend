@@ -22,16 +22,20 @@ const EditableInput = ({
   const bg = useColorModeValue("gray.100", "whiteAlpha.200");
   const color = useColorModeValue("black", "white");
 
+  const bColor = useColorModeValue("purple.400", "purple.400");
+
+  const boxProps = {
+    bg: bg,
+    color: color,
+    p: 4,
+    borderTopWidth: "3px",
+    borderColor: bColor,
+  };
+
   if (editable) {
     return (
       <React.Fragment>
-        <Box
-          bg={bg}
-          color={color}
-          borderWidth="1px"
-          p={4}
-          className="clickable"
-        >
+        <Box {...boxProps} className="clickable">
           <Flex direction={{ base: "column", sm: "row" }} gap={2}>
             <Input
               size="sm"
@@ -68,11 +72,8 @@ const EditableInput = ({
     return (
       <React.Fragment>
         <Box
-          bg={bg}
-          color={color}
+          {...boxProps}
           position="relative"
-          borderWidth="1px"
-          p={4}
           onClick={onClick}
           className="clickable"
         >
