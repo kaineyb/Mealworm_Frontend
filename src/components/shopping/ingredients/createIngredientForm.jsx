@@ -1,4 +1,4 @@
-import { Button, Flex, FormControl, Input, Select } from "@chakra-ui/react";
+import { Button, Flex, Input, Select } from "@chakra-ui/react";
 import { Fragment, React, useState } from "react";
 import { en } from "../../../services/textService";
 
@@ -27,7 +27,7 @@ const CreateIngredientForm = (props) => {
 
   return (
     <Fragment>
-      <FormControl>
+      <form>
         <Flex gap={3} direction={{ base: "column", sm: "row" }}>
           <Input
             type="text"
@@ -63,7 +63,7 @@ const CreateIngredientForm = (props) => {
             {buttonLabel}
           </Button>
         </Flex>
-      </FormControl>
+      </form>
     </Fragment>
   );
 };
