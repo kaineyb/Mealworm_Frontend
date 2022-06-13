@@ -1,6 +1,7 @@
 import { CheckIcon, CloseIcon, DeleteIcon, EditIcon } from "@chakra-ui/icons";
 import {
   Box,
+  Divider,
   Flex,
   Heading,
   Icon,
@@ -8,7 +9,7 @@ import {
   Input,
   useColorModeValue,
 } from "@chakra-ui/react";
-import React, { Fragment, useContext, useState } from "react";
+import React, { Fragment, useContext, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import dataContext from "../../../context/dataContext";
 import http from "../../../services/httpService";
@@ -20,6 +21,9 @@ const Store = (props) => {
   const [store, setStore] = useState(props.store);
   const [newStoreName, setNewStoreName] = useState("");
 
+  const [sectionsWithAisle, setSectionsWithAisle] = useState([]);
+  const [sectionsWithoutAisle, setSectionsWithoutAisle] = useState([]);
+
   const bg = useColorModeValue("gray.100", "whiteAlpha.200");
   const color = useColorModeValue("black", "white");
 
@@ -27,6 +31,30 @@ const Store = (props) => {
     data: { stores, sections },
     setData,
   } = useContext(dataContext);
+
+  useEffect(() => {
+    let aisleNumbers = [];
+    store.aisles.forEach((aisle) => aisleNumbers.push(aisle.aisle_number));
+    const aisleNumbersSet = new Set(aisleNumbers);
+    aisleNumbers = Array.from(aisleNumbersSet);
+    setSectionsWithAisle(aisleNumbers);
+  }, [store.aisles]);
+
+  useEffect(() => {
+    const assignedSectionIds = [
+      ...store.aisles.map((aisle) => parseInt(aisle.section)),
+    ];
+
+    const filteredUnassignedSections = sections.filter(
+      (section) => !assignedSectionIds.includes(section.id)
+    );
+
+    setSectionsWithoutAisle(filteredUnassignedSections);
+  }, [store.aisles]);
+
+  console.log("*********");
+  console.log(store.name, "sectionsWithAisle", sectionsWithAisle);
+  console.log(store.name, "sectionsWithoutAisle", sectionsWithoutAisle);
 
   const handleClick = () => {
     setEditable(true);
@@ -87,15 +115,16 @@ const Store = (props) => {
     setNewStoreName(input.value);
   };
 
-  const boxProps = {
-    position: "relative",
+  const subBoxProps = {
     borderWidth: "1px",
     borderTopWidth: "0",
-    mt: 0,
-    p: 4,
+    borderBottomWidth: "1px",
+    px: 4,
+    pt: 4,
   };
 
   const headingProps = { as: "h3", size: "sm", variant: "sectionHeader" };
+  const subHeadingProps = { as: "h3", size: "sm", variant: "subSectionHeader" };
 
   const editStoreMode = (
     <Heading {...headingProps}>
@@ -155,51 +184,57 @@ const Store = (props) => {
 
   const currentStoreMode = editable ? editStoreMode : standardStoreMode;
 
-  const assignedSectionIds = [
-    ...store.aisles.map((aisle) => parseInt(aisle.section)),
-  ];
-
-  const filteredUnassignedSections = sections.filter(
-    (section) => !assignedSectionIds.includes(section.id)
-  );
-
-  const assignedSections = (
+  const assignedAislesRender = (
     <Box>
-      {store.aisles.map((aisle) => (
-        <Aisle
-          key={aisle.section}
-          store={store}
-          stores={stores}
-          sectionID={aisle.section}
-          sections={sections}
-        />
+      {sectionsWithAisle.map((aisle) => (
+        <Fragment>
+          <Heading {...subHeadingProps}>Aisle {aisle}</Heading>
+          <Box {...subBoxProps}>
+            {store.aisles
+              .filter((_aisle) => aisle === _aisle.aisle_number)
+              .map((_aisle) => (
+                <Aisle
+                  key={_aisle.id}
+                  store={store}
+                  stores={stores}
+                  sectionID={_aisle.section}
+                  sections={sections}
+                />
+              ))}
+          </Box>
+        </Fragment>
       ))}
     </Box>
   );
 
-  const unassignedSections = (
-    <Fragment>
-      {filteredUnassignedSections.map((section) => (
-        <Aisle
-          key={section.id}
-          store={store}
-          stores={stores}
-          sectionID={section.id}
-          sections={sections}
-        />
-      ))}
-    </Fragment>
-  );
+  const unassignedAislesRender =
+    sectionsWithoutAisle.length > 0 ? (
+      <Fragment>
+        <Heading {...subHeadingProps}>No Aisle Assigned</Heading>
+        <Box {...subBoxProps}>
+          {sectionsWithoutAisle.map((section) => (
+            <Aisle
+              key={section.id}
+              store={store}
+              stores={stores}
+              sectionID={section.id}
+              sections={sections}
+            />
+          ))}
+        </Box>
+      </Fragment>
+    ) : (
+      ""
+    );
 
   return (
     <Fragment>
       <Box>
         {currentStoreMode}
-        <Box {...boxProps}>
-          {assignedSections}
-          {unassignedSections}
-        </Box>
+        {assignedAislesRender}
+        {unassignedAislesRender}
       </Box>
+      <Divider my={5} />
     </Fragment>
   );
 };

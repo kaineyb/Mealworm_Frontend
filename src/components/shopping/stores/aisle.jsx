@@ -7,7 +7,6 @@ import {
 } from "@chakra-ui/icons";
 import {
   Box,
-  Divider,
   Flex,
   IconButton,
   NumberDecrementStepper,
@@ -17,7 +16,6 @@ import {
   NumberInputStepper,
   Text,
   useColorModeValue,
-  VStack,
 } from "@chakra-ui/react";
 import _ from "lodash";
 import { Fragment, useContext, useState } from "react";
@@ -194,67 +192,86 @@ const Aisle = (props) => {
   const bg = useColorModeValue("gray.100", "whiteAlpha.200");
   const color = useColorModeValue("black", "white");
 
-  const borderColor = aisleNumber === 0 ? "red.900" : "";
-
   const boxProps = {
     bg: bg,
     color: color,
-    borderColor: borderColor,
-    p: 5,
-    mb: 5,
+    mb: 4,
     position: "relative",
-    borderWidth: aisleNumber === 0 ? "1px" : "0",
+    p: 4,
   };
 
-  const flexProps = { direction: { base: "column", sm: "row" }, gap: 2 };
+  const editBoxProps = { ...boxProps, p: 0 };
+
+  const controlFlexBox = {
+    direction: { base: "column", sm: "row" },
+    gap: 2,
+    p: 3,
+    pl: 5,
+    alignItems: "center",
+    width: "100%",
+  };
+
+  const flexBox = {
+    justifyContent: "space-between",
+    alignItems: "center",
+    direction: { base: "column", sm: "row" },
+  };
+
+  const iconWidths = { base: "100%", sm: "initial" };
 
   const editMode = (
     <Fragment>
-      <Box {...boxProps}>
-        <VStack align={"flex-start"}>
-          <strong>{section.name}</strong>
-          <Divider />
-          <Flex {...flexProps}>
-            <Text>
-              <strong>{en.aisles.aisle}</strong>
-            </Text>
-            <NumberInput
-              size="sm"
-              min="0"
-              defaultValue={aisleNumber}
-              onChange={(value) => handleAisleAisleNumberChange(value)}
-            >
-              <NumberInputField id="amount" />
-              <NumberInputStepper>
-                <NumberIncrementStepper />
-                <NumberDecrementStepper />
-              </NumberInputStepper>
-            </NumberInput>
-            <IconButton
-              colorScheme={"green"}
-              aria-label={en.aisles.ariaSave}
-              icon={<CheckIcon />}
-              size="sm"
-              disabled={!isValid}
-              onClick={handleSave}
-            />
-            <IconButton
-              aria-label={en.aisles.ariaCancel}
-              icon={<CloseIcon />}
-              size="sm"
-              onClick={handleCancel}
-            />
-            <IconButton
-              aria-label={en.aisles.ariaDelete}
-              display={isDeleteAble ? "block" : "none"}
-              disabled={!isDeleteAble}
-              colorScheme={"red"}
-              icon={<DeleteIcon />}
-              onClick={handleDelete}
-              size="sm"
-            />
-          </Flex>
-        </VStack>
+      <Box {...editBoxProps}>
+        <Flex {...flexBox}>
+          <Text p={4}>
+            <strong>{section.name}</strong>
+          </Text>
+          <Box bg={"blackAlpha.300"}>
+            <Flex {...controlFlexBox}>
+              <Text>
+                <strong>{en.aisles.aisle}</strong>
+              </Text>
+              <NumberInput
+                size="sm"
+                min="0"
+                defaultValue={aisleNumber}
+                onChange={(value) => handleAisleAisleNumberChange(value)}
+              >
+                <NumberInputField id="amount" />
+                <NumberInputStepper>
+                  <NumberIncrementStepper />
+                  <NumberDecrementStepper />
+                </NumberInputStepper>
+              </NumberInput>
+              <IconButton
+                colorScheme={"green"}
+                aria-label={en.aisles.ariaSave}
+                icon={<CheckIcon />}
+                size="sm"
+                width={{ ...iconWidths }}
+                disabled={!isValid}
+                onClick={handleSave}
+              />
+              <IconButton
+                aria-label={en.aisles.ariaCancel}
+                icon={<CloseIcon />}
+                size="sm"
+                width={{ ...iconWidths }}
+                onClick={handleCancel}
+              />
+              <IconButton
+                aria-label={en.aisles.ariaDelete}
+                display={isDeleteAble ? "block" : "none"}
+                disabled={!isDeleteAble}
+                colorScheme={"red"}
+                icon={<DeleteIcon />}
+                onClick={handleDelete}
+                size="sm"
+                width={{ ...iconWidths }}
+              />
+            </Flex>
+          </Box>
+        </Flex>
       </Box>
     </Fragment>
   );
@@ -262,10 +279,6 @@ const Aisle = (props) => {
     <Fragment>
       <Box onClick={handleToggle} className="clickable" {...boxProps}>
         <Flex gap={3}>
-          <Text borderRightWidth={"1px"} pr={5} mr={5}>
-            <strong>{en.aisles.aisle} </strong>
-            {aisleNumber === 0 ? <em>{en.aisles.notSet}</em> : aisleNumber}
-          </Text>
           <Text>
             <strong>{section.name}</strong>
           </Text>

@@ -32,6 +32,12 @@ const components = {
         textShadow:
           props.colorMode === "dark" ? "0 0 0.5rem black" : "0 0 0.5rem white",
       }),
+      subSectionHeader: (props) => ({
+        bg: props.colorMode === "dark" ? "purple.500" : "purple.500",
+        color: props.colorMode === "dark" ? "white" : "black",
+        padding: 4,
+        borderColor: "purple.400",
+      }),
     },
   },
 };
