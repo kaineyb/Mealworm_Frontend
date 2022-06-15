@@ -259,7 +259,7 @@ export const en = {
     noRecipe: "No Recipe",
     patchPromise: {
       pending: (mealName) => `Updating the Recipe for ${mealName}`,
-      success: (mealName) => `Updated the Recipe for${mealName}`,
+      success: (mealName) => `Updated the Recipe for ${mealName}`,
       error: (mealName) => `Couldn't update the Recipe for ${mealName}`,
     },
     delete: {
