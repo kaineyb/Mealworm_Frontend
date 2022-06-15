@@ -1,6 +1,6 @@
 import { en } from "../services/textService";
 
-const mealFromID = (id, meals, object) => {
+export const mealFromID = (id, meals, object) => {
   const item = meals.filter((meal) => meal["id"] === id)[0];
   if (item && object) {
     return item;
@@ -11,4 +11,14 @@ const mealFromID = (id, meals, object) => {
   }
 };
 
-export default mealFromID;
+export const recipeFromMealId = (id, meals) => {
+  const item = meals.filter((meal) => meal["id"] === id)[0];
+
+  if (!item.recipe) {
+    return en.recipes.noRecipeForThisMeal;
+  }
+
+  return item.recipe;
+};
+
+export default { mealFromID, recipeFromMealId };

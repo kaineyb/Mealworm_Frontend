@@ -1,5 +1,16 @@
 import { CheckIcon, CloseIcon, DeleteIcon, EditIcon } from "@chakra-ui/icons";
-import { Box, Flex, Heading, Icon, IconButton, Input } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  Divider,
+  Flex,
+  Heading,
+  Icon,
+  IconButton,
+  Input,
+  Text,
+  Textarea,
+} from "@chakra-ui/react";
 import { Fragment, useContext, useState } from "react";
 import { toast } from "react-toastify";
 import dataContext from "../../../context/dataContext";
@@ -15,6 +26,10 @@ const Meal = (props) => {
   const [editable, setEditable] = useState(false);
   const [name, setName] = useState(meal.name);
   const [newName, setNewName] = useState(name);
+
+  const [recipeEditable, setRecipeEditable] = useState(false);
+  const [newRecipe, setNewRecipe] = useState("");
+  const [recipe, setRecipe] = useState(meal.recipe);
 
   const handleChange = ({ currentTarget: input }) => {
     setNewName(input.value);
@@ -148,10 +163,134 @@ const Meal = (props) => {
     </Heading>
   );
 
+  const handleRecipeEditable = () => {
+    setRecipeEditable(true);
+  };
+
+  const handleRecipeCancel = () => {
+    setNewRecipe("");
+    setRecipeEditable(false);
+  };
+
+  const handleRecipeChange = (e) => {
+    setNewRecipe(e.target.value);
+  };
+
+  const handleRecipeDelete = () => {
+    const deleteConfirm = window.confirm(
+      `Do you really want to delete the Recipe for "${meal.name}"?`
+    );
+
+    if (deleteConfirm) {
+      const {
+        data: { meals },
+        setData,
+      } = context;
+
+      const newMeals = [...meals];
+
+      const myMeal = newMeals.filter((_meal) => meal.id === _meal.id)[0];
+      myMeal.recipe = "";
+
+      setData("meals", newMeals);
+
+      setRecipe("");
+      doRecipeDelete();
+    }
+
+    setNewRecipe("");
+    setRecipeEditable(false);
+  };
+
+  const doRecipeDelete = async () => {
+    const endpoint = http.mealsEP;
+
+    await toast.promise(http.patch(`${endpoint}${meal.id}/`, { recipe: "" }), {
+      pending: `Deleting the Recipe for ${meal.name}`,
+      success: `Deleted the Recipe for ${meal.name}`,
+      error: `Couldn't delete the Recipe for ${meal.name}`,
+    });
+  };
+
+  const handleRecipeSave = () => {
+    setRecipe(newRecipe);
+    setNewRecipe("");
+    setRecipeEditable(false);
+
+    if (!(newRecipe === recipe)) {
+      const {
+        data: { meals },
+        setData,
+      } = context;
+
+      const newMeals = [...meals];
+
+      const myMeal = newMeals.filter((_meal) => meal.id === _meal.id)[0];
+      myMeal.recipe = newRecipe;
+
+      setData("meals", newMeals);
+      doRecipeSave();
+    }
+  };
+
+  const doRecipeSave = async () => {
+    const endpoint = http.mealsEP;
+
+    await toast.promise(
+      http.patch(`${endpoint}${meal.id}/`, { recipe: newRecipe }),
+      {
+        pending: `Updating the Recipe for ${meal.name}`,
+        success: `Updated the Recipe for ${meal.name}`,
+        error: `Couldn't updated the Recipe for ${meal.name}`,
+      }
+    );
+  };
+
+  const recipeProps = { borderWidth: "1px", p: 4 };
+
+  const recipeRender = recipeEditable ? (
+    <Box {...recipeProps}>
+      <Heading as="h6" size="sm" position={"relative"}>
+        Recipe
+      </Heading>
+      <Divider my={4} />
+      <Textarea
+        height={"10rem"}
+        placeholder="Please enter a recipe for this meal..."
+        onChange={handleRecipeChange}
+        defaultValue={recipe}
+      />
+      <Flex direction={{ base: "column", sm: "row" }} gap={2} mt={2}>
+        <Button onClick={handleRecipeSave}>Save</Button>
+        <Button onClick={handleRecipeCancel}>Cancel</Button>
+        <Button onClick={handleRecipeDelete}>Delete</Button>
+      </Flex>
+    </Box>
+  ) : (
+    <Box {...recipeProps} className="clickable" onClick={handleRecipeEditable}>
+      <Heading as="h6" size="sm" position={"relative"}>
+        Recipe
+        <Icon
+          as={EditIcon}
+          ml={2}
+          w={3}
+          h={3}
+          position="absolute"
+          top={0}
+          right={0}
+        />
+      </Heading>
+      <Divider my={4} />
+      <Text noOfLines={3}>{recipe === "" ? "No Recipe" : recipe}</Text>
+    </Box>
+  );
+
   return (
     <Fragment>
       {mealName}
       <Box mb={4} borderWidth="1px" borderTopWidth={0} p={4}>
+        {recipeRender}
+        <Divider my={4} />
         <MealIngredients meal_ingredients={meal.meal_ingredients} meal={meal} />
       </Box>
     </Fragment>

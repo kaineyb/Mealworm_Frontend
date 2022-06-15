@@ -11,7 +11,7 @@ import {
 } from "@chakra-ui/react";
 import _ from "lodash";
 import { Fragment, useContext, useState } from "react";
-import mealFromID from "../../../snippets/meals";
+import { mealFromID } from "../../../snippets/meals";
 import dataContext from "./../../../context/dataContext";
 import { en } from "./../../../services/textService";
 

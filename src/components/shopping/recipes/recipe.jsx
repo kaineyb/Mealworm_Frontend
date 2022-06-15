@@ -15,7 +15,7 @@ import {
 } from "@chakra-ui/react";
 import { en } from "../../../services/textService";
 import days from "../../../snippets/days";
-import mealFromID from "../../../snippets/meals";
+import { mealFromID, recipeFromMealId } from "../../../snippets/meals";
 function Recipe(props) {
   const { meals, plan, ingredients, day } = props;
 
@@ -62,10 +62,13 @@ function Recipe(props) {
       </TableContainer>
 
       <Heading as="h6" size="s" mt={5}>
-        {en.recipes.recipe} <Badge>{en.recipes.comingSoonBadge}</Badge>
+        {en.recipes.recipe}
       </Heading>
       <Divider my={5} />
-      <Text>{en.recipes.loremIpsum}</Text>
+      <Text whiteSpace="pre-line">
+        {/* {en.recipes.loremIpsum} */}
+        {recipeFromMealId(day.meal, meals)}
+      </Text>
     </Box>
   );
 }

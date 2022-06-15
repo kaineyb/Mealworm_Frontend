@@ -200,7 +200,7 @@ const Aisle = (props) => {
     p: 4,
   };
 
-  const editBoxProps = { ...boxProps, p: 0 };
+  const editBoxProps = { ...boxProps, p: 0, borderWidth: "1px" };
 
   const controlFlexBox = {
     direction: { base: "column", sm: "row" },
@@ -213,7 +213,6 @@ const Aisle = (props) => {
 
   const flexBox = {
     justifyContent: "space-between",
-    alignItems: "center",
     direction: { base: "column", sm: "row" },
   };
 

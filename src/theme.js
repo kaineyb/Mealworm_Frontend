@@ -7,11 +7,11 @@ const config = { initialColorMode: "system" };
 const colors = {};
 
 const fonts = {
-  heading: "system-ui, sans-serif",
-  body: "system-ui, sans-serif",
+  // heading: "system-ui, sans-serif",
+  // body: "system-ui, sans-serif",
 
-  heading: "Montserrat, sans-serif",
-  body: "Montserrat, sans-serif",
+  // heading: "Montserrat, sans-serif",
+  // body: "Montserrat, sans-serif",
 
   heading: "Comfortaa, sans-serif",
   body: "Comfortaa, sans-serif",

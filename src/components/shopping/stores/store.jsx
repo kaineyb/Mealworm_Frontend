@@ -7,7 +7,6 @@ import {
   Icon,
   IconButton,
   Input,
-  useColorModeValue,
 } from "@chakra-ui/react";
 import React, { Fragment, useContext, useEffect, useState } from "react";
 import { toast } from "react-toastify";
@@ -24,8 +23,8 @@ const Store = (props) => {
   const [sectionsWithAisle, setSectionsWithAisle] = useState([]);
   const [sectionsWithoutAisle, setSectionsWithoutAisle] = useState([]);
 
-  const bg = useColorModeValue("gray.100", "whiteAlpha.200");
-  const color = useColorModeValue("black", "white");
+  // const bg = useColorModeValue("gray.100", "whiteAlpha.200");
+  // const color = useColorModeValue("black", "white");
 
   const {
     data: { stores, sections },
@@ -50,7 +49,7 @@ const Store = (props) => {
     );
 
     setSectionsWithoutAisle(filteredUnassignedSections);
-  }, [store.aisles]);
+  }, [store.aisles, sections]);
 
   console.log("*********");
   console.log(store.name, "sectionsWithAisle", sectionsWithAisle);

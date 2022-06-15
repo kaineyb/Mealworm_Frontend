@@ -142,6 +142,7 @@ export const en = {
     ariaCancel: "Cancel",
     ariaSave: "Save",
     addIngredient: "Add Ingredient",
+
     postPromise: {
       pending: (mealName) => `Creating Meal: ${mealName} on server`,
       success: (mealName) => `Created Meal: ${mealName} on server!`,
@@ -253,11 +254,7 @@ export const en = {
   recipes: {
     recipesFor: "Recipes for",
     recipe: "Recipe",
-    comingSoonBadge: "Coming Soon :)",
-    loremIpsum: `Lorem, ipsum dolor sit amet consectetur adipisicing elit. Inventore
-    neque pariatur itaque minus similique odit asperiores. Maiores, aliquid
-    commodi adipisci esse libero officia. Beatae doloremque ipsam architecto
-    quisquam soluta eaque.`,
+    noRecipeForThisMeal: "-No recipe for this Meal-",
   },
 
   schedule: {

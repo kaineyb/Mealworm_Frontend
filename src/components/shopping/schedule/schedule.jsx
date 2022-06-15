@@ -15,7 +15,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import dataContext from "../../../context/dataContext";
 import { en } from "../../../services/textService";
 import days from "../../../snippets/days";
-import mealFromID from "../../../snippets/meals";
+import { mealFromID } from "../../../snippets/meals";
 import { setTitle } from "./../../../snippets/setTitle";
 import PlanLinks from "./../../planLinks";
 
