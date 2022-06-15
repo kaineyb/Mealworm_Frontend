@@ -255,6 +255,22 @@ export const en = {
     recipesFor: "Recipes for",
     recipe: "Recipe",
     noRecipeForThisMeal: "-No recipe for this Meal-",
+    placeholder: "Please enter a recipe for this meal...",
+    noRecipe: "No Recipe",
+    patchPromise: {
+      pending: (mealName) => `Updating the Recipe for ${mealName}`,
+      success: (mealName) => `Updated the Recipe for${mealName}`,
+      error: (mealName) => `Couldn't update the Recipe for ${mealName}`,
+    },
+    delete: {
+      confirm: (mealName) =>
+        `Do you really want to delete the Recipe for "${mealName}"?`,
+      promise: {
+        pending: (mealName) => `Deleting the Recipe for ${mealName}`,
+        success: (mealName) => `Deleted the Recipe for ${mealName}`,
+        error: (mealName) => `Couldn't delete the Recipe for ${mealName}`,
+      },
+    },
   },
 
   schedule: {

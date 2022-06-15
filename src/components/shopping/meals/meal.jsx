@@ -1,7 +1,6 @@
 import { CheckIcon, CloseIcon, DeleteIcon, EditIcon } from "@chakra-ui/icons";
 import {
   Box,
-  Button,
   Divider,
   Flex,
   Heading,
@@ -177,9 +176,7 @@ const Meal = (props) => {
   };
 
   const handleRecipeDelete = () => {
-    const deleteConfirm = window.confirm(
-      `Do you really want to delete the Recipe for "${meal.name}"?`
-    );
+    const deleteConfirm = window.confirm(en.recipes.delete.confirm(meal.name));
 
     if (deleteConfirm) {
       const {
@@ -206,9 +203,9 @@ const Meal = (props) => {
     const endpoint = http.mealsEP;
 
     await toast.promise(http.patch(`${endpoint}${meal.id}/`, { recipe: "" }), {
-      pending: `Deleting the Recipe for ${meal.name}`,
-      success: `Deleted the Recipe for ${meal.name}`,
-      error: `Couldn't delete the Recipe for ${meal.name}`,
+      pending: en.recipes.delete.promise.pending(meal.name),
+      success: en.recipes.delete.promise.success(meal.name),
+      error: en.recipes.delete.promise.error(meal.name),
     });
   };
 
@@ -239,9 +236,9 @@ const Meal = (props) => {
     await toast.promise(
       http.patch(`${endpoint}${meal.id}/`, { recipe: newRecipe }),
       {
-        pending: `Updating the Recipe for ${meal.name}`,
-        success: `Updated the Recipe for ${meal.name}`,
-        error: `Couldn't updated the Recipe for ${meal.name}`,
+        pending: en.recipes.patchPromise.pending(meal.name),
+        success: en.recipes.patchPromise.success(meal.name),
+        error: en.recipes.patchPromise.error(meal.name),
       }
     );
   };
@@ -256,14 +253,31 @@ const Meal = (props) => {
       <Divider my={4} />
       <Textarea
         height={"10rem"}
-        placeholder="Please enter a recipe for this meal..."
+        placeholder={en.recipes.placeholder}
         onChange={handleRecipeChange}
         defaultValue={recipe}
       />
       <Flex direction={{ base: "column", sm: "row" }} gap={2} mt={2}>
-        <Button onClick={handleRecipeSave}>Save</Button>
-        <Button onClick={handleRecipeCancel}>Cancel</Button>
-        <Button onClick={handleRecipeDelete}>Delete</Button>
+        <IconButton
+          colorScheme={"green"}
+          aria-label={en.aria.save}
+          icon={<CheckIcon />}
+          size="sm"
+          onClick={handleRecipeSave}
+        />
+        <IconButton
+          aria-label={en.aria.cancel}
+          icon={<CloseIcon />}
+          size="sm"
+          onClick={handleRecipeCancel}
+        />
+        <IconButton
+          colorScheme={"red"}
+          aria-label={en.aria.delete}
+          icon={<DeleteIcon />}
+          size="sm"
+          onClick={handleRecipeDelete}
+        />
       </Flex>
     </Box>
   ) : (
@@ -281,7 +295,7 @@ const Meal = (props) => {
         />
       </Heading>
       <Divider my={4} />
-      <Text noOfLines={3}>{recipe === "" ? "No Recipe" : recipe}</Text>
+      <Text noOfLines={3}>{recipe === "" ? en.recipes.noRecipe : recipe}</Text>
     </Box>
   );
 
