@@ -9,6 +9,8 @@ export const en = {
 
   aria: { cancel: "Cancel", delete: "Delete", save: "Save" },
 
+  github: "hello github",
+
   units: [
     [" x ", "Items"],
     ["g", "Grams"],
