@@ -1,5 +1,6 @@
 {
   "name": "food_shopper_fe",
+  "homepage": "https://mealworm.uk",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
