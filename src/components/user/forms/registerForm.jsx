@@ -1,6 +1,5 @@
 import { Button, Flex, Heading } from "@chakra-ui/react";
 import Joi from "joi";
-import React from "react";
 import { toast } from "react-toastify";
 //  Contexts
 import UserContext from "../../../context/userContext";
@@ -37,16 +36,12 @@ class RegisterForm extends BaseForm {
       password: this.state.data.password,
     };
 
-    const result = null;
-
     try {
       const registerResult = await toast.promise(auth.register(userDetails), {
         pending: en.registerForm.resultPromise.pending,
         success: en.registerForm.resultPromise.success(userDetails.username),
         error: en.registerForm.error,
       });
-
-      result = registerResult;
 
       console.log(registerResult);
 

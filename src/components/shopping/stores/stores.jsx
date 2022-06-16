@@ -1,5 +1,5 @@
 import { Box, Divider, Flex, Heading } from "@chakra-ui/react";
-import React, { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 // 3rd Party
 import { toast } from "react-toastify";
 import DataContext from "../../../context/dataContext";
@@ -19,8 +19,6 @@ function Stores(props) {
   };
 
   const [stores, setStores] = useState([]);
-  const [sections, setSections] = useState([]);
-  const [pending, setPending] = useState([]);
 
   const context = useContext(DataContext);
 
@@ -35,14 +33,7 @@ function Stores(props) {
       setStores(data["stores"]);
     }
     getStores();
-  }, [context]);
-
-  useEffect(() => {
-    async function getSections() {
-      setSections(data["sections"]);
-    }
-    getSections();
-  }, [context]);
+  }, [context, data]);
 
   const handleCreate = async (itemName) => {
     const { name, endpoint, singularTitle } = props;

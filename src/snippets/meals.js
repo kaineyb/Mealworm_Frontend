@@ -21,4 +21,6 @@ export const recipeFromMealId = (id, meals) => {
   return item.recipe;
 };
 
-export default { mealFromID, recipeFromMealId };
+const meals = { mealFromID, recipeFromMealId };
+
+export default meals;

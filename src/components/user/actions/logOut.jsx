@@ -16,7 +16,7 @@ function LogOut(props) {
     data.clearData(); // Removes from State
     user.setLoggedIn(false);
     toast.success(en.user.loggedOut);
-  }, []);
+  }, [data, user]);
 
   return <Navigate to="/" replace />;
 }

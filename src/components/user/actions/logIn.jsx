@@ -1,13 +1,10 @@
-import { useContext, useEffect } from "react";
+import { useEffect } from "react";
 import { Navigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { default as dataContext } from "../../../context/dataContext";
 import auth from "../../../services/authService";
 import { en } from "./../../../services/textService";
 
 function LogIn(props) {
-  const { updateData } = useContext(dataContext);
-
   const { setUser } = props.user;
 
   useEffect(() => {
@@ -17,7 +14,7 @@ function LogIn(props) {
     }
     getUser();
     toast.success(en.user.loggedIn);
-  }, []);
+  }, [setUser]);
 
   return <Navigate to="/" replace />;
 }

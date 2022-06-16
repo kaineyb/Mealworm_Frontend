@@ -1,6 +1,6 @@
 // React
 import { Container } from "@chakra-ui/react";
-import React, { Fragment, useEffect, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 // 3rd Party
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -46,7 +46,7 @@ function App(props) {
     if (loggedIn && Object.keys(mainData).length === 0) {
       updateData();
     }
-  }, [loggedIn]);
+  }, [loggedIn, mainData]);
 
   const updateData = async () => {
     const promise = await toast.promise(dataService.getAll(), {
