@@ -17,6 +17,9 @@ function deploy_production_react() {
 
     # Copy Files over from local repo
     /bin/cp -r ~/repositories/Mealworm_Frontend/build/* ~/mealworm.uk
+
+    # Copy .htaccess
+    /bin/cp -r ~/repositories/Mealworm_Frontend/build/.htaccess ~/mealworm.uk
   
     # Tell me that it worked...!
     echo "Production Deployed!"
