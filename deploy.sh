@@ -13,7 +13,7 @@ function deploy_production_react() {
     cd /home/arkus/repositories/Mealworm_Frontend
 
     # Clear
-    rm -r ~/mealworm.uk*
+    rm -r ~/mealworm.uk/*
 
     # Copy Files over from local repo
     /bin/cp -r ~/repositories/Mealworm_Frontend/build/* ~/mealworm.uk
