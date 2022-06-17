@@ -19,7 +19,7 @@ function deploy_production_react() {
     /bin/cp -r ~/repositories/Mealworm_Frontend/build/* ~/mealworm.uk
 
     # Copy .htaccess
-    /bin/cp -r ~/repositories/Mealworm_Frontend/build/.htaccess ~/mealworm.uk
+    /bin/cp -r ~/repositories/Mealworm_Frontend/.htaccess ~/mealworm.uk
   
     # Tell me that it worked...!
     echo "Production Deployed!"
