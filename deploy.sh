@@ -13,6 +13,8 @@ function deploy_production_react() {
     cd /home/arkus/repositories/Mealworm_Frontend
     
     # Build
+    nvm install 16
+    npm install
     npm run build
 
 
