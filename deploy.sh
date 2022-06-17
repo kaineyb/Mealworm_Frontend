@@ -11,12 +11,6 @@ function get_branch() {
 function deploy_production_react() {
     #Start
     cd /home/arkus/repositories/Mealworm_Frontend
-    
-    # Build
-    nvm install 16
-    npm install
-    npm run build
-
 
     # Clear
     rm -r ~/mealworm.uk*
